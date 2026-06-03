@@ -3,8 +3,10 @@
 ## Ansible
 
 > [!NOTE]
-> Used version: Debian 13.3
-> Ansible versions: ![Ansible versions](ansible-versions.png)
+> Debian version: 13.3 <br>
+> Ansible versions:
+
+![Ansible versions - Core: 2.19.4](ansible-versions.png)
 
 ### Ansible installation
 
