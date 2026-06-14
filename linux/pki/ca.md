@@ -47,8 +47,10 @@ openssl x509 -req -in ./subca.crt -extfile ./subca.v3.ext -out ./subca.crt -sha2
 ```
 > [!NOTE]
 > You're ready now, to sign your certificates using the /ca/subca.crt file!
-> Add this certificate to the Debians ca store, to trust the whole chain!
 > For some services, create a chain from ca files (`cp /ca/subca.crt /ca/ca.crt > /ca/ca-chain.pem`), so you can create pem files for services, and give the full certificate chain to the services as well (like OpenVPN).
+
+> [!WARNING]
+> Don't forget to add this certificate to the Debians ca store, to trust the whole chain!
 
 ## End user certificates
 ### Extensions file
@@ -80,5 +82,5 @@ openssl req -new -nodes -newkey rsa:4096 -keyout ./certificate.key -out ./certif
 # Sign the signing request - you have to use CACreateSerial just for the first certificate
 openssl x509 -req -in ./certificate.crt -extfile ./certificate.v3.ext -out ./certificate.crt -sha256 -days 365 -CACreateSerial -CA ./subca.crt -CAkey ./subca.key
 ```
-> [!INFO]
+> [!NOTE]
 > And you're done! You're ready to use the certificate!
