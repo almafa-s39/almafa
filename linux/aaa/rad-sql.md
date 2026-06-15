@@ -2,19 +2,19 @@
 
 ## Install packages
 
-```bash
+```shell
 apt install freeradius freeradius-mysql freeradius-utils
 cd /etc/freeradius/3.0/
 ```
 
 ## Disable default site named "inner-tunnel"
-```bash
+```shell
 rm sites-enabled/inner-tunnel
 ```
 
 ## Edit your default site configuration
 Edit `sites-enabled/default`, and replace the authorization block to this:
-```bash
+```shell
 authorize {
     preprocess
 
@@ -40,7 +40,7 @@ authorize {
 
 ## Add your client with secret
 Edit `./clients.conf` and add to the top the following part:
-```bash
+```shell
 client openvpn_server {
 	ipaddr = 10.10.10.254
 	secret = Passw0rd!
@@ -50,7 +50,7 @@ client openvpn_server {
 
 ## Edit mysql module configuration
 Edit `mods-available/sql` file. You have to edit inside the sql { ... } block. There will be a lot of comments inside the commands!
-```bash
+```shell
 sql {
     dialect = "mysql"
     driver = "rlm_sql_${dialect}"
@@ -74,13 +74,13 @@ sql {
 
 ## Enable mysql mod
 Create a symbolic link form sql mod (use full path):
-```bash
+```shell
 ln -s /etc/freeradius/3.0/mods-available/sql /etc/freeradius/3.0/mods-enabled/sql
 ```
 
 ## Restart the service
 
-```bash
+```shell
 systemctl restart freeradius
 ```
 

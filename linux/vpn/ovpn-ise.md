@@ -5,17 +5,17 @@ In this configuration OpenVPN checks the revocation of the clients certificate a
 ## Server side
 
 ### Install packages
-```bash
+```shell
 apt install openvpn freeradius-utils wget
 ```
 
 ### Prepare configuration file
-```bash
+```shell
 cp /usr/share/doc/openvpn/examples/sample-config-files/server.conf /etc/openvpn
 ```
 
 ### Edit configuration file: `/etc/openvpn/server.conf`
-```conf
+```cfg
 # Choose UDP/TCP.
 # Edit CA settings (you need serverAuth extension on the certificate and the full chain as CA)
 ca /ca/chain.pem
@@ -37,8 +37,8 @@ client-connect /etc/openvpn/radius_auth.sh
 ```
 
 ### `/etc/openvpn/radius_auth.sh` (chmod +x)
-```bash
-#!/bin/bash
+```shell
+#!/bin/shell
 
 RADIUS_SERVER="10.10.10.100"
 RADIUS_SECERT="Passw0rd!"
@@ -58,12 +58,12 @@ fi
 ### Download crl 
 Enter `crontab -e` and add the following line to the end:
 
-```bash
+```shell
 */10 * * * * * wget -O /etc/openvpn/ca.crl http://pki.company.com/ca.crl
 ```
 
 ### Enable and start OpenVPN systemd service
-```bash
+```shell
 systemctl enable openvpn@server
 systemctl start openvpn@server
 ```
@@ -74,17 +74,17 @@ systemctl start openvpn@server
 ## Client side
 
 ### Install packages
-```bash
+```shell
 apt install openvpn openvpn-systemd-resolved
 ```
 
 ### Prepare configuration file
-```bash
+```shell
 cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf /etc/openvpn
 ```
 
 ### Prepare scripts for the configuration
-```bash
+```shell
 echo "cp /etc/openvpn/resolv.conf.up /etc/resolv.conf" > /etc/openvpn/down.sh 
 echo "cp /etc/openvpn/resolv.conf.down /etc/resolv.conf" > /etc/openvpn/down.sh
 chmod +x /etc/openvpn/*.sh
@@ -93,7 +93,7 @@ echo -e "nameserver 127.0.0.53\noptions edns0 trust-ad\nsearch ." > /etc/openvpn
 ```
 
 ### Edit configuration file: `/etc/openvpn/client.conf`
-```bash
+```shell
 # Choose UDP/TCP
 remote 193.225.219.17 1194 # Set remote server(s)
 
@@ -110,7 +110,7 @@ down /etc/openvpn/down.sh
 ```
 
 ### Enable and start OpenVPN systemd service
-```bash
+```shell
 systemctl enable openvpn@client
 systemctl start openvpn@client
 ```

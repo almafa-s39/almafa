@@ -1,7 +1,7 @@
 # Setup for Freeradius
 
 ## Install packages and initialize mariadb
-```bash
+```shell
 apt install mariadb-server freeradius-mysql
 mariadb-secure-install
 ```
@@ -11,7 +11,7 @@ mariadb-secure-install
 > [!NOTE]
 > You will need this because
 
-```bash
+```shell
 mysql -u root
 ```
 
@@ -20,14 +20,14 @@ CREATE DATABASE radius;
 exit;
 ```
 
-```bash
+```shell
 mysql -u root -p radius < /etc/freeradius/3.0/mods-config/sql/main/mysql/schema.sql
 ```
 
 ## Create database with only username and IP address
 
 Enter mysql shell
-```bash
+```shell
 mysql -u root -p radius
 ```
 
