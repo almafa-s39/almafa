@@ -37,3 +37,5 @@ openssl x509 -req -in subca.csr -CA root.crt -CAkey root.key -CAcreateserial -ou
 authorityInfoAccess = caIssuers;URI:http://pki.company.com/subca.crt
 crlDistributionPoints = URI:http://pki.company.com/subca.crl
 ```
+
+## 
