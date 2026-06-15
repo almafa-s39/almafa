@@ -32,9 +32,10 @@ cp /ca/ca.crt /usr/local/share/ca-certificates
 
 `/ca/subca.v3.ext`
 ```bash
-authorityKeyIdentifier=keyid:always,issuer
-basicConstraints=CA:TRUE
-subjectKeyIdentifier=hash
+authorityKeyIdentifier = keyid:always,issuer
+basicConstraints = critical, CA:true, pathlen:0
+keyUsage = critical, keyCertSign, cRLSign
+subjectKeyIdentifier = hash
 ```
 
 ### Generate files
@@ -61,8 +62,8 @@ openssl x509 -req -in ./subca.crt -extfile ./subca.v3.ext -out ./subca.crt -sha2
 `certificate.v3.ext`
 ```bash
 basicConstraints = CA:FALSE
-authorityKeyIdentifier = keyid,issuer
-keyUsage = digitalSignature,keyEncipherment,dataEncipherment,nonRepudiation
+authorityKeyIdentifier = keyid,issuer:always
+keyUsage = digitalSignature,keyEncipherment,dataEncipherment,nonRepudiation,critical
 extendedKeyUsage = clientAuth, serverAuth
 authorityInfoAccess = caIssuers;URI:http://aia.domain.name/ca.crt;URI:http://aia.domain.name/subca.crt
 CrlDistributionPoints = URI:http://crl.domain.name/ca.crl;URI:http://crl.domain.name/subca.crl
