@@ -38,4 +38,23 @@ authorityInfoAccess = caIssuers;URI:http://pki.company.com/subca.crt
 crlDistributionPoints = URI:http://pki.company.com/subca.crl
 ```
 
-## 
+## Generate revocation file
+```bash
+openssl ca gencrl -cert /ca/subca.crt -keyfile /ca/subca.key -out /ca/subca.crl
+```
+
+
+## Revoke certificates
+
+```bash
+openssl ca -revoke /ca/user1.crt -keyfile /ca/subca.key -cert /ca/subca.crt
+openssl ca -gencrl -keyfile /ca/subca.key -cert /ca/subca.crt -out /ca/subca.crl
+```
+
+## Test revocation on a certificate
+
+```bash
+cp /ca/chain.pem /ca/subca.crl > /tmp/test.pem
+openssl verify -extend_crl -CAfile /tmp/test.pem -crl_check /ca/user.crt
+rm /tmp/test.pem
+```
