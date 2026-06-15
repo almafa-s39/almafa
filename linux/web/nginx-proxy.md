@@ -65,4 +65,4 @@ if ! cmp -s "$TMP" "$TARGET"; then
 fi
 ```
 
-Create a cronjob or a timer service to run this script time to time when you want to run it, and you're done, you have nginx proxy with health checks.
+Create a cronjob or a timer service to run this script, and you're done!
