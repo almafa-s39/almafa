@@ -24,6 +24,7 @@
 ## Database
 ### [MariaDB](db/mariadb.md)
 Default install, db configurations, queries, db backup
+### [PHPMyAdmin](db/phpmyadmin.md)
 
 ## Disk management
 ### [RAID](disk/mdadm.md)
