@@ -81,7 +81,7 @@ vgremove storage # Delete volume group
 lvcreate -L 2G -n lv_archive storage # Create a logical group into a volume group
 ```
 
-### Delete logical volume
+### Display logical volume
 
 ```shell
 lvs
