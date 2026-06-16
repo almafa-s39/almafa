@@ -8,12 +8,15 @@ cd /etc/freeradius/3.0/
 ```
 
 ## Disable default site named "inner-tunnel"
+
 ```shell
 rm sites-enabled/inner-tunnel
 ```
 
 ## Edit your default site configuration
+
 Edit `sites-enabled/default`, and replace the authorization block to this:
+
 ```shell
 authorize {
     preprocess
@@ -39,17 +42,21 @@ authorize {
 ```
 
 ## Add your client with secret
+
 Edit `./clients.conf` and add to the top the following part:
+
 ```shell
 client openvpn_server {
-	ipaddr = 10.10.10.254
-	secret = Passw0rd!
-    shortname = ovpn
+ ipaddr = 10.10.10.254
+ secret = Passw0rd!
+ shortname = ovpn
 }
 ```
 
 ## Edit mysql module configuration
+
 Edit `mods-available/sql` file. You have to edit inside the sql { ... } block. There will be a lot of comments inside the commands!
+
 ```shell
 sql {
     dialect = "mysql"
@@ -73,7 +80,9 @@ sql {
 
 
 ## Enable mysql mod
+
 Create a symbolic link form sql mod (use full path):
+
 ```shell
 ln -s /etc/freeradius/3.0/mods-available/sql /etc/freeradius/3.0/mods-enabled/sql
 ```
@@ -84,9 +93,10 @@ ln -s /etc/freeradius/3.0/mods-available/sql /etc/freeradius/3.0/mods-enabled/sq
 systemctl restart freeradius
 ```
 
+## Last step
 
-## Last step:
 ### [OpenVPN setup](/linux/vpn/ovpn-ise.md)
 
-## Next step:
+## Next step
+
 ### [Database setup](/linux/db/ise.md)

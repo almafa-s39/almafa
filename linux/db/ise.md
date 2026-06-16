@@ -1,6 +1,7 @@
 # Setup for Freeradius
 
 ## Install packages and initialize mariadb
+
 ```shell
 apt install mariadb-server freeradius-mysql
 mariadb-secure-install
@@ -27,11 +28,13 @@ mysql -u root -p radius < /etc/freeradius/3.0/mods-config/sql/main/mysql/schema.
 ## Create database with only username and IP address
 
 Enter mysql shell
+
 ```shell
 mysql -u root -p radius
 ```
 
 Crate table, users, and add privileges for Radius servers
+
 ```mysql
 # Create your table
 CREATE TABLE users (

@@ -12,5 +12,5 @@
 
 ```bash
 apt install ansible -y
-echo -e 'export "ANSIBLE_COW_SELECTION=random"' > ~/.bashrc # under every user's bash, which will be used to 
+echo -e 'export "ANSIBLE_COW_SELECTION=random"' >> ~/.bashrc # under every user's bash, which will be used to 
 ```

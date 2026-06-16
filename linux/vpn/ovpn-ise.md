@@ -5,16 +5,19 @@ In this configuration OpenVPN checks the revocation of the clients certificate a
 ## Server side
 
 ### Install packages
+
 ```shell
 apt install openvpn freeradius-utils wget
 ```
 
 ### Prepare configuration file
+
 ```shell
 cp /usr/share/doc/openvpn/examples/sample-config-files/server.conf /etc/openvpn
 ```
 
 ### Edit configuration file: `/etc/openvpn/server.conf`
+
 ```cfg
 # Choose UDP/TCP.
 # Edit CA settings (you need serverAuth extension on the certificate and the full chain as CA)
@@ -37,6 +40,7 @@ client-connect /etc/openvpn/radius_auth.sh
 ```
 
 ### `/etc/openvpn/radius_auth.sh` (chmod +x)
+
 ```shell
 #!/bin/shell
 
@@ -56,6 +60,7 @@ fi
 ```
 
 ### Download crl 
+
 Enter `crontab -e` and add the following line to the end:
 
 ```shell
@@ -63,27 +68,30 @@ Enter `crontab -e` and add the following line to the end:
 ```
 
 ### Enable and start OpenVPN systemd service
+
 ```shell
 systemctl enable openvpn@server
 systemctl start openvpn@server
 ```
-
 
 ### [FreeRADIUS setup](/linux/aaa/rad-sql.md)
 
 ## Client side
 
 ### Install packages
+
 ```shell
 apt install openvpn openvpn-systemd-resolved
 ```
 
 ### Prepare configuration file
+
 ```shell
 cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf /etc/openvpn
 ```
 
 ### Prepare scripts for the configuration
+
 ```shell
 echo "cp /etc/openvpn/resolv.conf.up /etc/resolv.conf" > /etc/openvpn/down.sh 
 echo "cp /etc/openvpn/resolv.conf.down /etc/resolv.conf" > /etc/openvpn/down.sh
@@ -93,6 +101,7 @@ echo -e "nameserver 127.0.0.53\noptions edns0 trust-ad\nsearch ." > /etc/openvpn
 ```
 
 ### Edit configuration file: `/etc/openvpn/client.conf`
+
 ```shell
 # Choose UDP/TCP
 remote 193.225.219.17 1194 # Set remote server(s)
@@ -110,6 +119,7 @@ down /etc/openvpn/down.sh
 ```
 
 ### Enable and start OpenVPN systemd service
+
 ```shell
 systemctl enable openvpn@client
 systemctl start openvpn@client

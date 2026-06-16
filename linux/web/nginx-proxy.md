@@ -1,12 +1,15 @@
 # Nginx as proxy (Free version)
 
 ## Install packages
+
 You need more things to achieve "streaming"
+
 ```shell
 apt install nginx nginx-full
 ```
 
 ## `/etc/nginx/nginx.conf`
+
 Add to the end outside of http { ... }. After this we will put any configuration under /etc/nginx/stream.d
 
 ```cfg
@@ -18,12 +21,14 @@ stream {
 ## Proxy configuration
 
 Create the directory and edit your files
+
 ```bash
 mkdir -p /etc/nginx/stream.d/
 touch /etc/nginx/stream.d/{dns-front.conf,dns-back.conf}
 ```
 
 `/etc/nginx/stream.d/dns-front.conf`
+
 ```cfg
 server {
     listen 53 udp;
@@ -34,9 +39,11 @@ server {
 ```
 
 ## Health check configuration
+
 Create a bash script that does the check for you and then append your servers into a file, which will hold backend servers.
 
 ### `/etc/nginx/dns.sh`
+
 ```bash
 #!/bin/bash
 SERVERS="10.10.10.101 10.10.10.102 10.10.10.103 10.10.10.104"

@@ -25,13 +25,13 @@ crlDistributionPoints = URI:http://pki.company.com/ca.crl
 # ...
 ```
 
-To generate the subca using the following extensions that you put in the `openssl.cnf` file, 
+To generate the subca using the following extensions that you put in the `openssl.cnf` file
 
 ```shell
 openssl x509 -req -in subca.csr -CA root.crt -CAkey root.key -CAcreateserial -out subca.crt -days 180 -sha256 -extfile /etc/ssl/openssl.cnf -extensions v3_sub_ca
 ```
 
-## Server certificate extension:
+## Server certificate extension
 
 ```shell
 authorityInfoAccess = caIssuers;URI:http://pki.company.com/subca.crt
@@ -39,10 +39,10 @@ crlDistributionPoints = URI:http://pki.company.com/subca.crl
 ```
 
 ## Generate revocation file
+
 ```shell
 openssl ca gencrl -cert /ca/subca.crt -keyfile /ca/subca.key -out /ca/subca.crl
 ```
-
 
 ## Revoke certificates
 
