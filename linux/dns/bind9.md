@@ -210,7 +210,7 @@ It marks the beginning of a DNS zone and identifies the zone's authoritative pro
 
 ```bash
 @   SOA   <TARGET>.         <EMAIL>.                 ( <SERIAL> <REFRESH> <RETRY> <EXPIRE> <MINUMUM> )
-@   SOA   ns1.domain.name.  your\.mail.domain.name.  ( 1 1200 60 604800 300 )
+@   SOA   ns1.domain.name.  your\.mail.domain.name.  ( 1 1h 5m 1d 5m )
 ```
 
 ### PTR
@@ -271,7 +271,7 @@ Create a zone files including SOA and NS record.
 ```bash
 $TTL 1d
 $ORIGIN domain.name.
-@   SOA     ns.domain.name. admin.domain.name.  ( 1 3600 300 604800 300 )
+@   SOA     ns.domain.name. admin.domain.name.  ( 1 12h 5m 1d 5m )
 @   NS      ns.domain.name.
 @   MX      10  ns.domain.name.
 
@@ -285,7 +285,7 @@ www CNAME   ns.domain.name.
 ```bash
 $TTL 1d
 $ORIGIN domain.name.
-@   SOA     ns.domain.name. admin.domain.name.  ( 1 3600 300 604800 300 )
+@   SOA     ns.domain.name. admin.domain.name.  ( 1 12h 5m 1d 5m )
 @   NS      ns.domain.name.
 
 10  PTR     ns.domain.name.
@@ -296,7 +296,7 @@ $ORIGIN domain.name.
 ```bash
 $TTL 1d
 $ORIGIN domain.name.
-@   SOA     ns.domain.name. admin.domain.name.  ( 1 3600 300 604800 300 )
+@   SOA     ns.domain.name. admin.domain.name.  ( 1 12h 5m 1d 5m )
 @   NS      ns.domain.name.
 
 0.0.0.0.0.0.0.0.0.0.0.0.0.1.0.1     PTR  ns.domain.name.
