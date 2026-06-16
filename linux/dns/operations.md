@@ -9,6 +9,7 @@ nsupdate -k /etc/bind/update.key <<EOF
 server <DNS_SERVER>
 zone "<DOMAIN_NAME>"
 update {add} <RECORD>.<DOMAIN_NAME>. 86400 <TYPE> <TARGET>
+/
 update {delete} <RECORD>.<DOMAIN_NAME>. <TYPE>
 show
 send
