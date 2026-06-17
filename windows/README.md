@@ -6,3 +6,5 @@
 ## [General configurations](network/general.md)
 
 ## ADDS
+
+### [Installation](adds/install.md)

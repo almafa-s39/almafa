@@ -21,10 +21,27 @@ netsh int ipv6 add route ::/0 [INTERFACE] [GW]
 netsh int ipv6 set dns [INTERFACE] static [DNS]
 ```
 
+### ALLOW ICMP
+
+```powershell
+Get-NetFirewallRule | ? { $_.displayName -like "*ICMPv4-In*" } | Select-Object Name, DisplayName, Enabled
+
+# Parsed names from the output
+Enable-NetFirewallRule "FPS-ICMP4-ERQ-In"
+Enable-NetFirewallRule "FPS-ICMP6-ERQ-In"
+```
+
 ### Hostname
 
 ```powershell
 Rename-Computer [NEW-NAME]
+Restart-Computer
+```
+
+### Add copmuter to the domain
+
+```powershell
+Add-Computer -DomainName [DOMAIN-NAME]
 Restart-Computer
 ```
 
