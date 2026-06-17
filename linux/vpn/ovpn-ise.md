@@ -4,13 +4,13 @@ In this configuration OpenVPN checks the revocation of the clients certificate a
 
 ## Server side
 
-### Install packages
+### Install packages for server
 
 ```shell
 apt install openvpn freeradius-utils wget
 ```
 
-### Prepare configuration file
+### Prepare server configuration file
 
 ```shell
 cp /usr/share/doc/openvpn/examples/sample-config-files/server.conf /etc/openvpn
@@ -59,7 +59,7 @@ else
 fi
 ```
 
-### Download crl 
+### Download crl
 
 Enter `crontab -e` and add the following line to the end:
 
@@ -78,26 +78,16 @@ systemctl start openvpn@server
 
 ## Client side
 
-### Install packages
+### Install packages for client
 
 ```shell
-apt install openvpn openvpn-systemd-resolved
+apt install openvpn openvpn-systemd-resolved resolvconf
 ```
 
-### Prepare configuration file
+### Prepare client configuration file
 
 ```shell
 cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf /etc/openvpn
-```
-
-### Prepare scripts for the configuration
-
-```shell
-echo "cp /etc/openvpn/resolv.conf.up /etc/resolv.conf" > /etc/openvpn/down.sh 
-echo "cp /etc/openvpn/resolv.conf.down /etc/resolv.conf" > /etc/openvpn/down.sh
-chmod +x /etc/openvpn/*.sh
-echo "nameserver 10.10.10.100" > /etc/openvpn/resolv.conf.up
-echo -e "nameserver 127.0.0.53\noptions edns0 trust-ad\nsearch ." > /etc/openvpn/resolv.conf.down
 ```
 
 ### Edit configuration file: `/etc/openvpn/client.conf`
@@ -114,11 +104,11 @@ remote-cert-tls server
 
 # Configure up/down scripts
 script-security 2
-up /etc/openvpn/up.sh
-down /etc/openvpn/down.sh
+up /etc/openvpn/update-resolv-conf
+down /etc/openvpn/update-resolv-conf
 ```
 
-### Enable and start OpenVPN systemd service
+### Enable and start OpenVPN client systemd service
 
 ```shell
 systemctl enable openvpn@client
