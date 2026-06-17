@@ -63,10 +63,10 @@ sql {
     driver = "rlm_sql_${dialect}"
     # You have to add this part by hand ====
     server = 10.10.20.10
-	port = 3306
-	login = "radius" # username
-	password = "Passw0rd!"
-	radius_db = "vpn"
+    port = 3306
+    login = "radius" # username
+    password = "Passw0rd!"
+    radius_db = "vpn"
     read_client = no
     # =====================================
 
@@ -93,7 +93,7 @@ ln -s /etc/freeradius/3.0/mods-available/sql /etc/freeradius/3.0/mods-enabled/sq
 systemctl restart freeradius
 ```
 
-## Last step
+## Latest step
 
 ### [OpenVPN setup](/linux/vpn/ovpn-ise.md)
 
