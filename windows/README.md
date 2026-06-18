@@ -26,3 +26,7 @@
 #### [Client CERT auth](rras/ra-cert.md)
 
 #### [NPS auth](rras/ra-nps)
+
+## File shareing
+
+### [Workfolder](file/workfolder.md)
