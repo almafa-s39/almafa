@@ -35,6 +35,6 @@ Import-PfxCertificateFile -FilePath C:\server.pfx -Password $pw -CertStoreLocati
 > Save the thumbprint we will need it for  the next step.
 
 ```powershell
-$guid=New-Guid
-netsh http add sslcert ipport=0.0.0.0:443 certhash=<Your-Cert-Thumbprint> appid=$guid certstorename=MY
+New-Guid # Paste the output in it's place
+netsh http add sslcert ipport=0.0.0.0:443 certhash=<Your-Cert-Thumbprint> appid="{<New-Guid_stdout>}" certstorename=MY
 ```
