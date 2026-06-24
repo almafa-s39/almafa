@@ -46,12 +46,17 @@ Main configuration, options, zone configurations, logging, views, includes.
 
 ### S2S VPN
 
+#### Strongswan
+
+- [Route based IKEv1](vpn/strongswan-rbased-ikev1.md)
+
 ### RA VPN
 
 #### OpenVPN
 
 - [OpenVPN - Freeradius - MySQL (Low budget ISE)](vpn/ovpn-ise.md)
 - [OpenVPN - Freeradius - LDAP](vpn/ovpn-rad-ldap.md)
+- [OpenVPN - Doube domain Freeradius - LDAP](vpn/ovpn-double-domain.md)
 
 ## VRRP
 
