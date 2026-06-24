@@ -32,6 +32,10 @@ Main configuration, options, zone configurations, logging, views, includes.
 
 ### [Zone operations](dns/operations.md)
 
+## Network
+
+### [PBR](network/pbr.md)
+
 ## PKI
 
 ### [CA](pki/ca.md)
