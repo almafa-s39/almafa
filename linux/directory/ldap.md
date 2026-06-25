@@ -224,15 +224,19 @@ Let's assume you now have the following files:
 
 Create the file `certinfo.ldif`.
 
-```python
+```ldif
 dn: cn=config
-add: olcTLSCACertificateFile
+changeType: modify
+replace: olcTLSCACertificateFile
 olcTLSCACertificateFile: /cert/ca.pem
--
-add: olcTLSCertificateFile
+
+dn: cn=config
+changeType: modify
+
+replace: olcTLSCertificateFile
 olcTLSCertificateFile: /cert/cert.pem
 -
-add: olcTLSCertificateKeyFile
+replace: olcTLSCertificateKeyFile
 olcTLSCertificateKeyFile: /cert/key.pem
 ```
 
