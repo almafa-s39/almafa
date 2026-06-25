@@ -24,6 +24,10 @@ Default install, db configurations, queries, db backup
 - [ISC DHCPv4](dhcp/isc-dhcp-server.md)
 - [ISC-DHCP-RELAY](dhcp/isc-dhcp-relay.md)
 
+## Directory services
+
+### [OpenLDAP](directory/ldap.md)
+
 ## Disk management
 
 ### [RAID](disk/mdadm.md)
