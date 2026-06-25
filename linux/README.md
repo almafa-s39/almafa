@@ -18,6 +18,12 @@ Default install, db configurations, queries, db backup
 
 ### [PHPMyAdmin](db/phpmyadmin.md)
 
+## DHCP
+
+- [KEA DHCPv4](dhcp/kea.md)
+- [ISC DHCPv4](dhcp/isc-dhcp-server.md)
+- [ISC-DHCP-RELAY](dhcp/isc-dhcp-relay.md)
+
 ## Disk management
 
 ### [RAID](disk/mdadm.md)
