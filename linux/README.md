@@ -5,18 +5,16 @@
 
 ## AAA
 
-### Radius
-
-- [RADIUS - MySQL queries](aaa/rad-sql.md)
-- [RADIUS - LDAP auth](aaa/rad-ldap.md)
+- [FreeRADIUS - MySQL queries](aaa/rad-sql.md)
+- [FreeRADIUS - LDAP auth](aaa/rad-ldap.md)
 
 ## Database
 
-### [MariaDB](db/mariadb.md)
+[MariaDB](db/mariadb.md)
 
 Default install, db configurations, queries, db backup
 
-### [PHPMyAdmin](db/phpmyadmin.md)
+[PHPMyAdmin](db/phpmyadmin.md)
 
 ## DHCP
 
@@ -26,35 +24,40 @@ Default install, db configurations, queries, db backup
 
 ## Directory services
 
-### [OpenLDAP](directory/ldap.md)
+ [OpenLDAP](directory/ldap.md)
 
 ## Disk management
 
-### [RAID](disk/mdadm.md)
+[RAID](disk/mdadm.md)
 
-### [LVM](disk/lvm.md)
+[LVM](disk/lvm.md)
 
 ## DNS
 
-### [Bind9](dns/bind9.md)
+[Bind9](dns/bind9.md)
 
 Main configuration, options, zone configurations, logging, views, includes.
 
-### [Zone operations](dns/operations.md)
+[Zone operations](dns/operations.md)
+
+## File shares
+
+- [NFS](shares/nfs.md)
 
 ## Network
 
-### [PBR](network/pbr.md)
+[PBR](network/pbr.md)
 
 ## PKI
 
-### [CA](pki/ca.md)
+[CA](pki/ca.md)
 
-### [Revocation](pki/revocation.md)
+[Revocation](pki/revocation.md)
+
 
 ## Syslog
 
-### [Syslog-ng](syslog/syslog-ng.md)
+[Syslog-ng](syslog/syslog-ng.md)
 
 ## VPN
 
@@ -74,18 +77,18 @@ Main configuration, options, zone configurations, logging, views, includes.
 
 ## VRRP
 
-### [Keepalived](vrrp/keepalived.md)
+[Keepalived](vrrp/keepalived.md)
 
 ## Web
 
 ### Web hosting
 
-#### [Apache2](web/apache2.md)
+[Apache2](web/apache2.md)
 
-#### [Nginx](web/nginx.md)
+[Nginx](web/nginx.md)
 
 ### Proxy
 
-#### [Nginx proxy](web/nginx-proxy.md)
+[Nginx reverse proxy](web/nginx-proxy.md)
 
-#### [Haproxy proxy](web/haproxy.md)
+[Haproxy reverse proxy](web/haproxy.md)
