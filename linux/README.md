@@ -28,9 +28,9 @@ Default install, db configurations, queries, db backup
 
 ## Disk management
 
-[RAID](disk/mdadm.md)
-
-[LVM](disk/lvm.md)
+- [RAID](disk/mdadm.md)
+- [LVM](disk/lvm.md)
+- [Quota](disk/quota.md)
 
 ## DNS
 
