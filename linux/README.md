@@ -50,10 +50,8 @@ Main configuration, options, zone configurations, logging, views, includes.
 
 ## PKI
 
-[CA](pki/ca.md)
-
-[Revocation](pki/revocation.md)
-
+- [CA](pki/ca.md)
+- [Revocation](pki/revocation.md)
 
 ## Syslog
 
@@ -83,12 +81,10 @@ Main configuration, options, zone configurations, logging, views, includes.
 
 ### Web hosting
 
-[Apache2](web/apache2.md)
-
-[Nginx](web/nginx.md)
+- [Apache2](web/apache2.md)
+- [Nginx](web/nginx.md)
 
 ### Proxy
 
-[Nginx reverse proxy](web/nginx-proxy.md)
-
-[Haproxy reverse proxy](web/haproxy.md)
+- [Nginx reverse proxy](web/nginx-proxy.md)
+- [Haproxy reverse proxy](web/haproxy.md)
