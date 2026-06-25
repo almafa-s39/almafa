@@ -18,7 +18,7 @@ Create the software RAID
 
 ```shell
 mdadm --create --verbose /dev/md0 --level=5 --raid-devices=3 /dev/sd[b-d]
-mdam --detail --scan >> /etc/mdadm/mdadm.conf
+mdadm --detail --scan >> /etc/mdadm/mdadm.conf
 update-initramfs -u
 ```
 
