@@ -270,6 +270,33 @@ Test LDAPS:
 ldapwhoami -x -H ldaps://ldap1.lego.dk
 ```
 
+## Disable anonymous search
+
+`anon.ldif`
+
+```ldif
+dn: cn=config
+changeType: modify
+add: olcDisallows
+olcDisallows: bind_anon
+```
+
+```bash
+ldapmodify -Y EXTERNAL -H ldapi:/// -f ./anon.ldif
+```
+
+Restart service
+
+```bash
+systemctl restart slapd
+```
+
+The following command has to give error:
+
+```bash
+ldapsearch -b "dc=domain,dc=com" -H <ldap_host> -x
+```
+
 ## Replication
 
 ### ToDo
