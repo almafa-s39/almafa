@@ -48,6 +48,10 @@ Main configuration, options, zone configurations, logging, views, includes.
 
 [PBR](network/pbr.md)
 
+## Mailing
+
+-[Email-LDAP authentication](mail/ldap.md)
+
 ## PKI
 
 - [CA](pki/ca.md)
