@@ -7,7 +7,7 @@ In this configuration OpenVPN checks the revocation of the clients certificate a
 ### Install packages for server
 
 ```shell
-apt install openvpn openvpn-radius wget
+apt install openvpn openvpn-auth-radius wget
 ```
 
 ### Prepare server configuration file
