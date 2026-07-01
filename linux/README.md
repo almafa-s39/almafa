@@ -7,6 +7,7 @@
 
 - [FreeRADIUS - MySQL queries](aaa/rad-sql.md)
 - [FreeRADIUS - LDAP auth](aaa/rad-ldap.md)
+- [FreeRADIUS LDAP domain Proxy](vpn/rad-domain-proxy.md)
 
 ## Database
 
@@ -75,7 +76,6 @@ Main configuration, options, zone configurations, logging, views, includes.
 
 - [OpenVPN - Freeradius - MySQL (Low budget ISE)](vpn/ovpn-ise.md)
 - [OpenVPN - Freeradius - LDAP](vpn/ovpn-rad-ldap.md)
-- [OpenVPN - Doube domain Freeradius - LDAP](vpn/ovpn-double-domain.md)
 
 ## VRRP
 
