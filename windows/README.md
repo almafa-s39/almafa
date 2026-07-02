@@ -7,26 +7,24 @@
 
 ## ADDS
 
-### [Installation](adds/install.md)
+- [Installation](adds/install.md)
+- [AD Structure creation](adds/ad-structure.md)
 
 ## RRAS
 
-### [BGP](rras/bgp.md)
+-[BGP](rras/bgp.md)
 
 ### S2S VPN
 
-#### [PSK](rras/s2s-psk.md)
-
-#### [CERT](rras/s2s-cert.md)
+- [PSK](rras/s2s-psk.md)
+- [CERT](rras/s2s-cert.md)
 
 ### RA VPN
 
-#### [IKEv2 PSK](rras/ra-psk.md)
-
-#### [Client CERT auth](rras/ra-cert.md)
-
-#### [NPS auth](rras/ra-nps)
+- [IKEv2 PSK](rras/ra-psk.md)
+- [Client CERT auth](rras/ra-cert.md)
+- [NPS auth](rras/ra-nps)
 
 ## File shareing
 
-### [Workfolder](file/workfolder.md)
+- [Workfolder](file/workfolder.md)
