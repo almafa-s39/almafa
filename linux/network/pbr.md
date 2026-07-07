@@ -20,3 +20,10 @@ ip rule add from 10.10.10.0/24 lookup research prio 100
 ```
 
 Create a script into /etc/bashrc and give it sufficient permissions to run at startup, to add everytime the server starts create the new route
+
+Check commands:
+
+```bash
+ip route show table <table>
+ip rule show <table>
+```
