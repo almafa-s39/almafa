@@ -120,6 +120,8 @@ Router(config)# interface GigabitEthernet0/2
 Router(config-if)# zone-member security OUTSIDE
 ```
 
+---
+
 ## 6. Verification and Troubleshooting Commands
 
 Use the following commands to monitor and troubleshoot the firewall state:
