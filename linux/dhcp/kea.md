@@ -67,7 +67,7 @@ Edit the configuration file, wipe out tsig-keys line and edit the following line
     "ddns-domains": [{
         "name": "<domain>.",
         "key-name": "<name>",
-        "dns-servers": { "ip_address": "<DNSv4_address>" }
+        "dns-servers": [{ "ip-address": "<DNSv4_address>" }]
     }]
 },
 
@@ -75,7 +75,7 @@ Edit the configuration file, wipe out tsig-keys line and edit the following line
     "ddns-domains": [{
         "name": "<reverse-domain>.",
         "key-name": "<name>",
-        "dns-servers": { "ip_address": "<DNSv4_address>" }
+        "dns-servers": [{ "ip-address": "<DNSv4_address>" }]
     }]
 },
 ```
