@@ -93,3 +93,44 @@ errdisable recovery cause psecure-violation
 **Practical Example:**
 
 If an employee brings an unauthorized mini-switch from home, connects it to `g0/2`, and plugs in three laptops, the switch will detect more than `2` MAC addresses. Port security will instantly trigger, placing the port into `err-disabled` and cutting off access. If the employee realizes their mistake and unplugs the mini-switch, they do not need to call the helpdesk; the port will automatically reset and turn itself back on after `180` seconds.
+
+## 3. Troubleshooting
+
+### 3.1 Verifying Interface Security Status
+
+This command provides a detailed look at the port security settings and current operational status for a specific interface.
+
+What it checks and variables to look for:
+
+- `Port Security`: Confirms if the feature is `Enabled` or `Disabled`.
+- `Port Status`: Shows if the port is `Secure-up`, `Secure-down`, or `Secure-shutdown` (which means it tripped a violation).
+- `Violation Mode`: Confirms the configured reaction (`Shutdown`, `Restrict`, or `Protect`).
+- `Maximum MAC Addresses`: The configured limit.
+- `Total MAC Addresses`: How many addresses the switch has currently learned on this port.
+- `Security Violation Count`: Increments if the mode is set to Restrict or Shutdown and unauthorized frames are detected.
+**Command:** `show port-security interface g0/2`
+
+### 3.2 Verifying the Secure MAC Address Table
+
+To view exactly which MAC addresses have been learned and how they were learned, you must check the port security address table, not just the standard MAC address table.
+
+**Command:** `show port-security address`
+
+What it checks and variables to look for:
+
+- `Vlan` and `Mac Address`: The exact hardware addresses authorized on the switch.
+- `Type`: Indicates how the switch learned the address (e.g., `SecureDynamic`, `SecureStatic`, or `SecureSticky`).
+- `Ports`: The interface to which this MAC address is securely bound.
+- `Remaining Age (mins)`: If aging is configured, this shows the countdown until the MAC address is flushed from the secure table.
+
+### 3.3 Checking Error-Disabled Ports
+
+If a port went down and you need to see why, this command gives you a fast overview of all interfaces in the `err-disabled` state and the specific reason they were shut down.
+
+**Command:** `show interfaces status err-disabled`
+
+What it checks and variables to look for:
+
+- `Port`: The specific interface that is down.
+- `Status`: Will display `err-disabled`.
+- `Reason`: If tripped by this feature, it will explicitly state `psecure-violation`. (This can also show other reasons like `bpduguard` if someone plugged in an unauthorized switch on an edge port).

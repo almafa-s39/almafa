@@ -79,3 +79,49 @@ interface GigabitEthernet0/0
 
 **Practical Example:**
 This is the standard configuration for a branch office router connecting to a DSL or Fiber modem operating in bridge mode. The physical `GigabitEthernet0/0` connects to the modem, but all routing, NAT, and firewall policies should be applied directly to `Dialer1`, as that is where the actual negotiated public IP address and external connection reside.
+
+## 3. Troubleshooting
+
+Verifying PPPoE involves checking the status of the underlying physical interface, the state of the logical PPP session, and ensuring that the authentication and IP negotiation phases complete successfully.
+
+### 3.1 Verifying PPPoE Sessions
+
+This command provides a quick overview of all active PPPoE sessions on the router. It is highly useful for verifying Layer 2 connectivity for both the client and server.
+
+**Command:** `show pppoe session`
+
+What it checks and variables to look for:
+
+- `LocMAC` / `RemMAC`: The local and remote MAC addresses of the PPPoE peers.
+- `Port`: The physical interface binding the session.
+- `VT` / `VA` or `DI`: Identifies the logical Virtual-Template, Virtual-Access (server), or Dialer (client) interface tied to the session.
+- `State`: Look for `UP`. If it is stuck in `INIT` or `PADI`, the PPPoE discovery phase is failing, indicating a physical or Layer 2 issue.
+
+### 3.2 Verifying IP Settings and Interface State
+
+Once the PPPoE session is established, you must verify that the logical interface successfully authenticated and negotiated an IP address.
+
+**Command:** `show ip interface brief`
+
+What it checks and variables to look for:
+
+- `Interface`: Look for `Dialer1` (on the client) or `Virtual-Access1` (on the server).
+- `IP-Address`: On the client, this should change from `unassigned` to the public IP address negotiated via IPCP.
+- `Status` / `Protocol`: Both must be `up`. If `Status` is up but `Protocol` is down, the PPPoE link is established, but the PPP negotiation (LCP/NCP) or CHAP/PAP authentication failed.
+
+### 3.3 Real-Time PPP Debugging
+
+If the session fails to establish, debugging is required to determine the exact failure point during LCP negotiation, authentication, or IPCP address assignment.
+
+**Command:**
+
+```cisco
+debug ppp negotiation
+debug ppp authentication
+```
+
+What it checks and variables to look for:
+
+- `LCP` (Link Control Protocol): Look for `CONFACK` (Configuration Acknowledge), indicating successful parameter negotiation. `CONFREJ` means a parameter (like an MTU mismatch) was rejected.
+- `CHAP` or `PAP`: Look for `SUCCESS` or `FAILURE`. A failure clearly indicates a mismatched username or password.
+- `IPCP` (IP Control Protocol): Watch for the server offering an IP address and the client accepting it. If IPCP fails, the logical interface will not come up.

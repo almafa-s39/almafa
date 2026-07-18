@@ -69,3 +69,58 @@ interface Vlan103
 
 **Practical Example:**
 When an IPv6 client boots up on VLAN 103, it sends a Router Solicitation (RS) message. The GLBP AVG responds with a Router Advertisement (RA) containing the auto-configured GLBP virtual link-local address as the default gateway. When the client sends Neighbor Discovery (ND) requests for that gateway, the AVG load-balances by replying with different virtual MAC addresses, distributing the IPv6 traffic perfectly across both redundant distribution switches.
+
+## Troubleshooting
+
+Verifying Gateway Load Balancing Protocol (GLBP) involves checking the status of the Active Virtual Gateway (AVG) election, the state of the Active Virtual Forwarders (AVFs), and ensuring that virtual MAC addresses are correctly distributed and that weighting/tracking is functioning as expected.
+
+### 1. Verifying Quick Status (IPv4)
+
+This command provides a high-level overview of the GLBP group, showing which router is the AVG and which routers are acting as AVFs.
+
+**Command:** `show glbp brief`
+
+What it checks and variables to look for:
+
+- `Interface`: The local interface where GLBP is applied (e.g., `Vl103`).
+- `Grp`: The GLBP group number.
+- `State`: The role of this router. You want to see `Active` on the primary gateway and `Standby` or `Listen` on the backups. For the secondary AVF entries, it should show `Active` (meaning it is actively forwarding traffic for that specific MAC).
+- `Mac Address`: The virtual MAC address assigned to the forwarders.
+- `Standby AVG`: The physical IP address of the backup gateway.
+
+### 2. Verifying Detailed Parameters & Object Tracking (IPv4)
+
+Use this command to dig deeper into timers, load-balancing algorithms, and object tracking status.
+
+**Command:** `show glbp`
+
+What it checks and variables to look for:
+
+- `State is`: Confirms the exact state of the AVG election.
+- `Virtual IP address`: Verifies the configured virtual gateway IP.
+- `Preemption enabled`: Confirms if the preempt delay timer is correctly configured and active.
+- `Weighting`: Displays the current forwarding weight, the configured maximum, and the lower/upper thresholds. This is crucial for verifying if your object tracking has successfully decremented the weight due to an uplink failure.
+- `Track object`: Shows the ID and current state (`Up` or `Down`) of any tracked IP SLA or physical interface.
+- `Load balancing`: Confirms the algorithm in use (e.g., `host-dependent`, `round-robin`, `weighted`).
+
+### 3. Verifying Quick Status (IPv6)
+
+This command provides the IPv6 equivalent of the brief overview, utilizing Link-Local addresses.
+
+**Command:** `show glbp ipv6 brief`
+
+What it checks and variables to look for:
+
+- Follows the identical logic to the IPv4 brief command, but displays the auto-generated IPv6 Link-Local Virtual Gateway address (starting with `FE80::`) and the IPv6 addresses of the active/standby peers.
+
+### 4. Verifying Detailed Parameters (IPv6)
+
+This command validates the IPv6-specific settings, including the auto-configuration status and IPv6 forwarding roles.
+
+**Command:** `show glbp ipv6`
+
+What it checks and variables to look for:
+
+- `Virtual IPv6 address`: Confirms the auto-configured `FE80::` address is correctly established and matches what clients are receiving via Router Advertisements.
+- `Forwarder state`: Checks if the router is actively forwarding IPv6 traffic for its assigned virtual MAC.
+- `Authentication`: Confirms if any configured security mechanisms are established and passing between IPv6 neighbors.

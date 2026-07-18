@@ -2,7 +2,7 @@
 
 Authentication, Authorization, and Accounting (AAA) provides a highly scalable framework for securing device access. In an enterprise environment, relying on local usernames is difficult to manage. Integrating AAA with remote RADIUS or TACACS+ servers ensures centralized credential management and auditing.
 
-## Radius
+## 1. Radius
 
 RADIUS is an open-standard protocol commonly used for network access. It encrypts only the password in the access-request packet, leaving the rest of the payload unencrypted. It combines authentication and authorization into a single process.
 
@@ -50,7 +50,7 @@ end
 **Practical Example:**
 When a junior engineer attempts to SSH into the router, the router sends their credentials to `10.20.200.100`. The RADIUS server verifies the credentials and returns an accept message. The router then generates an accounting start record so the organization has a precise timestamp of the login event.
 
-## TACACS+
+## 2. TACACS+
 
 TACACS+ is a Cisco-proprietary protocol (though widely supported) that separates authentication, authorization, and accounting into distinct processes. Unlike RADIUS, TACACS+ encrypts the entire payload of the packet, making it the preferred choice for device administration security. It also allows for highly granular command-by-command authorization.
 
@@ -89,3 +89,58 @@ aaa accounting commands 15 default start-stop group tacacs+
 
 **Practical Example:**
 If you want to allow a specific support team to use `show run` but block them from using `configure terminal`, TACACS+ handles this seamlessly. When the user types `configure terminal`, the router pauses, asks the TACACS+ server for permission, receives a denial, and blocks the command. RADIUS cannot do this natively.
+
+## 3. Troubleshooting
+
+Verifying AAA involves confirming that the router can reach the configured servers, that the shared secret keys match, and observing the authentication process to pinpoint exactly where a failure occurs.
+
+### 3.1 Verifying AAA Server Reachability and Status
+
+This command verifies the operational state of the configured RADIUS and TACACS+ servers, including how many requests have been sent and if the servers are responding.
+
+**Command:** `show aaa servers`
+
+What it checks and variables to look for:
+
+- `Server`: The IP address and port of the configured server.
+- `State`: Look for `UP`. If it says `DEAD`, the router has marked the server as unreachable.
+- `Requests` / `Timeouts`: If the `Requests` counter increments but the `Timeouts` counter also rises rapidly, there is a network reachability issue (e.g., a firewall blocking UDP 1812 or TCP 49) or the server is offline.
+- `Bad authenticators`: A high number here almost always indicates a mismatched shared secret key between the router and the AAA server.
+
+### 3.2 Testing Authentication Manually
+
+Instead of opening a completely new SSH session and risking getting locked out, you can simulate an authentication request directly from the privileged exec prompt to verify your configuration.
+
+**Command:**
+
+```cisco
+test aaa group radius admin Passw0rd legacy
+test aaa group tacacs+ admin Passw0rd legacy
+```
+
+What it checks and variables to look for:
+
+- `Attempted login to ...`: Confirms which server IP the router is targeting.
+- `User successfully authenticated`: Indicates a successful connection and key match.
+- `User authentication failed`: Indicates reachability is fine, but the server actively rejected the credentials (wrong username, password, or account disabled).
+- `Timeout`: Indicates a routing issue, firewall block, or downed server.
+
+### 3.3 Real-Time AAA Debugging
+
+If the `test aaa` command fails and you need to see the exact packet exchange, debugging will reveal the specific stage where the process breaks down.
+
+**Command:**
+
+```cisco
+debug aaa authentication
+debug tacacs
+debug radius
+```
+
+What it checks and variables to look for:
+
+- `GETUSER`: Shows the router successfully prompting for the username.
+- `GETPASSWORD`: Shows the router prompting for the password.
+- `PASS_ADD`: Indicates the credentials are being packaged to send.
+- For RADIUS: Watch for `Access-Accept` (success) or `Access-Reject` (failure/wrong credentials).
+- For TACACS+: Watch for `PASS` (success) or `FAIL` (wrong credentials). If you do not see these responses coming back from the server, verify network connectivity and the shared secret key.

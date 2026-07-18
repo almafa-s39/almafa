@@ -105,3 +105,55 @@ snmp-server host 10.20.200.100 version 3 priv wscmon config snmp
 - `snmp-server enable traps`: Globally enables the router to generate trap messages for system events.
 - `snmp-server trap-source` / `source-interface informs Loopback0`: Forces the router to use the IP address of Loopback0 as the source IP for all outgoing alerts, ensuring a stable source IP even if physical interfaces flap.
 - `snmp-server host 10.20.200.100 version 3 priv wscmon config snmp`: Defines the NMS destination (10.20.200.100). It instructs the router to send fully encrypted v3 traps using the `wscmon` credentials, specifically for configuration and general SNMP events.
+
+## 7. Troubleshooting
+
+### 7.1 Verifying SNMP Configuration and Packet Counters
+
+This command provides a high-level overview of the SNMP engine's operational state, displaying the administrative details and the total number of packets sent and received.
+
+**Command:** `show snmp`
+
+What it checks and variables to look for:
+
+- `Chassis`: Displays the configured administrative contact and physical location metadata.
+- `SNMP packets input` / `SNMP packets output`: If your NMS is polling the router but the `input` counter is not incrementing, there is a routing or firewall issue blocking UDP port 161.
+- `Bad SNMP version errors`: Increments if an NMS tries to poll using an SNMP version disabled on the router.
+- `Unknown community name`: Increments if a monitoring system polls with an incorrect community string or if the request is blocked by the configured ACL.
+
+### 7.2 Verifying SNMPv3 Users and Groups
+
+Because SNMPv3 configurations are more complex and rely on specific authentication and encryption hashes, verifying the user database is critical when polling fails.
+
+**Command:**
+
+```cisco
+show snmp user
+show snmp group
+```
+
+What it checks and variables to look for (show snmp user):
+
+- `User name`: Confirms the exact spelling of the SNMPv3 user (e.g., `wscmon`).
+- `Engine ID`: The unique identifier for the local SNMP engine.
+- `Authentication Protocol` / `Privacy Protocol`: Verifies that the correct hashing (e.g., `SHA`) and encryption (e.g., `AES128`) algorithms are bound to the user.
+- `Group-name`: Confirms which group the user is assigned to.
+
+What it checks and variables to look for (show snmp group):
+
+- `Groupname`: Verifies the group exists (e.g., `WSC-GRP`).
+- `Security Model`: Confirms it is set to `v3`.
+- `Readview`: Ensures the group actually has a view assigned (e.g., `WSC-VIEW`). If this is blank, the user authenticates but receives no data.
+
+### 7.3 Verifying SNMP Trap Destinations
+
+If your centralized monitoring system is missing alerts for critical interface failures or configuration changes, verify that the router knows where to send them.
+
+**Command:** `show snmp host`
+
+What it checks and variables to look for:
+
+- `Notification host`: The destination IP address of your NMS (e.g., `10.20.200.100`).
+- `udp-port`: Confirms it is using the standard trap port (`162`).
+- `type`: Shows whether it is sending unacknowledged `Traps` or acknowledged `Informs`.
+- `user`: Confirms which community string (for v1/v2c) or specific user profile (for v3) is being utilized to secure the outbound alerts.

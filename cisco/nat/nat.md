@@ -101,3 +101,45 @@ ip nat inside source static tcp 10.10.10.30 22 interface GigabitEthernet0/1 2222
 
 - `... static tcp 10.10.10.25 80 interface GigabitEthernet0/1 80`: Tells the router that if any external traffic hits the public IP of `GigabitEthernet0/1` on TCP port `80` (HTTP), it should immediately forward it to the internal server `10.10.10.25` on port `80`.
 - `... static tcp 10.10.10.30 22 interface GigabitEthernet0/1 2222`: This is an example of port translation. If external traffic hits the public IP on TCP port `2222`, it is translated and forwarded to the internal management server `10.10.10.30` on standard SSH port `22`, adding a layer of obfuscation.
+
+## 5. Troubleshooting
+
+Verifying IPv4 NAT involves checking the active translation table and confirming that the router is correctly translating traffic based on the configured rules and access control lists.
+
+### 5.1 Verifying Active NAT Translations
+
+This command displays every active translation currently being processed by the router, which is essential for confirming that internal hosts are actually reaching the outside world.
+
+**Command:** `show ip nat translations`
+
+What it checks and variables to look for:
+
+- `Pro`: The protocol being translated (e.g., `tcp`, `udp`, `icmp`).
+- `Inside local`: The actual private IP address and port of your internal host before translation.
+- `Inside global`: The public IP address and port that the router has translated the internal host into.
+- `Outside local` / `Outside global`: The IP address of the external destination server. (These are usually identical unless you are performing complex dual-NAT scenarios).
+
+### 5.2 Verifying NAT Statistics
+
+This command provides a high-level overview of the NAT configuration, showing operational statistics and pool utilization.
+
+**Command:** `show ip nat statistics`
+
+What it checks and variables to look for:
+
+- `Total active translations`: Shows the breakdown of `Static`, `Dynamic`, and `Extended` (PAT) translations currently active.
+- `Hits` / `Misses`: A high number of hits means NAT is actively working. Misses indicate packets that needed translation but failed (often due to pool exhaustion).
+- `Dynamic mapping`: Displays the configured ACLs and the interfaces or pools they are mapped to, verifying your configuration is active.
+- `Pool stats`: If using a NAT pool, this shows the total addresses, the percentage of addresses currently allocated, and how many times the pool failed to allocate an IP.
+
+### 5.3 Real-Time NAT Debugging
+
+If translations do not appear in the table, you can monitor the NAT process in real-time to see exactly which packets are being intercepted and translated. (Warning: Use this cautiously on production routers with high traffic).
+
+**Command:** `debug ip nat`
+
+What it checks and variables to look for:
+
+- `s=`: The source IP address. Watch how it changes from the private IP to the public IP as it routes from the inside interface to the outside interface.
+- `d=`: The destination IP address.
+- `*` (Asterisk): If you see an asterisk next to NAT output, it indicates the packet was processed in the fast path (hardware switching) rather than the process path (CPU).

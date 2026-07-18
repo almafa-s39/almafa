@@ -134,3 +134,44 @@ route-map PBR-LOCAL permit 10
 ! 3. Apply globally for locally generated traffic
 ip local policy route-map PBR-LOCAL
 ```
+
+## 4. Troubleshooting
+
+Verifying Policy-Based Routing (PBR) involves confirming that the route-maps are correctly attached to the expected interfaces, ensuring the traffic matches the underlying access lists, and verifying that the routing actions are executed.
+
+### 4.1 Verifying Interface Policy Application
+
+This command provides a quick check to see exactly which interfaces have a PBR policy applied, including any local policies.
+
+**Command:** `show ip policy`
+
+What it checks and variables to look for:
+
+- `Interface`: Lists the physical or logical interface (e.g., `GigabitEthernet0/0` or `local`).
+- `Route map`: Shows the name of the applied policy (e.g., `PBR-REDIRECT`). If your ingress interface is missing from this list, PBR will not process its traffic.
+
+### 4.2 Verifying Route-Map Processing and Match Counters
+
+Use this command to inspect the route-map itself and verify if packets are actually hitting your configured match clauses.
+
+**Command:** `show route-map PBR-REDIRECT`
+
+What it checks and variables to look for:
+
+- `Sequence 10` / `Sequence 20`: Confirms the order of operations.
+- `Match clauses`: Displays the ACL bound to this sequence.
+- `Set clauses`: Displays the intended action (e.g., `ip next-hop 10.20.200.102`).
+- `Policy routing matches`: This is the most critical metric. Look for the `packets` and `bytes` counters. If these remain at `0` while traffic is flowing, your ACL is incorrect or traffic is entering on the wrong interface.
+
+### 4.3 Real-Time PBR Debugging
+
+If traffic matches the policy but still fails to route correctly (often due to unreachable next-hops), debugging will show exactly how the router is handling individual packets.
+
+**Command:** `debug ip policy`
+
+What it checks and variables to look for:
+
+- `s=` / `d=`: The source and destination IPs of the packet being evaluated.
+- `match`: Indicates the packet successfully matched an ACL within the route-map.
+- `routed to`: Shows the exact next-hop IP the packet is being sent to.
+- `rejected`: Indicates the packet failed to meet the `verify-availability` tracking requirements or the next-hop was unreachable, meaning the router will fall back to standard routing table lookups.

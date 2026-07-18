@@ -139,11 +139,43 @@ Router(config-if)# zone-member security OUTSIDE
 
 ---
 
-## 6. Verification and Troubleshooting Commands
+## 6. Troubleshooting
 
-Use the following commands to monitor and troubleshoot the firewall state:
+Verifying Zone-Based Policy Firewalls involves confirming that interfaces are correctly assigned to their respective zones, that zone-pairs are established, and checking the real-time hit counters to ensure traffic is being inspected or dropped appropriately.
 
-- **`show zone security`**: Displays all configured zones and the interfaces assigned to them.
-- **`show zone-pair security`**: Displays all configured zone-pairs and the policies attached to them.
-- **`show policy-map type inspect zone-pair`**: The most critical troubleshooting command. Displays hit counts, drop counts, and active inspection sessions for a specific zone-pair.
-- **`show policy-firewall stats`**: Shows global statistics for the firewall engine.
+### 6.1 Verifying Zones and Interface Assignments
+
+This command provides a high-level overview of your defined security zones and which physical or logical interfaces belong to them.
+
+**Command:** `show zone security`
+
+What it checks and variables to look for:
+
+- `zone`: Lists the name of the created zone (e.g., `INSIDE`, `OUTSIDE`, and the system `self` zone).
+- `Member Interfaces`: Confirms which interfaces are actively bound to the zone. If an interface is missing here, it is currently operating under the "No Zone" default routing behavior and will drop traffic destined for a zoned interface.
+
+### 6.2 Verifying Zone-Pairs
+
+This command verifies the directional flow you have established between your zones and confirms which service policy is attached to that specific flow.
+
+**Command:** `show zone-pair security`
+
+What it checks and variables to look for:
+
+- `Source-Zone` / `Destination-Zone`: Confirms the unidirectional path (e.g., source `INSIDE` destination `OUTSIDE`).
+- `service-policy`: Shows the name of the policy-map applied to this pair. If this is empty, the zone-pair exists but is implicitly dropping all inter-zone traffic.
+
+### 6.3 Verifying Policy Action and Active Sessions
+
+This is the most critical command for ZBPF troubleshooting. It digs into the C3PL hierarchy, showing exactly how much traffic is hitting each class-map and whether it is being passed, dropped, or inspected.
+
+**Command:** `show policy-map type inspect zone-pair`
+
+What it checks and variables to look for:
+
+- `Class-map`: Lists the traffic classes being evaluated (e.g., `CM_WEB`, `CM_GENERAL`).
+- `Match`: Displays the ACL or protocol being matched.
+- `Action`: Shows `Inspect`, `Pass`, or `Drop`.
+- `Packet / Byte Counters`: Look for increments here. If traffic is failing but the counters for your permitted class-map are `0`, the traffic is either not hitting the firewall or the ACL matching logic is flawed.
+- `Session creations`: Shows the active stateful connections currently being tracked by the firewall.
+- `Class-map: class-default (match-any)`: Pay close attention to the drop counters here to identify legitimate traffic that is being silently blocked by the firewall's default deny posture.

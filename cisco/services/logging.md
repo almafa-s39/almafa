@@ -47,3 +47,31 @@ do wr
 
 **Practical Example:**
 If an OSPF neighbor goes down, the router generates a syslog message. Because of this configuration, the log will feature a precise local timestamp, it will be immediately saved in the router's local 16KB memory buffer, and a copy will be forwarded to `10.20.200.100` originating from the IP of `Vlan103`.
+
+## 3. Troubleshooting
+
+Verifying the logging configuration involves checking the status of the internal buffer, confirming the configured severity levels, and reviewing the actual stored messages to ensure events are being captured as expected.
+
+### 3.1 Verifying Logging Configuration and Status
+
+This command provides a comprehensive overview of the logging environment, displaying the size of the local buffer, active external servers, and the logs currently held in local memory.
+
+**Command:** `show logging`
+
+What it checks and variables to look for:
+
+- `Syslog logging`: Confirms if the logging process is globally `enabled`.
+- `Console logging` / `Monitor logging`: Shows the severity level actively printing to the console port or virtual terminal (VTY/SSH) sessions.
+- `Buffer logging`: Displays the configured severity level (e.g., `debugging`), the total allocated memory (e.g., `16384` bytes), and how many messages have been logged/dropped.
+- `Trap logging`: Verifies the severity limit set for external servers (e.g., `informational`) and lists the external IP addresses (like `10.20.200.100`) along with the number of messages successfully transmitted.
+- `Log Output`: The bottom of this command's output displays the actual contents of the local ring buffer, allowing you to read the most recent system events.
+
+### 3.2 Clearing the Local Log Buffer
+
+During active troubleshooting, the local buffer can quickly fill up with irrelevant or outdated information. Clearing the buffer gives you a clean slate to capture and identify new events without scrolling through thousands of lines.
+
+**Command:** `clear logging`
+
+What it checks and variables to look for:
+
+- This command does not produce terminal output, but instantly empties the internal RAM buffer. Executing `show logging` immediately afterward will only display newly generated messages, typically starting with a syslog entry noting that the buffer was cleared by a user.

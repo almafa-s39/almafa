@@ -53,3 +53,47 @@ interface range g0/0-1
 
 **Practical Example:**
 If an old IPv4-only printer or legacy application needs to send logs to a modern, IPv6-only Syslog server, you configure a NAT46 mapping. The legacy device sends its traffic to the destination IP `192.0.2.100`. The router intercepts this packet, translates the destination IP header to `2001:DB8:30:301::100`, translates the source IPv4 address using the configured NAT64 stateful prefix, and forwards it onto the IPv6 network.
+
+## 3. Troubleshooting
+
+Verifying NAT64 and NAT46 involves checking the active translation database, monitoring the prefix mappings, and confirming that the correct interfaces are participating in the translation process.
+
+### 3.1 Verifying Active NAT64 Translations
+
+This command displays the active stateful NAT64 translation table. It is crucial for confirming that IPv6 hosts are successfully mapping to IPv4 addresses and vice versa.
+
+**Command:** `show nat64 translations`
+
+What it checks and variables to look for:
+
+- `Proto`: The transport protocol being translated (e.g., `TCP`, `UDP`, `ICMPv6`).
+- `Original IPv4` / `Translated IPv4`: The public IPv4 address assigned from your NAT64 pool (or static mapping) and the actual destination IPv4 server address.
+- `Original IPv6` / `Translated IPv6`: Your internal IPv6 client's global address and the synthesized IPv6 destination address (which includes the `64:FF9C::/96` prefix).
+
+### 3.2 Verifying NAT64 Statistics
+
+This command provides a high-level operational overview of the NAT64 engine, highlighting performance metrics and potential capacity issues.
+
+**Command:** `show nat64 statistics`
+
+What it checks and variables to look for:
+
+- `Translations`: Displays the current number of active `Static` and `Dynamic` translations.
+- `Packets translated`: A rising counter here confirms that the router is actively intercepting and converting IPv6/IPv4 headers.
+- `Packets dropped`: High drop counters indicate issues. Drops could be caused by pool exhaustion (no IPv4 addresses left), ACL denials, or MTU/fragmentation problems during header translation.
+
+### 3.3 Verifying NAT64 Prefixes and Interfaces
+
+If translations are not occurring, it is often because the router is not properly synthesizing the addresses or listening on the correct interfaces.
+
+**Command:**
+
+```cisco
+show nat64 prefix stateful
+show nat64 interfaces
+```
+
+What it checks and variables to look for:
+
+- `show nat64 prefix stateful`: Confirms that the router has successfully instantiated the stateful prefix (e.g., the Well-Known Prefix `64:FF9C::/96`) and is using it to route synthesized IPv6 traffic to the IPv4 network.
+- `show nat64 interfaces`: Lists every physical or logical interface where the `nat64 enable` command has been applied. If an interface connecting to either the IPv4 or IPv6 domain is missing from this list, traffic will not be translated.

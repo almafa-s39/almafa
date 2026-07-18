@@ -69,3 +69,41 @@ event manager applet CPU-MONITOR
 
 **Practical Example:**
 If users report that the network was unexpectedly slow at 2:00 AM, you can log in the next morning, review the `cpu-history.txt` file, and see exactly which process was consuming resources at that specific time without needing a live session.
+
+## Troubleshooting
+
+### 1. Verifying Registered Applets
+
+This command displays all currently active EEM applets and policies, confirming that the router has successfully parsed and loaded your automation script into memory.
+
+**Command:** `show event manager policy registered`
+
+What it checks and variables to look for:
+
+- `No.` / `Class` / `Type`: Indicates the policy classification (e.g., `applet`).
+- `Event Type`: Shows the trigger mechanism tied to the applet, such as `syslog`, `cli`, or `timer`.
+- `Name`: The configured name of your applet (e.g., `LINK-WATCH`). If your applet is missing from this list, there is a syntax error in your configuration preventing it from registering.
+
+### 2. Reviewing Applet Execution History
+
+If you suspect an event occurred but the expected action didn't happen, the history log will tell you exactly when EEM triggered and if it encountered any immediate issues.
+
+**Command:** `show event manager history events`
+
+What it checks and variables to look for:
+
+- `Job ID`: A unique tracking number for the specific execution instance.
+- `Name`: The name of the applet that was triggered.
+- `Trigger`: The exact time the event was detected.
+- `Success`: Indicates if the applet ran successfully to completion. If you see `Fail`, it usually means a CLI action within the script hung up (e.g., waiting for an unhandled prompt) or encountered a syntax error.
+
+### 3. Real-Time EEM Debugging
+
+When an applet is failing silently, enabling real-time debugging allows you to watch the EEM process run exactly as if it were a human typing the commands in the background.
+
+**Command:** `debug event manager action cli`
+
+What it checks and variables to look for:
+
+- `cli_exec`: Shows the exact command being passed to the router's virtual terminal line.
+- `cli_read`: Shows the router's response to the command. This is vital for troubleshooting interactive prompts. For example, if your copy command asks `Destination filename [router-config.txt]?` and your script does not send a carriage return (the empty string `""`), the debug will show the script hanging at this prompt and timing out.

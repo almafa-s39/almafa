@@ -81,3 +81,48 @@ interface Vlan20
 
 - `glbp 20 weighting 100 lower 85 upper 100`: Sets the maximum forwarding weight to `100`. The `lower 85` threshold means that if the weight drops to `85` or below, this router stops acting as an AVF and stops accepting client traffic. The `upper 100` threshold means it will resume forwarding only when its weight climbs back up to `100`.
 - `glbp 20 weighting track 10 decrement 20`: Ties tracking object `10` to the GLBP weighting. If the tracked WAN link fails, the weight drops from `100` to `80`. Because `80` is below the configured lower threshold of `85`, GLBP safely redirects this router's share of the client traffic to the other redundant routers in the group.
+
+## 5. Troubleshooting
+
+Verifying IP SLA and Object Tracking integration with FHRP requires a step-by-step approach: first confirm the synthetic pings are successful, then verify the tracking object reflects that state, and finally ensure the FHRP group is applying the expected decrements.
+
+### 5.1 Verifying IP SLA Statistics
+
+This command confirms if the synthetic ICMP pings are actually being sent and whether they are receiving replies from the upstream gateway.
+
+**Command:** `show ip sla statistics`
+
+What it checks and variables to look for:
+
+- `Number of successes` / `Number of failures`: A high failure count indicates the upstream IP is unreachable.
+- `Latest RTT`: Displays the Round Trip Time of the last ping in milliseconds. If this shows `NoConnection` or `Timeout`, the SLA is failing.
+- `Next operation start`: Confirms the schedule is active and the timer is ticking down to the next ping.
+
+### 5.2 Verifying Object Tracking State
+
+Once the SLA is confirmed, you must check the tracking object to ensure it is accurately reflecting the SLA's reachability and applying any configured delay timers.
+
+**Command:** `show track`
+
+What it checks and variables to look for:
+
+- `Track 10`: The ID of the tracking object.
+- `State`: Look for `Up` or `Down`. If it is `Down` but the SLA is successful, check your `delay` timers.
+- `Change delayed`: If a state change is currently pending (e.g., waiting 10 seconds before officially declaring the track down), it will display the remaining countdown here.
+- `Tracked by`: Lists the protocols (like `HSRP` or `GLBP`) that are actively monitoring this tracking object.
+
+### 5.3 Verifying FHRP Decrement Action
+
+Finally, confirm that the tracking object is actively influencing the FHRP priority or weighting as configured.
+
+**Command:** `show standby/show glbp`
+
+What it checks and variables to look for (HSRP):
+
+- `Priority`: Shows the current active priority.
+- `Track object 10 state`: Will display `Up` or `Down`. If it is `Down`, you will see `decrement 20`, and the active priority will instantly reflect this math.
+
+What it checks and variables to look for (GLBP):
+
+- `Weighting`: Displays the current weight, the configured maximum, and the upper/lower thresholds.
+- `Track object 10 state`: Shows `Up` or `Down` and the configured decrement value. If `Down`, verify that the current weighting has fallen below the `lower` threshold, which correctly revokes the router's AVF status.

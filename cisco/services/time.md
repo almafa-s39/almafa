@@ -65,3 +65,46 @@ ntp server 30.30.30.30 key 1
 - `ntp server 30.30.30.30 key 1`: Points the client to the IP address of the NTP Master (`30.30.30.30`). The `key 1` suffix is crucial; it tells the client to use the specific trusted key we defined to authenticate the NTP packets coming from this specific server.
 
 **Practical Example:** If you are deploying a new branch distribution switch, applying this client configuration ensures it securely pulls its time from the core router (30.30.30.30), preventing man-in-the-middle attacks from spoofing the time and invalidating the switch's local certificates.
+
+## Troubleshooting
+
+Verifying time and NTP configuration involves checking the local hardware clock, ensuring that the NTP synchronization process has successfully completed, and confirming that authentication is passing between peers.
+
+### Verifying Local Clock and Timezone
+
+This command confirms that your manual timezone offset and daylight saving time configurations are active and currently applied to the router's internal clock.
+
+**Command:** `show clock detail`
+
+What it checks and variables to look for:
+
+- `Time and Date`: Displays the current system time (e.g., `14:35:00.123 CEST Mon Jul 15 2026`).
+- `Time source`: Indicates where the router is getting its time. You want to see `Time source is NTP`. If it says `hardware calendar` or `user configuration`, NTP is not functioning properly.
+- `Summer time`: Confirms if DST is currently active or inactive based on your configured recurring schedule.
+
+### Verifying NTP Synchronization Status
+
+This is the primary command to determine if the router has successfully locked onto an NTP server and updated its system clock.
+
+**Command:** `show ntp status`
+
+What it checks and variables to look for:
+
+- `Clock is`: Must show `synchronized`. If it shows `unsynchronized`, the router has not yet established a reliable connection with the NTP server (this can take up to 10-15 minutes after configuration).
+- `Stratum`: Shows the local router's stratum level. For a client connected to a Stratum 5 master, this should read `6`.
+- `Reference`: Displays the IP address of the server that this device is currently synchronized to.
+
+### Verifying NTP Peers and Authentication
+
+If the clock remains unsynchronized, this command provides a detailed view of the communication between the client and the configured NTP servers, highlighting reachability and authentication failures.
+
+**Command:** `show ntp associations`
+
+What it checks and variables to look for:
+
+- `address`: The IP address of the configured NTP server.
+- `ref clock`: The upstream source your server is synced to. If this shows `127.127.1.1`, the master is using its own local hardware clock (common for isolated `ntp master` setups).
+- `st`: The stratum of the server. A stratum of `16` means the server is considered unreachable or invalid.
+- `reach`: An octal counter that tracks the success of the last eight NTP polls. A value of `377` indicates 100% reachability. A value of `0` means the server is not responding to ping/NTP requests.
+- `*` (Asterisk): Look for an asterisk next to the server address. This indicates it is the currently selected, active system peer.
+- `~` (Tilde): If you see a tilde instead of an asterisk, it often indicates an authentication failure (e.g., mismatched MD5 key).
