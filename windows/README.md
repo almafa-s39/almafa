@@ -10,9 +10,16 @@
 - [Installation](adds/install.md)
 - [AD Structure creation](adds/ad-structure.md)
 
+## ADCS
+
+- [ADCS](adcs/adcs.md)
+
+## [DHCP](dhcp/dhcp.md)
+
 ## RRAS
 
 -[BGP](rras/bgp.md)
+-[RIP](rras/rip.md)
 
 ### S2S VPN
 

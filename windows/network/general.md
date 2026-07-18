@@ -1,70 +1,132 @@
-# General configurations
+# Windows Initial Configuration Guide
 
-## Per computer
+This guide outlines the standard operating procedures for initial Windows Server/Client configuration, split into local computer settings and Active Directory Group Policy Objects (GPOs).
 
-### Time settings
+## 1. Local Computer Configurations
+
+Execute these commands in an elevated PowerShell console.
+
+### 1.1 Time Settings
+
+Configure the system time zone and manual date/time.
 
 ```powershell
+# Set the time zone and date
+Set-TimeZone -Id "<TIMEZONE_ID>" # e.g., "Central Europe Standard Time"
+Set-Date -Date "<DATE>"          # e.g., "2026-06-17 12:14"
+```
+
+**Verification:**
+
+```powershell
+# Verify time zone and current system time
 Get-TimeZone
-Set-TimeZone "[TIMEZONE]"
-Set-Date "[DATE]" # [DATE] = "2026.06.17 12:14"
+Get-Date
 ```
 
-### Networking settings
+### 1.2 Networking Settings
+
+Configure static IPv4 and IPv6 addressing, gateways, and DNS servers using `netsh`.
 
 ```powershell
+# IPv4 Configuration
+netsh int ipv4 set address name="<INTERFACE>" static <ADDRESS> <SUBNET> <GW>
+netsh int ipv4 set dns name="<INTERFACE>" static <DNS>
+
+# IPv6 Configuration
+netsh int ipv6 set address name="<INTERFACE>" <ADDRESS>/<PREFIX_LENGTH>
+netsh int ipv6 add route ::/0 "<INTERFACE>" <GW>
+netsh int ipv6 set dns name="<INTERFACE>" static <DNS>
+```
+
+**Verification:**
+
+```powershell
+# Verify overall IP and DNS configuration
 ipconfig /all
-netsh int ipv4 set add [INTERFACE] static [ADDRESS] [SUBNET] [GW]
-netsh int ipv4 set dns [INTERFACE] static [DNS]
-netsh int ipv6 set add [INTERFACE] [ADDRESS]/[NETMASK]
-netsh int ipv6 add route ::/0 [INTERFACE] [GW]
-netsh int ipv6 set dns [INTERFACE] static [DNS]
+
+# Verify routing tables
+Get-NetRoute -InterfaceAlias "<INTERFACE>"
 ```
 
-### ALLOW ICMP
+### 1.3 Allow ICMP (Ping)
+
+Enable the built-in firewall rules to allow inbound Echo Requests for both IPv4 and IPv6.
 
 ```powershell
-Get-NetFirewallRule | ? { $_.displayName -like "*ICMPv4-In*" } | Select-Object Name, DisplayName, Enabled
+# Enable the default ICMP echo request rules
+Enable-NetFirewallRule -Name "FPS-ICMP4-ERQ-In"
+Enable-NetFirewallRule -Name "FPS-ICMP6-ERQ-In"
 
-# Parsed names from the output
-Enable-NetFirewallRule "FPS-ICMP4-ERQ-In"
-Enable-NetFirewallRule "FPS-ICMP6-ERQ-In"
+Set-NetFirewallProfile Private,Public,Domain -Enabled false
 ```
 
-### Hostname
+**Verification:**
 
 ```powershell
-Rename-Computer [NEW-NAME]
+# Check the enabled state of the rules
+Get-NetFirewallRule -Name "FPS-ICMP4-ERQ-In", "FPS-ICMP6-ERQ-In" | Select-Object Name, DisplayName, Enabled
+```
+
+### 1.4 Hostname Configuration
+
+Rename the computer and reboot.
+
+```powershell
+Rename-Computer -NewName "<NEW_NAME>"
 Restart-Computer
 ```
 
-### Add copmuter to the domain
+**Verification:** *(Run after reboot)*
 
 ```powershell
-Add-Computer -DomainName [DOMAIN-NAME]
-Restart-Computer
+# Verify the new hostname applied successfully
+$env:COMPUTERNAME
 ```
 
-## Per domain (GPOs)
+### 1.5 Domain Join
 
-### Prevent lock
+Join the computer to an Active Directory domain and reboot.
 
-`User Configuration > Policies > Administrative Templates > Control Panel > Personalization > Enable screen saver` > `Disabled`
-`User Configuration > Policies > Administrative Templates > Control Panel > Personalization > Password protect the screen saver` > `Disabled`
-`Computer Configuration > Policies > Windows Settings > Security Settings > Local Policies > Security Options > Interactive logon: Machine inactivity limit` > `0`
+```powershell
+Add-Computer -DomainName "<DOMAIN_NAME>" -Restart
+```
 
-### Disable CTRL+ALT+DEL
+**Verification:** *(Run after reboot)*
 
-`Computer Configuration > Windows Settings > Security Settings > Local Policies > Security Options > Do not require CTRL+ALT+DEL` > `Enabled`
+```powershell
+# Verify domain membership
+(Get-CimInstance Win32_ComputerSystem).Domain
+```
 
-### Disable first animation login
+---
 
-`Computer Configuration > Policies > Administrative Templates > System > Logon > Show first sign-in animation` > `Disabled`
+## 2. Active Directory Domain Configurations (GPOs)
 
-### Enable ICMPv4, ICMPv6
+Configure the following settings within the Group Policy Management Console (`gpmc.msc`).
 
-`Computer Configuration > Policies > Windows Settings > Security Settings > Windows Defender Firewall with Advanced Security > Windows Defender Firewall with Advanced Security > Inbound Rules` > Create two custom rule
+### 2.1 Quality of Life & Automation
 
-### Disable firewall
+These settings disable locking, remove the CTRL+ALT+DEL requirement, and skip the Windows first sign-in animation.
 
-`Computer Configuration > Policies > Windows Settings > Security Settings > Windows Defender Firewall with Advanced Security > Windows Defender Firewall with Advanced Security` > Right-click node > Properties, Choose Domain-, Private-, Public Profile, and set Firewall state Off from the dropdown.
+| Policy Objective | GPO Path | Setting |
+| :--- | :--- | :--- |
+| **Prevent screen saver** | `User Configuration > Policies > Administrative Templates > Control Panel > Personalization > Enable screen saver` | **Disabled** |
+| **Remove screen saver password** | `User Configuration > Policies > Administrative Templates > Control Panel > Personalization > Password protect the screen saver` | **Disabled** |
+| **Prevent machine lock** | `Computer Configuration > Policies > Windows Settings > Security Settings > Local Policies > Security Options > Interactive logon: Machine inactivity limit` | **0** |
+| **Disable CTRL+ALT+DEL** | `Computer Configuration > Policies > Windows Settings > Security Settings > Local Policies > Security Options > Interactive logon: Do not require CTRL+ALT+DEL` | **Enabled** |
+| **Disable sign-in animation** | `Computer Configuration > Policies > Administrative Templates > System > Logon > Show first sign-in animation` | **Disabled** |
+
+### 2.2 Network & Firewall Policies
+
+These settings manage the Windows Defender Firewall states across the domain and allow ping requests globally.
+
+#### Allow ICMPv4 & ICMPv6 Inbound
+
+* **Path:** `Computer Configuration > Policies > Windows Settings > Security Settings > Windows Defender Firewall with Advanced Security > Windows Defender Firewall with Advanced Security > Inbound Rules`
+* **Action:** Create two new Custom Rules (one for ICMPv4, one for ICMPv6) allowing **Echo Request** traffic from Any IP to Any IP.
+
+#### Disable Windows Firewall
+
+* **Path:** `Computer Configuration > Policies > Windows Settings > Security Settings > Windows Defender Firewall with Advanced Security > Windows Defender Firewall with Advanced Security`
+* **Action:** Right-click the root node -> **Properties**. Set the **Firewall state** to **Off** via the dropdown menus for the Domain Profile, Private Profile, and Public Profile.

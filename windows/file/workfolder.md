@@ -1,40 +1,65 @@
-# Workfolder
+# Windows Server Work Folders Configuration
 
-> [!NOTE]
-> If you have a Core server, you can done nearly everyting from another domain joined server which has GUI.
-> 0. for core servers: Add the server in server manager on another server with GUI.
+> **Note on Server Core:** If you are configuring Work Folders on a Server Core installation, you can perform the GUI provisioning steps by adding the Server Core machine to the Server Manager console of another domain-joined server that has the Desktop Experience (GUI) installed.
 
-## Install WorkFolders
+## 1. Install Work Folders
 
-Install it from Server manager or issue the following command:
+Install the Work Folders feature (Sync Share Service) and the required IIS Web Core components.
+
+Open an elevated PowerShell console and run:
 
 ```powershell
-Install-WindowsFeature FS-SyncShareService, Web-Server -IncludeManagementTools
+# Install the Work Folders feature and management tools
+Install-WindowsFeature -Name FS-SyncShareService, Web-Server -IncludeManagementTools
+
+# A restart is required to complete the installation
+Restart-Computer
 ```
 
-> [!WARNING]
-> Don't forget to restart the server (restart required)!
-
-## Setup
-
-Use wizard from Server Manager, it's next-next finish.
-
-## Access setup
-
-> [!NOTE]
-> After you're done with installation and setup, you have to create a binding using a certificate for workfolders.
-> For this you will need a certificate including the DNS name, you have to configure for workfolders (for HTTPS).
-> Export a certificate out with the right extensions (and private key exporatble!), and import it to the server with the following  command:
+**Verification:** *(Run after reboot)*
 
 ```powershell
-$pw = ConvertTo-SecureString "YourPW" -AsPlainText -Force
-Import-PfxCertificateFile -FilePath C:\server.pfx -Password $pw -CertStoreLocation CERT:\LocalMachine\My
+# Verify the feature is installed successfully
+Get-WindowsFeature -Name FS-SyncShareService | Select-Object Name, InstallState
 ```
 
-> [!NOTE]
-> Save the thumbprint we will need it for  the next step.
+## 2. Provision the Sync Share
+
+Once the server has rebooted, provision the storage location for user data.
+
+1. Open **Server Manager**.
+2. Navigate to **File and Storage Services** > **Work Folders**.
+3. Click **Tasks** > **New Sync Share...** to launch the wizard.
+4. Follow the prompts (Next-Next-Finish) to select the local path, configure user aliases, and apply default security/device policies.
+
+## 3. SSL Certificate Import & Binding
+
+Work Folders requires HTTPS. You must import an SSL certificate (with an exportable private key and the correct DNS Subject Alternative Names) and manually bind it to port 443 on the server.
+
+The following PowerShell script imports the `.pfx` certificate, extracts its thumbprint, generates the required Application ID GUID, and automatically binds the certificate to the default HTTPS port.
 
 ```powershell
-New-Guid # Paste the output in it's place
-netsh http add sslcert ipport=0.0.0.0:443 certhash=<Your-Cert-Thumbprint> appid="{<New-Guid_stdout>}" certstorename=MY
+# 1. Securely convert your certificate password
+$pw = ConvertTo-SecureString "<YOUR_CERT_PASSWORD>" -AsPlainText -Force
+
+# 2. Import the PFX certificate into the Local Machine Personal store
+# The output is captured into the $cert variable to reuse its Thumbprint
+$cert = Import-PfxCertificate -FilePath "C:\path\to\your_certificate.pfx" -Password $pw -CertStoreLocation "Cert:\LocalMachine\My"
+
+# 3. Generate a new random GUID for the Application ID
+$appId = New-Guid
+
+# 4. Bind the certificate to port 443 using netsh
+# The thumbprint and GUID are automatically injected from the variables above
+netsh http add sslcert ipport=0.0.0.0:443 certhash="$($cert.Thumbprint)" appid="{$($appId.Guid)}" certstorename=MY
+```
+
+**Verification:**
+
+```powershell
+# Verify the certificate was imported into the correct store
+Get-ChildItem -Path "Cert:\LocalMachine\My" | Where-Object { $_.Thumbprint -eq $cert.Thumbprint }
+
+# Verify the SSL binding is successfully attached to port 443
+netsh http show sslcert ipport=0.0.0.0:443
 ```
