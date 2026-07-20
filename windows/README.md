@@ -18,8 +18,8 @@
 
 ## RRAS
 
--[BGP](rras/bgp.md)
--[RIP](rras/rip.md)
+- [BGP](rras/bgp.md)
+- [RIP](rras/rip.md)
 
 ### S2S VPN
 
