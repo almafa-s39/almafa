@@ -4,13 +4,20 @@ title: "Mail with LDAP authentication"
 author: "Gergő Téringer"
 ---
  -->
-# Mail with LDAP authentication
+# Postfix and Dovecot Mail Server with LDAP Authentication Guide
 
-## Pre-eliminary settings
+This document provides administrative procedures for configuring a complete Mail Transfer Agent (MTA) and Mail Delivery Agent (MDA) using Postfix and Dovecot on Debian 13 (Trixie). It integrates OpenLDAP to centrally authenticate users and map virtual mailboxes, utilizing TLS encryption and SASL for secure client connections.
 
-You have to have users with the following attributes in LDAP:
+> [!NOTE]
+> Postfix handles the routing and receiving of SMTP mail, while Dovecot manages local mail storage (IMAP/POP3) and provides the SASL authentication socket that Postfix relies on to verify users against the LDAP directory.
 
-```ldif
+## 1. Directory Prerequisites (OpenLDAP)
+
+Before configuring the mail server, ensure your LDAP directory contains users populated with the required `inetOrgPerson` and `posixAccount` object classes.
+
+An example LDIF structure for a valid mail user:
+
+```LDIF
 dn: uid=username,ou=ou,dc=example,dc=net
 objectClass: inetOrgPerson
 objectClass: shadowAccount
@@ -24,135 +31,174 @@ gidNumber: 11001
 mail: username@example.net
 homeDirectory: /home/username
 loginShell: /bin/bash
-userPassword: $(slappasswd -s 'YourPassword')
+userPassword: {SSHA}YourHashedPasswordHere # slappswd -s >> <file>.ldif
 ```
 
-## Postfix
+## 2. Postfix Installation and LDAP Maps
 
-Install following packages:
+Install the Postfix MTA and the LDAP extension module required to query the directory.
 
-- postfix
-- postfix-ldap
+```Bash
+# Install Postfix and the LDAP lookup module
+apt install postfix postfix-ldap
 
-### LDAP lookups
-
-You have to create 3 files for setup which will do LDAP queries
-The basic part will be used in every part:
+# Create the directory to house the LDAP query maps
+mkdir -p /etc/postfix/ldap
 ```
-version = 3
+
+### 2.1 Postfix LDAP Query Maps
+
+Postfix requires three separate lookup files to determine the virtual mailbox path, the User ID (UID), and the Group ID (GID) based on the recipient's email address or LDAP username.
+
+**Virtual Mailbox Map (`/etc/postfix/ldap/vbox`):**
+
+```Ini, TOML
 server_host = ldap://ldap.example.net
-
+version = 3
 ldap_search = dc=example,dc=net
 ldap_scope = sub
-
 query_filter = (|(mail=%s)(uid=%s))
-```
-
-`/etc/postfix/ldap/vbox`
-
-```
 result_attribute = uid
 result_format = /mailboxes/%s/
 ```
 
-`/etc/postfix/ldap/vuid`
+**Virtual UID Map (`/etc/postfix/ldap/vuid`):**
 
-```
+```Ini, TOML
+server_host = ldap://ldap.example.net
+version = 3
+ldap_search = dc=example,dc=net
+ldap_scope = sub
+query_filter = (|(mail=%s)(uid=%s))
 result_attribute = uidNumber
 ```
 
-`/etc/postfix/ldap/vgid`
+**Virtual GID Map (`/etc/postfix/ldap/vgid`):**
 
-```
+```Ini, TOML
+server_host = ldap://ldap.example.net
+version = 3
+ldap_search = dc=example,dc=net
+ldap_scope = sub
+query_filter = (|(mail=%s)(uid=%s))
 result_attribute = gidNumber
 ```
 
-### /etc/postfix/master.cf
+**Command Breakdown & Explanation:**
 
-Uncomment the following lines
+- `query_filter`: Instructs Postfix to search the LDAP directory matching either the exact `mail` attribute or the `uid` attribute against the incoming address.
+- `result_format`: Appends the returned `uid` into a directory path structure (e.g., `/mailboxes/username/`).
 
+## 3. Postfix Core Configuration
+
+Configure Postfix to utilize the LDAP maps, enable SASL authentication through Dovecot, and enforce TLS.
+
+### 3.1 Enable Secure SMTP (Submissions)
+
+Edit `/etc/postfix/master.cf` to enable port 465 (submissions) for encrypted client mail submission. Uncomment and modify the following lines:
+
+```Plaintext
+submissions inet  n       -       y       -       -       smtpd
+  -o syslog_name=postfix/submissions
+  -o smtpd_tls_wrappermode=yes
+  -o smtpd_sasl_auth_enable=yes
+  -o smtpd_recipient_restrictions=permit_sasl_authenticated,reject
 ```
-submissions inet    n   -   y   -   -   smtpd
- # ...
-    -o smtpd_tls_wrappermode=yes
-    -o smtpd_sasl_auth_enable=yes
- # ...
-```
 
-### /etc/postfix/main.cf
+### 3.2 Main Postfix Parameters
 
-```
-mydomain=unitel.com
+Append or modify the following configurations in `/etc/postfix/main.cf`:
 
-# Add certificate and key into the configuration
-smtpd_tls_{key/cert}_file = /path/to/your/files
-
+```Ini, TOML
+mydomain = example.net
 mydestination = localhost
 
+# TLS Configuration
+smtpd_tls_cert_file = /ca/server.crt
+smtpd_tls_key_file = /ca/server.key
+smtpd_use_tls = yes
+
+# SASL Authentication (via Dovecot)
 smtpd_sasl_type = dovecot
 smtpd_sasl_path = private/auth
 smtpd_sasl_auth_enable = yes
 
+# Virtual Mailbox Parameters
 virtual_mailbox_base = /
 virtual_mailbox_domains = example.net
-
 virtual_mailbox_maps = ldap:/etc/postfix/ldap/vbox
 virtual_uid_maps = ldap:/etc/postfix/ldap/vuid
 virtual_gid_maps = ldap:/etc/postfix/ldap/vgid
 
+# Logging
 maillog_file = /var/log/postfix.log
 ```
 
-## Dovecot
+## 4. Dovecot Installation and Core Configuration
 
-Install following packages:
+Dovecot will manage IMAP access for clients, handle local Maildir storage, and provide the authentication mechanism for Postfix.
 
-- dovecot-imapd
-- dovecot-core
-- dovecot-ldap
-
-Dovecot will be seperated under `/etc/dovecot/conf.d/` directory
-Edit the following files
-
-`10-auth.conf`
-
+```Bash
+# Install Dovecot core, IMAP daemon, and LDAP module
+apt install dovecot-core dovecot-imapd dovecot-ldap
 ```
-auth_allow_cleartext = no # Require SSL
+
+### 4.1 Authentication Settings (/etc/dovecot/conf.d/10-auth.conf)
+
+Disable cleartext authentication over unencrypted connections and enable the LDAP backend.
+
+```Ini, TOML
+auth_allow_cleartext = no
 auth_mechanisms = plain login
 
 #!include auth-system.conf.ext
 !include auth-ldap.conf.ext
 ```
 
-`10-mail.conf`
+### 4.2 Mail Storage Settings (/etc/dovecot/conf.d/10-mail.conf)
 
-```
-# Uncomment lines where mail attributes are and add the following lines
+Define the storage driver and the physical path to the user mailboxes.
 
+```Ini, TOML
 mail_driver = maildir
 mail_path = /mailboxes/%{user}
 ```
 
-`10-master.conf`
+### 4.3 Service Socket Settings (/etc/dovecot/conf.d/10-master.conf)
 
-```
-# Uncomment imaps ports (or pop3s ports if you plan to deploy that that).
+Create the UNIX socket that Postfix will use to communicate with Dovecot for SASL authentication.
+
+```Ini, TOML
 service auth {
     unix_listener /var/spool/postfix/private/auth {
-        user=postfix
-        group=postfix
-        mode=0666
+        user = postfix
+        group = postfix
+        mode = 0666
     }
 }
 ```
 
-Adjust certificates in this file `10-ssl.conf` to the path or yours.
+### 4.4 SSL and Auto-Subscribe Settings
 
-Place `auto = subscribe` into every mailbox attribute in `15-mailboxes.conf`
+In `/etc/dovecot/conf.d/10-ssl.conf`, set the paths to your certificates:
 
-`auth-ldap.conf.ext`
-
+```Ini, TOML
+ssl = required
+ssl_cert = </ca/server.crt
+ssl_key = </ca/server.key
 ```
+
+In `/etc/dovecot/conf.d/15-mailboxes.conf`, ensure standard folders are automatically created and subscribed for new users by adding `auto = subscribe` to the `mailbox` blocks (e.g., Drafts, Junk, Trash, Sent).
+
+## 5. Dovecot LDAP Integration
+
+Define how Dovecot connects to the LDAP directory to verify passwords and retrieve user metadata.
+
+### 5.1 LDAP Authentication Config (/etc/dovecot/conf.d/auth-ldap.conf.ext)
+
+Overwrite the file with the following parameters:
+
+```Ini, TOML
 ldap_uris = ldap://ldap.example.net
 ldap_auth_dn = cn=admin,dc=example,dc=net
 ldap_auth_dn_password = Skill39$$
@@ -164,11 +210,11 @@ passdb ldap {
     ldap_bind = yes
     default_password_scheme = SSHA
     fields {
-        user=%{ldap:uid}
-        mail_uid=%{ldap:uid}
-        userdb_home=%{ldap:homeDirectory}
-        userdb_uid=%{ldap:uidNumber}
-        userdb_gid=%{ldap:gidNumber}
+        user = %{ldap:uid}
+        mail_uid = %{ldap:uid}
+        userdb_home = %{ldap:homeDirectory}
+        userdb_uid = %{ldap:uidNumber}
+        userdb_gid = %{ldap:gidNumber}
     }
 }
 
@@ -176,5 +222,41 @@ userdb ldap {
     ldap_filter = (&(objectClass=posixAccount)(uid=%{user}))
 }
 ```
+
+**Command Breakdown & Explanation:**
+
+- `ldap_bind = yes`: Forces Dovecot to attempt an actual LDAP bind using the credentials provided by the user, rather than just comparing password hashes locally.
+- `passdb`: Defines how Dovecot verifies passwords.
+- `userdb`: Defines how Dovecot retrieves user information (like home directories and UIDs).
+
+## 6. Service Activation and Verification
+
+Restart both services to apply the new configurations and create the root mailboxes directory.
+
+```Bash
+# Create the root mailboxes directory and set base permissions
+mkdir -p /mailboxes
+chmod 777 /mailboxes
+
+# Restart Postfix and Dovecot
+systemctl restart postfix dovecot
+```
+
+### 6.1 Verify Listening Ports
+
+**Command:** `ss -tulnp | grep -E 'master|dovecot'`
+
+**What it checks:**
+
+- **Postfix**: Must be listening on `*:25` (SMTP) and `*:465` (Submissions).
+- **Dovecot**: Must be listening on `*:143` (IMAP) and `*:993` (IMAPS).
+
+### 6.2 Verify LDAP Map Parsing (Postfix)
+
+**Command:** `postmap -q "username@example.net" ldap:/etc/postfix/ldap/vbox`
+
+**What it checks:**
+
+- **Output**: Must query your LDAP server and return the formatted mailbox path (e.g., `/mailboxes/username/`). If it returns nothing, check the LDAP credentials and filter in the `.cf` file.
 
 <!-- Created by: Gergő Téringer, 2026 -->

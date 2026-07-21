@@ -57,10 +57,9 @@
 
 ## Mailing
 
-- [Email basic authentication](mail/basic-auth.md)
+- [Email basic authentication with LMTP](mail/basic-auth.md)
 - [Email-LDAP authentication](mail/ldap.md)
-- [Email-LMTP](mail/lmtp.md)
-- [Email security records](mail/security.md)
+- [Email security records](dns/email-security.md)
 - [Postfix echo](mail/postfix-echo.md)
 - [Roundcube webmail](mail/roundcube.md)
 
