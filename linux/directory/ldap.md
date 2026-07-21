@@ -6,13 +6,13 @@ author: "Gergő Téringer"
  -->
 # OpenLDAP
 
-## Information
+## 1. Information
 
 Good OpenLDAP reference can be found at [https://ldap.com/ldap-oid-reference-guide/](https://ldap.com/ldap-oid-reference-guide/).
 
 This guide will use `lego.dk` as its base domain, so `dc=lego,dc=dk` in LDAP.
 
-## Installation
+## 2. Installation
 
 Install the required packages.
 
@@ -26,9 +26,9 @@ Reconfigure the package to set the base domain.
 dpkg-reconfigure slapd
 ```
 
-## Basic operations
+## 3. Basic operations
 
-### Commands
+### 3.1 Commands
 
 You can use a few commands to interact with the LDAP database:
 
@@ -38,7 +38,7 @@ You can use a few commands to interact with the LDAP database:
 - `ldapdelete`: **delete existing objects**
 - `ldappasswd`: **set password** for user objects
 
-## Basic bindings
+## 4. Basic bindings
 
 When you need to authenticate to use a command, you make a binding to the LDAP database. There are two base directories you will usually access:
 
@@ -64,7 +64,7 @@ To access the **configuration database**, you need the **root user**, so you nee
 - `-Z[Z]` tries to start connection with **StartTLS** (`-ZZ` requires this to be successful)
 - `-L[L[L]]` more `L`-s prints less unneeded information, e.g. comments (this applies only to `ldapsearch`)
 
-## Modifying entries
+## 5. Modifying entries
 
 Adding or removing objects is quite trivial, but modifying them has a few options, as you can **add**, **remove** or **modify** **parameters** of an LDAP object.
 
@@ -72,7 +72,7 @@ To do so, you can specify all modifications in an LDIF file. You must specify th
 
 An example:
 
-```python
+```ldif
 dn: uid=john,ou=Users,dc=lego,dc=dk
 changetype: modify
 replace: description
@@ -92,7 +92,7 @@ To change the DN of an existing object, use the `changetype: modrdn` property.
 
 This will change the Relative Distinguished Name of the object, which is the value that makes the entry unique on its level, `cn=hello` in this case.
 
-```python
+```ldif
 dn: cn=hello,ou=world,dc=hello,dc=world
 changetype: modrdn
 newrdn: cn=helloworld
@@ -104,7 +104,7 @@ deleteoldrdn: 1
 
 To the upper levels too, pass the `newsuperior` option.
 
-```python
+```ldif
 dn: cn=hello,ou=world,dc=hello,dc=world
 changetype: modrdn
 newrdn: cn=helloworld
@@ -115,7 +115,7 @@ newsuperior: ou=Hello,dc=hello,dc=dk
 # After: cn=helloworld,ou=Hello,dc=hello,dc=world
 ```
 
-## Populate with data
+## 6. Populate with data
 
 Example directory tree:
 
@@ -128,7 +128,7 @@ Example directory tree:
 
 The following **LDIF** would be used:
 
-```python
+```ldif
 # Users OU
 dn: ou=Users,dc=lego,dc=dk
 objectClass: organizationalUnit
@@ -197,7 +197,7 @@ loginShell: /bin/bash
 homeDirectory: /home/magnus
 ```
 
-### Setting passwords
+### 6.1 Setting passwords
 
 After creating users, you can set their password by running:
 
@@ -218,7 +218,7 @@ slappasswd -s Passw0rd
 
 You can insert this into the `userPassword` property when creating the user to set the password upon creation.
 
-## TLS
+## 7. TLS
 
 LDAP can use TLS to make its connections secure. To use TLS, you need certificates. You can generate certificates using [this guide](/cert/openssl). (Make sure to include `extendedKeyUsage = serverAuth`.)
 
@@ -276,7 +276,7 @@ Test LDAPS:
 ldapwhoami -x -H ldaps://ldap1.lego.dk
 ```
 
-## Disable anonymous search
+## 8. Disable anonymous search
 
 `anon.ldif`
 
@@ -303,8 +303,73 @@ The following command has to give error:
 ldapsearch -b "dc=domain,dc=com" -H <ldap_host> -x
 ```
 
-## Replication
+## 9. Replication
 
-### ToDo
+### 9.1 Enable syncprov module
+
+```ldif
+dn: cn=module,dc=config
+objectClass: olcModuleList
+cn: module
+olcModulePath: /usr/lib/ldap
+olcModuleLoad: syncprov.la
+```
+
+```bash
+ldapadd -Y EXTERNAL -H ldapi:/// -f <file>.ldif
+```
+
+### 9.2 Configure syncprov
+
+```ldif
+dn: olcOverlay=syncprov,olcDatabase={1}mdb,cn=config
+objectClass: olcOverlayConfig
+objectClass: olcSncProvConfig
+olcOverlay: syncprov
+olcSpSessionLog: 100
+```
+
+```bash
+ldapadd -Y EXTERNAL -H ldapi:/// -f <file>.ldif
+```
+
+### 9.3 Configure nodes
+
+```ldif
+dn: cn=config
+changeType: modify
+replace: olcServerID
+# Has to be unique on each server
+olcServerID: 101
+
+dn: olcDatabase={1}mdb,cn=config
+changetype: modify
+add: olcSyncRepl
+olcSyncRepl: rid=001
+  # Other LDAP  host
+  provider = ldaps://srv2.contoso.com
+  bindmethod=simple
+  binddn="cn=admin,dc=contoso,dc=com"
+  credentials=Passw0rd!
+  searchbase="dc=contoso,dc=com"
+  scope=sub
+  schemachecking=on
+  type=refreshAndPersist
+  retry="30 5 300 3"
+  interval=00:00:05:00
+-
+add: olcMirrorMode
+olcMirrorMode: TRUE
+
+dn: olcOverlay=syncprov,olcDatabase={1}mdb,cn=config 
+changeType: add
+objectClass: olcOverlayConfig
+objectClass: olcSyncProvConfig
+olcOverlay: syncprov
+```
+
+```bash
+ldapadd -Y EXTERNAL -H ldapi:/// -f <file>.ldif
+```
 
 <!-- Created by: Gergő Téringer, 2026 -->
