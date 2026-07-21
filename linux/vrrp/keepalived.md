@@ -97,6 +97,9 @@ vrrp_instance VI_1 {
     track_script {
         chk_haproxy
     }
+    track_interface {
+        ens33
+    }
 }
 
 vrrp_instance VI_2 {
@@ -118,6 +121,9 @@ vrrp_instance VI_2 {
     }
     track_script {
         chk_haproxy
+    }
+    track_interface {
+        ens33
     }
 }
 ```
