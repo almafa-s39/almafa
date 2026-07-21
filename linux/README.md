@@ -23,8 +23,7 @@
 
 ## Directory services
 
-- [CIFS mount](directory/cifs-mount.md)
-- [LDAP Client mount](directory/ldap-share-mount.md)
+- [LDAP Login, and share automount](directory/ldap-share-mount.md)
 - [LDAP multi master](directory/multi-master.md)
 - [Local user restriction](directory/local-user-restriction.md)
 - [OpenLDAP](directory/ldap.md)
