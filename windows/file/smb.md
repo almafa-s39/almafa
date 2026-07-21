@@ -3,7 +3,7 @@
 title: "SMB"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # SMB
 
 This document provides administrative procedures for configuring global Server Message Block (SMB) server settings and managing individual network file shares. The commands and configurations described target modern Windows environments, such as Windows 11 and Windows Server 2025, ensuring transport-level security, high performance, and role-based access control.

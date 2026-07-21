@@ -3,7 +3,7 @@
 title: "OSPFv2"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # OSPFv2
 
 Open Shortest Path First (OSPF) version 2 is a robust, link-state interior gateway protocol designed for IPv4. Building a comprehensive reference library with these advanced OSPFv2 configurations perfectly aligns with the depth required for an ENARSI-level engineering environment.

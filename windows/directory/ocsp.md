@@ -3,7 +3,7 @@
 title: "OCSP"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # OCSP
 
 The Online Certificate Status Protocol (OCSP) provides a more efficient, real-time alternative to Certificate Revocation Lists (CRLs). Instead of clients downloading an entire list of revoked certificates, they send a lightweight HTTP query to the OCSP responder for the status of a specific certificate. The responder replies with a cryptographically signed "Good", "Revoked", or "Unknown" status.

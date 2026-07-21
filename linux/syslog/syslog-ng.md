@@ -3,7 +3,7 @@
 title: "Syslog-NG"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Syslog-NG
 
 ## Basics

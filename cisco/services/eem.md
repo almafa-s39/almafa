@@ -3,7 +3,7 @@
 title: "Cisco EEM"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Cisco EEM
 
 Cisco Embedded Event Manager (EEM) is a powerful on-device automation tool. It allows network engineers to write scripts (applets) that monitor the router for specific events, such as syslog messages, interface counters, or timers, and automatically trigger a sequence of CLI commands or actions in response.

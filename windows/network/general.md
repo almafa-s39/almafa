@@ -3,7 +3,7 @@
 title: "Windows Initial Configuration Guide"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Windows Initial Configuration Guide
 
 This guide outlines the standard operating procedures for initial Windows Server/Client configuration, split into local computer settings and Active Directory Group Policy Objects (GPOs).

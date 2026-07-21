@@ -3,7 +3,7 @@
 title: "Windows Remote Event Viewer"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Windows Remote Event Viewer
 
 Enable the following Net Firewall Rule, to check the event log of another computer.

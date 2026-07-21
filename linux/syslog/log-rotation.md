@@ -3,7 +3,7 @@
 title: "Log rotation and archive"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Log rotation and archive
 
 ## Log rotation

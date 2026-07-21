@@ -3,7 +3,7 @@
 title: "Applocker"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Applocker
 
 AppLocker is an application whitelisting technology that restricts which programs users can execute based on the path, publisher, or file hash.

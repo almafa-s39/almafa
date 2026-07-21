@@ -3,7 +3,7 @@
 title: "OpenSSL revocation, AIA"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # OpenSSL revocation, AIA
 
 ## Pre configurations

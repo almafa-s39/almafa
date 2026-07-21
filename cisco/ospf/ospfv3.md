@@ -3,7 +3,7 @@
 title: "OSPFv3"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # OSPFv3
 
 Open Shortest Path First version 3 (OSPFv3) is the updated iteration of the protocol designed specifically for IPv6. While it operates on the same fundamental Dijkstra SPF algorithm as OSPFv2, OSPFv3 decouples routing from the interface's global subnet and relies entirely on IPv6 link-local addresses for neighbor communication and next-hop forwarding.

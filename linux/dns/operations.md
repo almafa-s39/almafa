@@ -3,7 +3,7 @@
 title: "Bind9 useful commands"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Bind9 useful commands
 
 ## Zone update

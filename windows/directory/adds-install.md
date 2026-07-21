@@ -3,7 +3,7 @@
 title: "Active Directory Domain Services (AD DS) Installation & Promotion"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Active Directory Domain Services (AD DS) Installation & Promotion
 
 ## Prerequisites

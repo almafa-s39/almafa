@@ -3,7 +3,7 @@
 title: "PPPoE"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # PPPoE
 
 Point-to-Point Protocol over Ethernet (PPPoE) is widely used by Internet Service Providers (ISPs) to deliver authenticated and trackable internet access to end-users over standard Ethernet connections. It combines the session management and authentication features of PPP with the broadcast topology of Ethernet. The configuration requires setting up a Server (usually the ISP router) and a Client (the customer premises router).

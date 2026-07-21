@@ -3,7 +3,7 @@
 title: "DNS"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # DNS
 
 This document provides administrative guidance for configuring Domain Name System (DNS) services on Windows Server 2025 and Windows 11 enterprise environments. It covers zone management, zone types, DNS record creation, standard forwarders, and conditional forwarders using both PowerShell cmdlets and Graphical User Interface (GUI) methods.

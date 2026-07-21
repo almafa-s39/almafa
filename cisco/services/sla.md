@@ -3,7 +3,7 @@
 title: "SLAs and Tracking for FHRP"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # SLAs and Tracking for FHRP
 
 First-Hop Redundancy Protocols (FHRPs) natively monitor the state of the local interface they are configured on. However, if an upstream WAN link fails while the local LAN interface remains up, the router will continue acting as the active gateway, dropping all client traffic into a black hole.

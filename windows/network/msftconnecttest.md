@@ -3,7 +3,7 @@
 title: "MSFT Connect Test"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # MSFT Connect Test
 
 The Network Connectivity Status Indicator (NCSI) is a Windows component that determines whether a computer has internet or intranet connectivity. In isolated or air-gapped environments, Windows may falsely report "No Internet Access" (often displaying a globe icon on the taskbar), which can cause native services like Microsoft Office, Windows Update, and Outlook to time out or malfunction.

@@ -1,10 +1,9 @@
 <!-- 
 ---
-title: "NIC-teaming"
+title: "NIC teaming"
 author: "Gergő Téringer"
 ---
--->
-
+ -->
 # NIC teaming
 
 This document details administrative procedures for configuring network interface redundancy and bandwidth aggregation on Windows Server 2025 and modern Windows environments. It covers traditional software Network Interface Card (NIC) Teaming (LBFO) as well as modern Hyper-V Switch Embedded Teaming (SET) using both PowerShell cmdlets and Graphical User Interface (GUI) workflows.

@@ -3,7 +3,7 @@
 title: "Disk management, RAID"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Disk management, RAID
 
 Disk Management and Software RAID Configuration Guide

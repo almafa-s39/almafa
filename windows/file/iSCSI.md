@@ -1,10 +1,9 @@
 <!-- 
 ---
-title: "iSCSI"
+title: "Windows iSCSI"
 author: "Gergő Téringer"
 ---
--->
-
+ -->
 # Windows iSCSI
 
 This document provides administrative procedures for provisioning iSCSI Target storage, establishing iSCSI Initiator connections, configuring Windows Firewall policies, and ensuring persistent connections across system reboots on Windows Server 2025 and Windows 11.

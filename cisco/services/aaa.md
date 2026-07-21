@@ -3,7 +3,7 @@
 title: "AAA"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # AAA
 
 Authentication, Authorization, and Accounting (AAA) provides a highly scalable framework for securing device access. In an enterprise environment, relying on local usernames is difficult to manage. Integrating AAA with remote RADIUS or TACACS+ servers ensures centralized credential management and auditing.

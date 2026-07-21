@@ -3,7 +3,7 @@
 title: "NLB"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # NLB
 
 This document provides administrative procedures for deploying, managing, and troubleshooting Windows Network Load Balancing (NLB) clusters on Windows Server 2025 and modern Windows environments. It covers cluster operational modes, port rules, node management, and step-by-step procedures using both PowerShell cmdlets and Graphical User Interface (GUI) management consoles.

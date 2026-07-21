@@ -3,7 +3,7 @@
 title: "Port-securty & edge protection"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Port-securty & edge protection
 
 Port security and edge protection features are critical for securing the access layer of a network. They prevent unauthorized devices from connecting, mitigate MAC flooding attacks, and protect the Spanning Tree Protocol (STP) topology from rogue switches.

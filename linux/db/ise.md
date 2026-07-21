@@ -3,17 +3,17 @@
 title: "Setup for Freeradius"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Setup for Freeradius
 
-## Install packages and initialize mariadb
+## 1. Install packages and initialize mariadb
 
 ```shell
 apt install mariadb-server freeradius-mysql
 mariadb-secure-install
 ```
 
-## Create database and insert default Radius scheme into it
+## 2. Create database and insert default Radius scheme into it
 
 > [!NOTE]
 > You will need this because
@@ -31,7 +31,7 @@ exit;
 mysql -u root -p radius < /etc/freeradius/3.0/mods-config/sql/main/mysql/schema.sql
 ```
 
-## Create database with only username and IP address
+## 3. Create database with only username and IP address
 
 Enter mysql shell
 
@@ -58,6 +58,13 @@ INSERT INTO users VALUES ('health', '255.255.255.255'); # Unusable ip for health
 GRANT ALL ON radius.* TO 'radius'@'10.10.20.%' IDENTIFIED BY 'Passw0rd!";
 FLUSH PRIVILEGES:
 exit;
+```
+
+## 4. Verification
+
+```sql
+USE radius;
+SELECT * FROM users;
 ```
 
 <!-- Created by: Gergő Téringer, 2026 -->

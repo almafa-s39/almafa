@@ -3,7 +3,7 @@
 title: "DNSSEC"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # DNSSEC
 
 Domain Name System Security Extensions (DNSSEC) adds cryptographic signatures to existing DNS records. These signatures ensure that the DNS information hasn't been tampered with and originated from the authorized domain owner. Implementing DNSSEC properly prevents cache poisoning and man-in-the-middle attacks. This guide outlines the setup for a multi-tier DNS infrastructure, ensuring secure name resolution compatible with modern Windows Server 2022 and Server 2025 environments.

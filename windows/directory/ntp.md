@@ -3,7 +3,7 @@
 title: "Network Time Protocol (NTP) Configuration"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Network Time Protocol (NTP) Configuration
 
 Maintaining accurate and synchronized time across a Windows domain is critical. Active Directory relies on the Kerberos authentication protocol, which strictly requires the clocks of all communicating machines to be within 5 minutes of each other. If time drifts beyond this threshold, authentication fails, and users lose access to domain resources.

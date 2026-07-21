@@ -3,7 +3,7 @@
 title: "PowerShell AD Import and User Creation Management"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # PowerShell AD Import and User Creation Management
 
 Automating Active Directory (AD) user and group management is a critical skill for system administrators. The following scripts demonstrate how to rapidly provision test environments using bulk creation loops, as well as how to perform structured imports from a CSV file while dynamically building the necessary Organizational Unit (OU) hierarchy.

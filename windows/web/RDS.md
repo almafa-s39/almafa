@@ -3,7 +3,7 @@
 title: "RDS"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # RDS
 
 Windows Remote Desktop Services (RDS) Installation and Architecture Guide

@@ -3,7 +3,7 @@
 title: "Backup ADDS and IIS"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Backup ADDS and IIS
 
 Automating disaster recovery backups for Active Directory Domain Services (AD DS) components and web infrastructure ensures rapid recovery during server failures. This script consolidates Active Directory user exports, Group Policy Object (GPO) backups, and Internet Information Services (IIS) web root directory archives into a unified pipeline, offloading the final output to a secondary storage target (e.g., an iSCSI drive) and reporting success or failure via SMTP.

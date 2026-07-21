@@ -3,7 +3,7 @@
 title: "DFS"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # DFS
 
 This document details administrative procedures for deploying Active Directory-integrated Distributed File System Namespaces (DFS-N) and DFS Replication (DFS-R) on Windows Server 2025 and Windows 11 environments. It provides implementation steps using both PowerShell cmdlets and Graphical User Interface (GUI) management consoles.

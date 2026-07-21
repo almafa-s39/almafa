@@ -3,7 +3,7 @@
 title: "Time"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Time
 
 Maintaining accurate and synchronized time across a network infrastructure is critical. Without proper time synchronization, syslog timestamps become unreliable for troubleshooting, cryptographic certificates may fail validation, and time-based access control lists (ACLs) will not trigger correctly.

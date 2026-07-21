@@ -3,10 +3,10 @@
 title: "Keepalived (FHRP)"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Keepalived (FHRP)
 
-## Install the service using apt.
+## Install the service using apt
 
 ```bash
 apt install keepalived

@@ -3,7 +3,7 @@
 title: "SNMP"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # SNMP
 
 Simple Network Management Protocol (SNMP) is essential for monitoring network performance, hardware health, and interface statistics. The following documentation covers configurations for SNMPv1, SNMPv2c, and SNMPv3, alongside best practices like access control and trap generation.

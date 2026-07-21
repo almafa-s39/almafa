@@ -3,7 +3,7 @@
 title: "mdadm"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # mdadm
 
 ## Create raid device

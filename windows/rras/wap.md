@@ -3,7 +3,7 @@
 title: "WAP"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # WAP
 
 Web Application Proxy (WAP) operates as a reverse proxy and Active Directory Federation Services (AD FS) proxy. It allows you to securely publish internal web applications to external users while enforcing pre-authentication via AD FS.

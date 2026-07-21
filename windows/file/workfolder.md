@@ -3,7 +3,7 @@
 title: "Windows Server Work Folders Configuration"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Windows Server Work Folders Configuration
 
 This document provides administrative procedures for deploying and configuring Microsoft Work Folders on Windows Server 2025 and modern Windows environments. Work Folders allows information workers to synchronize work files across personal and corporate devices while maintaining administrative control over data encryption and security policies.

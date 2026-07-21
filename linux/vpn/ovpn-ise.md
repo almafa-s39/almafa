@@ -3,7 +3,7 @@
 title: "OpenVPN LowBudget ISE (MySQL)"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # OpenVPN LowBudget ISE (MySQL)
 
 In this configuration OpenVPN checks the revocation of the clients certificate and uses the CN field as the username. It passes the username to the RADIUS server, which gives back Framed-IP-Address as the ip address of the client.

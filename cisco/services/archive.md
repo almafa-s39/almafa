@@ -3,7 +3,7 @@
 title: "Cisco Archive"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Cisco Archive
 
 The Cisco IOS archive feature provides a built-in version control system for device configurations. It allows administrators to automatically save backups of the running configuration locally or remotely, ensuring that previous working states can be easily restored, downloaded, or compared against current setups.

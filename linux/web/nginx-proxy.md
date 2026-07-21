@@ -3,7 +3,7 @@
 title: "Nginx as proxy (Free version)"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Nginx as proxy (Free version)
 
 ## Install packages

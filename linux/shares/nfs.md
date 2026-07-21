@@ -3,7 +3,7 @@
 title: "NFS"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # NFS
 
 ## nfs-kernel-serevr

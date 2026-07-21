@@ -3,24 +3,24 @@
 title: "ISC-DHCP-SERVER"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # ISC-DHCP-SERVER
 
 > [!NOTE]
 > This package is deprecated, so it is recommend to use KEA-DHCP4-SERVER, because it is the one that being developed. (If you don't want to use advanced features it works well)
 > This configuration will include DDNS as well, but you just leave those lines out if you want to make it without DDNS.
 
-## Install packages
+## 1. Install packages
 
 ```bash
 apt install isc-dhcp-server
 ```
 
-## Create listen
+## 2. Create listen
 
 Edit `/etc/default/isc-dhcp-server` configuration file, and add the interfaces to listen on.
 
-## Create DDNS key
+## 3. Create DDNS key
 
 Create a tsig key, for updating your zone (included in bind9 package):
 
@@ -28,7 +28,7 @@ Create a tsig key, for updating your zone (included in bind9 package):
 tsig-keygen "ddns" > /etc/dhcp/ddns.key
 ```
 
-## Configure the service
+## 4. Configure the service
 
 Enter `/etc/dhcp/dhcpd.conf` and edit the following lines:
 
@@ -53,7 +53,7 @@ subnet 10.10.10.0 mask 255.255.255.0 {
 }
 ```
 
-## Failover peering
+## 5. Failover peering
 
 Create a new tsig-key to make it secure
 

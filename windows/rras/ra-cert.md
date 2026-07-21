@@ -3,7 +3,7 @@
 title: "RRAS Server - RAVPN (Certificate)"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # RRAS Server - RAVPN (Certificate)
 
 Remote access VPN server with RRAS Server and Strongswan Client with Certificate authentication

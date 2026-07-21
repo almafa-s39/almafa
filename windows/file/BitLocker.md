@@ -3,7 +3,7 @@
 title: "Bitlocker"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Bitlocker
 
 BitLocker Drive Encryption is a native data protection feature in Windows 11 and Windows Server 2022/2025 that integrates with a Trusted Platform Module (TPM 2.0) to safeguard operating system volumes, fixed data drives, and removable drives against unauthorized offline data access. This guide details enabling BitLocker on the system drive and configuring automatic unlocking for secondary data drives.

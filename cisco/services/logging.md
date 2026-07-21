@@ -3,7 +3,7 @@
 title: "Logging"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Logging
 
 System logging is a fundamental component of network monitoring, troubleshooting, and security auditing. A properly configured logging mechanism ensures that critical events are captured locally and forwarded reliably to a centralized log management server.

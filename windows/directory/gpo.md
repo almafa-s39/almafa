@@ -3,7 +3,7 @@
 title: "Group Policy Objects (GPO) Reference"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # Group Policy Objects (GPO) Reference
 
 Group Policy Objects (GPOs) allow administrators to centrally manage and enforce configurations across a Windows Active Directory environment. This reference guide is divided into Computer Configuration (applied to machine objects regardless of who logs in) and User Configuration (applied to user objects regardless of which machine they use).
