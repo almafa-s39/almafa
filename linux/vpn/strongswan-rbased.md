@@ -71,13 +71,23 @@ The content of `/script/udpown.sh`:
 
 ```bash
 #!/bin/bash
-
+# Default S2S VPN
 if [ $PLUTO_VERB == 'up-host' ]; then
     ip route add 10.10.20.0/24 dev ipsec0 via 10.255.255.2
 fi
 
+
 if [ $PLUTO_VERB == 'down-host' ]; then
     ip route del 10.10.20.0/24 dev ipsec0 via 10.255.255.2
+fi
+
+# If needed for DIALER
+if [ $PLUTO_VERB == 'up-client' ]; then
+   # ...
+fi
+
+if [ $PLUTO_VERB == 'down-client' ]; then
+   # ...
 fi
 ```
 
