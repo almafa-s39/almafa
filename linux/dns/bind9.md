@@ -1,24 +1,33 @@
-<!-- 
----
-title: "Bind9"
-author: "Gergő Téringer"
----
- -->
-# Bind9
+# Bind9 DNS Server Configuration
 
-## Packages
+This guide details the installation and configuration of the Bind9 DNS server on Debian 13 Trixie. It covers primary, secondary, and forwarding configurations, along with essential DNS record types and AppArmor permissions.
 
-```shell
+> [!NOTE]
+> Ensure that your server has a static IP address configured before setting up Bind9. Modern OS environments (like Windows 11 or Windows Server 2025) aggressively cache DNS and will fail to resolve hostnames consistently if the core DNS server IP changes dynamically.
+
+## 1. Packages
+
+Install the core Bind9 daemon, essential utilities for management and troubleshooting, and the documentation package for offline reference.
+
+```Bash
+# Install the Bind9 packages
 apt install bind9 bind9-utils bind9-doc
+systemctl enable bind9 --now
 ```
 
-## Options
+**Command Breakdown & Explanation:**
 
-### Default options to include
+- `apt install bind9 bind9-utils bind9-doc`: Installs the Bind9 server, useful tools like `rndc` or `dig` (via utils), and local documentation.
+- `systemctl enable bind9 --now`: Enables the service to start on boot and starts it immediately.
 
-These options are mandatory on a competition to work from the least effort, and these were default options in Bookworm, but in Trixie, the're not even in the `/etc/bind/named.conf.options` file so you have to add them.
+## 2. Configuration Options
 
-```bash
+### 2.1 Default options to include
+
+These default options are mandatory for competition environments to ensure proper operation with minimal effort. In Debian 13 Trixie, these are no longer included by default in the `/etc/bind/named.conf.options` file and must be added manually.
+
+```Bash
+# /etc/bind/named.conf.options
 options {
     # Enable recursion and allow it to acl.
     recursion yes;
@@ -27,16 +36,27 @@ options {
     
     dnssec-validation no;
 
-    forwarderse {
+    forwarders {
         1.1.1.1;
         8.8.8.8;
     };
 };
 ```
 
-### Logging
+**Command Breakdown & Explanation:**
 
-```bash
+- `recursion yes;`: Enables recursive queries.
+- `allow-recursion { any; };`: Defines which clients can make recursive queries.
+- `allow-query-cache { any; };`: Allows clients to query the server's cache.
+- `dnssec-validation no;`: Disables DNSSEC validation, which is crucial in closed environments to prevent resolution failures due to missing internet trust anchors.
+- `forwarders`: Forwards unresolved queries to external public DNS servers.
+
+### 2.2 Logging
+
+Configure logging to simplify troubleshooting. This isolates separate channels for query logs and general daemon logs.
+
+```Bash
+# /etc/bind/named.conf.options or included logging file
 logging {
     channel query {
         file "/var/lib/bind/query.log";
@@ -59,19 +79,33 @@ logging {
 };
 ```
 
-## `/etc/bind/named.conf`
+**Command Breakdown & Explanation:**
 
-In the main configuration you just include the other configuration files to use. If you're using views, don't include named.conf.root-hints, or configure views in that file as well! For the configurations for servers I will use `/etc/bind/named.conf.local`, but create a new file and include it in this file if you want to do so!
+- `channel`: Defines a logging destination and its format.
+- `file`: Specifies the absolute path to the log file.
+- `severity`: Sets the verbosity level (`debug` for detailed queries, `info` for general daemon activity).
+- `category`: Maps internal Bind9 log categories to the defined channels.
 
-## Primary server configuration
+## 3. Main Configuration File
 
-> [!NOTE]
-> This configuration will include two  views to show how you can sepereate the lookups by source ip. I will show here how to configure zone transfer and update, but if you use the same configuration for all zones, i would place the configuration in the `/etc/bind/named.conf.options` file in the options directive, and it will apply to all of your zones.
+The main configuration file is `/etc/bind/named.conf`. It is standard practice to include other configuration files from here rather than placing all configurations in a single file.
 
-```bash
-# To generate the following key
+> [!WARNING]
+> If you are using views, do not include `named.conf.root-hints` in the main file, or make sure to configure your views in that file as well! For custom server configurations, it is best to use `/etc/bind/named.conf.local`, or create a new file and include it.
+
+## 4. Primary Server Configuration
+
+This configuration demonstrates how to use views to separate lookups by source IP, configure zone transfers, and allow dynamic updates.
+
+> [!TIP]
+> If you use the exact same configuration for all zones without splitting them by views, place the configuration directly in the `options` directive of `/etc/bind/named.conf.options` to apply it globally.
+
+```Bash
+# To generate the following key, run this in your shell:
 # tsig-keygen "update" > /etc/bind/update.key
-include "/etc/bind/update.key" 
+
+# In your config file (e.g., /etc/bind/named.conf.local)
+include "/etc/bind/update.key";
 
 acl intra { 10.0.0.0/8; };
 acl mydns { 
@@ -88,7 +122,7 @@ view inside {
     match-clients { intra; };
     zone company.com {
         type master;
-        # Use this path if you set up DDNS and /etc/bind/ if you want static files.
+        # Use /var/lib/bind/ for DDNS to avoid AppArmor issues, or /etc/bind/ for static files.
         file "/var/lib/bind/company.com.in"; 
         allow-transfer { "mydns"; };
         also-notify { "mydns"; };
@@ -100,7 +134,6 @@ view outside {
     match-clients { any; };
     zone company.com {
         type master;
-        # Use this path if you set up DDNS and /etc/bind/ if you want static files.
         file "/var/lib/bind/company.com.ex"; 
         allow-transfer { "mydns"; };
         also-notify { "mydns"; };
@@ -108,15 +141,26 @@ view outside {
 };
 ```
 
-## Secondary server configuration
+**Command Breakdown & Explanation:**
 
-```bash
-include "/etc/bind/update.key" 
+- `tsig-keygen`: Generates a secure TSIG key for Dynamic DNS (DDNS) updates.
+- `acl`: Defines an Access Control List to logically group IP addresses.
+- `view`: Isolates DNS responses based on the source IP (`match-clients`).
+- `type master`: Designates this server as the authoritative primary source for the zone.
+- `allow-update`: Permits specific clients (e.g., DHCP servers) to dynamically update DNS records using the provided TSIG key.
+
+## 5. Secondary Server Configuration
+
+The secondary (slave) server continuously synchronizes zone data from the primary server.
+
+```Bash
+# /etc/bind/named.conf.local
+include "/etc/bind/update.key";
 
 acl intra { 10.0.0.0/8; };
 acl mydns { 
     192.168.100.100;
-}
+};
 
 view inside {
     match-clients { intra; };
@@ -137,9 +181,16 @@ view outside {
 };
 ```
 
-## Forwarder server configuration (conditional forwarding)
+**Command Breakdown & Explanation:**
 
-```bash
+- `type slave`: Configures the zone to act as a secondary replica.
+- `masters`: Specifies the IP address of the primary server from which to pull the zone transfers.
+
+## 6. Forwarder Server Configuration (Conditional Forwarding)
+
+Conditional forwarding directs queries for a specific domain to designated external DNS servers rather than attempting recursive resolution.
+
+```Bash
 zone google.com {
     type forward;
     forwarders {
@@ -148,133 +199,156 @@ zone google.com {
 };
 ```
 
-## Reverse zone configuration
+**Command Breakdown & Explanation:**
 
-If you have to configure reverse zones, follow this naming
+- `type forward`: Instructs Bind9 to only forward queries for this specific zone.
+- `forwarders`: The target DNS servers designated to handle the resolution for the specified domain.
 
-```bash
-# for 10.20.30.0/24
+## 7. Reverse Zone Configuration
+
+Reverse zones map IP addresses back to DNS names. Ensure you strictly follow the `.in-addr.arpa` (IPv4) and `.ip6.arpa` (IPv6) naming conventions.
+
+```Bash
+# For IPv4 Subnet: 10.20.30.0/24
 zone 30.20.10.in-addr.arpa {
-    # ...
+    type master;
+    file "/var/lib/bind/db.10.20.30";
 };
 
-# for 2001:db8:1010:1010::/64
+# For IPv6 Subnet: 2001:db8:1010:1010::/64
 zone 0.1.0.1.0.1.0.1.8.b.d.0.1.0.0.2.ip6.arpa {
-    # ...
+    type master;
+    file "/var/lib/bind/db.2001.db8";
 };
 ```
 
-## Records
+**Command Breakdown & Explanation:**
 
-### A
+- `in-addr.arpa`: Standard suffix for IPv4 reverse lookup zones, reversing the first three octets.
+- `ip6.arpa`: Standard suffix for IPv6 reverse lookup zones, reversing every nibble of the prefix.
 
-DNS name to IPv4 mapping.
+## 8. DNS Records
 
-```bash
-<NAME> 	A   <IPv4>
+### 8.1 A Record
+
+Maps a DNS name directly to an IPv4 address.
+
+```Bash
+# Syntax: <NAME>  A   <IPv4>
 www     A   10.10.10.10
 ```
 
-### AAAA
+### 8.2 AAAA Record
 
-DNS name to IPv6 mapping.
+Maps a DNS name directly to an IPv6 address.
 
-```bash
-<NAME> 	AAAA    <IPv6>
+```Bash
+# Syntax: <NAME>  AAAA    <IPv6>
 www     AAAA    2001:db8:1010::1010
 ```
 
-### CNAME
+### 8.3 CNAME Record
 
-DNS name to DNS name mapping. It ends with a dot!!!
+Maps an alias DNS name to a canonical DNS name.
 
-```bash
-<NAME>    CNAME   <TARGET>
+> [!IMPORTANT]
+> The target name **must** end with a trailing dot (`.`)!
+
+```Bash
+# Syntax: <NAME>    CNAME   <TARGET>
 web       CNAME   www.domain.name.
 ```
 
-### NS
+### 8.4 NS Record
 
-You have to configure an A or AAAA record where the NS record points!
+Delegates a DNS zone to an authoritative name server. You must configure a corresponding A or AAAA record for the target NS!
 
-```bash
-<NAME> 			NS <TARGET>
-domain.name	    NS ns1.domain.name.
+```Bash
+# Syntax: <NAME>          NS <TARGET>
+domain.name     NS ns1.domain.name.
 ```
 
-### SOA
+### 8.5 SOA Record
 
-It marks the beginning of a DNS zone and identifies the zone's authoritative properties. REQUIRED for all zones!
+Marks the beginning of a DNS zone and identifies its authoritative properties. This is **REQUIRED** for all zones!
 
-- **MNAME**: Primary nameserver (DDNS server if applicable)
-- **RNAME**: Admin contact email name
-- **Serial**: Zone version (Important for zone transfers)
-- **Refresh**: Delay between checks
-- **Retry**: Delay after failure
-- **Expire**: If the server doesn't get queries by this time (seconds), it will be marked as non authoritative
-- **Minimum**: Negative caching global TTL
+- **MNAME**: Primary nameserver (DDNS server if applicable).
+- **RNAME**: Admin contact email name (with the `@` replaced by a `.`).
+- **Serial**: Zone version (Crucial for triggering zone transfers).
+- **Refresh**: Delay between secondary server synchronization checks.
+- **Retry**: Delay after a failed sync attempt.
+- **Expire**: Time before a secondary marks its data as non-authoritative if unreachable.
+- **Minimum**: Global negative caching TTL (Time-To-Live).
 
-```bash
-@   SOA   <TARGET>.         <EMAIL>.                 ( <SERIAL> <REFRESH> <RETRY> <EXPIRE> <MINUMUM> )
+```Bash
+# Syntax: @   SOA   <TARGET>.         <EMAIL>.                 ( <SERIAL> <REFRESH> <RETRY> <EXPIRE> <MINUMUM> )
 @   SOA   ns1.domain.name.  your\.mail.domain.name.  ( 1 1h 5m 1d 5m )
 ```
 
-### PTR
+### 8.6 PTR Record
 
-Reverse DNS lookup, from IP to DNS. It can only target A or AAAA records!
+Performs a reverse DNS lookup, resolving an IP to a DNS name. The target must point to an A or AAAA record.
 
-```bash
-# Usage
-<REMAINING_ADDRESS>                 PTR  <TARGET>.
+```Bash
+# Usage: <REMAINING_ADDRESS>                PTR  <TARGET>.
 
-# Examples
-# IPv4 - 30.20.10.in-addr.arpa
+# IPv4 Example - for zone 30.20.10.in-addr.arpa
 10                                  PTR  www.domain.name.
 
-# IPv6 - 0.1.0.1.0.1.0.1.8.b.d.0.1.0.0.2.ip6.arpa
+# IPv6 Example - for zone 0.1.0.1.0.1.0.1.8.b.d.0.1.0.0.2.ip6.arpa
 0.0.0.0.0.0.0.0.0.0.0.0.0.1.0.1     PTR  www.domain.name.
 ```
 
-### MX
+### 8.7 MX Record
 
-You have to configure an A or AAAA record where the MX record points!
+Specifies the mail server responsible for accepting emails. You must configure a corresponding A or AAAA record for the target MX!
 
-```bash
-<NAME> 			MX <PRIORITY>   <TARGET>
-domain.name	    MX 10           mail.domain.name
+```Bash
+# Syntax: <NAME>          MX <PRIORITY>   <TARGET>
+domain.name     MX 10           mail.domain.name.
 ```
 
-### SRV
+### 8.8 SRV Record
 
-```bash
-_<service>._<proto>.<NAME>			SRV <PRIORITY> <WEIGHT> <PORT> <TARGET>
-_minecraft._tcp.mc1.domain.name 	SRV 10          0       25565   srv4.domain.name.
+Defines the location (hostname and port) of specific services, primarily used for protocols like Active Directory, SIP, or Minecraft.
+
+```Bash
+# Syntax: _<service>._<proto>.<NAME>          SRV <PRIORITY> <WEIGHT> <PORT> <TARGET>
+_minecraft._tcp.mc1.domain.name     SRV 10          0       25565   srv4.domain.name.
 ```
 
-## Zone file
+## 9. Zone File Management
 
-### Apparmor
+### 9.1 AppArmor Configuration
 
-You can place your Bind configuration files into `/etc/named/` or `/var/lib/bind/`. If you want to place it elsewhere, you will get *permission denied* if it has 777 as well! You have to configur Apparmor, to make the daemon able to read or write from or into that directory and subfiles and folders. Create and edit `/etc/apparmor.d/local/usr.sbin.named`!
+Bind9 is strictly contained by AppArmor on Debian 13 Trixie. If you place configuration or zone files outside of standard directories like `/etc/named/` or `/var/lib/bind/` (e.g., in `/storage/dns/`), Bind9 will generate a *permission denied* error even if directory permissions are `777`.
 
-`/etc/apparmor.d/local/usr.sbin.named`
+You must modify the AppArmor profile to grant the daemon read and write access to custom paths.
 
-```bash
+```Bash
+# Edit or create /etc/apparmor.d/local/usr.sbin.named
+# Add the following directives:
 /storage/dns/ r,
 /storage/dns/** rw,
+
+# Reload the AppArmor profile for the changes to take effect
+apparmor_parser -r /etc/apparmor.d/usr.sbin.named
 ```
 
-After this configuration /it can read the directory `/storage/dns/` and read and write everyting under it.
+**Command Breakdown & Explanation:**
 
-### File setup
+- `/storage/dns/ r,`: Grants read-only access to the top-level directory.
+- `/storage/dns/** rw,`: Grants recursive read and write permissions to all contents within the directory.
+- `apparmor_parser -r`: Reloads the policy to apply the new local overrides immediately.
 
-#### By hand
+### 9.2 File Setup
 
-Create a zone files including SOA and NS record.
+#### 9.2.1 By hand
 
-##### Forward lookup zone - domain.name
+Manually creating zone files including the required SOA and NS records. Ensure you increment the Serial number upon any edits, otherwise secondary servers will ignore the changes.
 
-```bash
+```Bash
+# Forward lookup zone - /var/lib/bind/domain.name.hosts
 $TTL 1d
 $ORIGIN domain.name.
 @   SOA     ns.domain.name. admin.domain.name.  ( 1 12h 5m 1d 5m )
@@ -286,34 +360,73 @@ ns  AAAA    2001:db8:1010:1010::1010
 www CNAME   ns.domain.name.
 ```
 
-##### IPv4 Reverse lookup zone - 30.20.10.in-addr.arpa
-
-```bash
+```Bash
+# IPv4 Reverse lookup zone - /var/lib/bind/30.20.10.in-addr.arpa
 $TTL 1d
-$ORIGIN domain.name.
+$ORIGIN 30.20.10.in-addr.arpa.
 @   SOA     ns.domain.name. admin.domain.name.  ( 1 12h 5m 1d 5m )
 @   NS      ns.domain.name.
 
 10  PTR     ns.domain.name.
 ```
 
-##### IPv6 Reverse lookup zone - 0.1.0.1.0.1.0.1.8.b.d.0.1.0.0.2.ip6.arpa
+```Bash
 
-```bash
+# IPv6 Reverse lookup zone - /var/lib/bind/0.1.0.1.0.1.0.1.8.b.d.0.1.0.0.2.ip6.arpa
 $TTL 1d
-$ORIGIN domain.name.
+$ORIGIN 0.1.0.1.0.1.0.1.8.b.d.0.1.0.0.2.ip6.arpa.
 @   SOA     ns.domain.name. admin.domain.name.  ( 1 12h 5m 1d 5m )
 @   NS      ns.domain.name.
 
 0.0.0.0.0.0.0.0.0.0.0.0.0.1.0.1     PTR  ns.domain.name.
 ```
 
-#### SOA from file
+#### 9.2.2 SOA from file
 
-If you're lazy, or just want to use a file as db.empty (like in Bookworm or earlier versions), just us this command, and you get file with SOA record. Install *bind9-doc* to achieve this!
+If you need a quick empty zone template (similar to `db.empty` from older Debian versions), you can extract it directly from the local manual.
 
-```bash
+> [!NOTE]
+> This requires the `bind9-doc` package to be installed.
+
+```Bash
+# Extract the default SOA template
 grep -A 11 "; default TTL for zone" /usr/share/doc/bind9-doc/arm/chapter3.html | awk -F'</span>' '{print $2}' > /etc/bind/db.empty
 ```
 
-<!-- Created by: Gergő Téringer, 2026 -->
+**Command Breakdown & Explanation:**
+
+- `grep -A 11`: Finds the target string in the HTML manual and grabs the 11 trailing lines.
+- `awk`: Cleans up the HTML formatting tags to return pure text.
+- `> /etc/bind/db.empty`: Writes the parsed template into a reusable file block.
+
+## 10. Verification and Troubleshooting
+
+> [!NOTE]
+> Validate the service statuses, network port bindings, and configurations on Debian 13 using standard diagnostic tools. Ensure port 53 is not conflicting with `systemd-resolved`, which is common on modern Linux systems. Modern clients (like Windows 11) will often fall back to alternative DNS (or DoH) if basic local resolution fails, making strict local verification paramount.
+
+### 10.1 Verify Bind9 service status
+
+**Command:** `systemctl status bind9`
+
+**What it checks and variables to look for:**
+
+- **Active**: Must be `active (running)`
+- **Loaded**: Must be `loaded (/usr/lib/systemd/system/bind9.service)`
+
+### 10.2 Verify network listening state on port 53
+
+**Command:** `ss -tuln | grep :53`
+
+**What it checks and variables to look for:**
+
+- **State**: Must be `LISTEN`
+- **Local Address:Port**: Must display `*:53`, `0.0.0.0:53`, or explicitly configured IPs like `10.20.30.10:53`
+
+### 10.3 Verify zone configuration syntax
+
+**Command:** `named-checkconf` and `named-checkzone company.com /var/lib/bind/company.com.in`
+
+**What it checks and variables to look for:**
+
+- **named-checkconf output**: Should return empty (indicating no syntax errors found in the configurations).
+- **named-checkzone output**: Must specifically state `OK` for the specified zone file, confirming the SOA and formatting are valid.
