@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Windows NDES server Linux SCEP client"
+author: "Gergő Téringer"
+---
+-->
 # Windows NDES server Linux SCEP client
 
 ## 1. Windows Setup
@@ -119,3 +125,5 @@ Test renewal of the certificate.
 ```bash
 getcert resubmit -i LDAP
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

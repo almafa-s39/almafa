@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Port-securty & edge protection"
+author: "Gergő Téringer"
+---
+-->
 # Port-securty & edge protection
 
 Port security and edge protection features are critical for securing the access layer of a network. They prevent unauthorized devices from connecting, mitigate MAC flooding attacks, and protect the Spanning Tree Protocol (STP) topology from rogue switches.
@@ -134,3 +140,5 @@ What it checks and variables to look for:
 - `Port`: The specific interface that is down.
 - `Status`: Will display `err-disabled`.
 - `Reason`: If tripped by this feature, it will explicitly state `psecure-violation`. (This can also show other reasons like `bpduguard` if someone plugged in an unauthorized switch on an edge port).
+
+<!-- Created by: Gergő Téringer, 2026 -->

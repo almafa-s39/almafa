@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "FreeRADIUS LDAP Domain Proxy"
+author: "Gergő Téringer"
+---
+-->
 # FreeRADIUS LDAP Domain Proxy
 
 In this configuration there will be domain authentication against one Radius server, which will proxy the request the to another domains ( OpenVPN -> FreeRADIUS1 [example.net] if (new.example.net) then -> FreeRADIUS2 [site.example.net]). In addition in this config snippet, there will be an LDAP group based filtering, where you could add any configuration, what you want based on group membership.
@@ -168,3 +174,5 @@ ldap {
     }
 }
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

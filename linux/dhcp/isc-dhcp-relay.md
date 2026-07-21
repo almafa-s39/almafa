@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "ISC-DHCP-RELAY"
+author: "Gergő Téringer"
+---
+-->
 # ISC-DHCP-RELAY
 
 > [!NOTE]
@@ -14,3 +20,5 @@ apt install isc-dhcp-relay
 3. Extra options
 
 If you have to edit these settings, you can find them in `/etc/default/isc-dhcp-relay`.
+
+<!-- Created by: Gergő Téringer, 2026 -->

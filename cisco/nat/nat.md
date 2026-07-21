@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "IPv4 NAT"
+author: "Gergő Téringer"
+---
+-->
 # IPv4 NAT
 
 IPv4 Network Address Translation (NAT) is essential for preserving public IP space and providing internet access to internal networks utilizing private RFC 1918 addressing. The following configurations cover the most common enterprise implementations: interface overload, address pools, and static mappings.
@@ -143,3 +149,5 @@ What it checks and variables to look for:
 - `s=`: The source IP address. Watch how it changes from the private IP to the public IP as it routes from the inside interface to the outside interface.
 - `d=`: The destination IP address.
 - `*` (Asterisk): If you see an asterisk next to NAT output, it indicates the packet was processed in the fast path (hardware switching) rather than the process path (CPU).
+
+<!-- Created by: Gergő Téringer, 2026 -->

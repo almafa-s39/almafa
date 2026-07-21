@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "PKI - OpenSSL"
+author: "Gergő Téringer"
+---
+-->
 # PKI - OpenSSL
 
 ## Pre-settings
@@ -96,3 +102,4 @@ openssl x509 -req -in ./certificate.crt -extfile ./certificate.v3.ext -out ./cer
 
 > [!NOTE]
 > And you're done! You're ready to use the certificate!
+<!-- Created by: Gergő Téringer, 2026 -->

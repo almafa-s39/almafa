@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Active Directory Domain Services (AD DS) Installation & Promotion"
+author: "Gergő Téringer"
+---
+-->
 # Active Directory Domain Services (AD DS) Installation & Promotion
 
 ## Prerequisites
@@ -86,3 +92,5 @@ Test-ADDSDomainControllerInstallation -DomainName "contoso.com" -ReadOnly
 # 5. Check the Directory Services event log for critical errors during or after promotion
 Get-WinEvent -LogName "Directory Service" -MaxEvents 20 | Where-Object {$_.LevelDisplayName -eq "Error"}
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

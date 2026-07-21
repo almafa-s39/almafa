@@ -1,3 +1,15 @@
+<!-- 
+---
+title: "almafa"
+author: "Gergő Téringer"
+---
+-->
+<!-- 
+---
+title: "almafa"
+author: "Gergő Téringer"
+---
+-->
 # almafa
 
 ## Collecting configurations accross all modules
@@ -30,7 +42,7 @@
 ## Images
 
 You can find images in the sweedish SFTP server:
-rsync.ntnet.se
+`rsync.ntnet.se` user: `skills`
 
 ## VScode Extensions
 
@@ -38,3 +50,5 @@ rsync.ntnet.se
 > I installed the following VSCode extensions for editing markdown files with GitHub styled markdown preview. You can find more about GitHub styling under [THIS](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#hiding-content-with-comments) URL.
 
 ![VSCode extensions - Markdown PDF, Makdown Preview Github Styling, markdownlint](vscode_extensions.png)
+
+<!-- Created by: Gergő Téringer, 2026 -->

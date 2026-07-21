@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Windows Server DHCPv6 Configuration"
+author: "Gergő Téringer"
+---
+-->
 # Windows Server DHCPv6 Configuration
 
 > [!NOTE]
@@ -108,3 +114,5 @@ If IPv6 clients are not receiving IPs, use these commands to diagnose the DHCPv6
 - **Enabled**: Must be set to `True`.
 - **Action**: Must be set to `Allow`.
 - Specifically ensure that the inbound rules for **UDP Port 547** (DHCPv6 Server) are active, as IPv6 uses entirely different ports than IPv4 (which uses `67` and `68`).
+
+<!-- Created by: Gergő Téringer, 2026 -->

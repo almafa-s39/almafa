@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "OpenLDAP"
+author: "Gergő Téringer"
+---
+-->
 # OpenLDAP
 
 ## Information
@@ -300,3 +306,5 @@ ldapsearch -b "dc=domain,dc=com" -H <ldap_host> -x
 ## Replication
 
 ### ToDo
+
+<!-- Created by: Gergő Téringer, 2026 -->

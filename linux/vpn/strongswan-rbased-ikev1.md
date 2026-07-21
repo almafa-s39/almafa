@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Strongswan Route based IKEv1 PSK"
+author: "Gergő Téringer"
+---
+-->
 # Strongswan Route based IKEv1 PSK
 
 ## /etc/network/interfaces
@@ -74,3 +80,5 @@ if [ $PLUTO_VERB == 'down-host' ]; then
     ip route del 10.10.20.0/24 dev ipsec0 via 10.255.255.2
 fi
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

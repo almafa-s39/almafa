@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "IIS Reverse proxy"
+author: "Gergő Téringer"
+---
+-->
 # IIS Reverse proxy
 
 Configure a reverse proxy with TLS offload and HTTPS redirection
@@ -56,3 +62,5 @@ Now in the site config, open the **URL Rewrite** menu. Create the following rule
      - **To:** `publicapp.com`
 
 **Restart** the IIS server. HTTPS scheme redirection and reverse proxying should now work correctly.
+
+<!-- Created by: Gergő Téringer, 2026 -->

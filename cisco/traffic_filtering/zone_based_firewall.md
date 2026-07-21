@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Cisco Zone-Based Policy Firewall (ZBPF) Reference Guide"
+author: "Gergő Téringer"
+---
+-->
 # Cisco Zone-Based Policy Firewall (ZBPF) Reference Guide
 
 This document provides a comprehensive overview of the Cisco Zone-Based Policy Firewall (often referred to as ZBFW or ZBPF). It covers the core architecture, operational logic, default behaviors, and standard configuration methodology.
@@ -179,3 +185,5 @@ What it checks and variables to look for:
 - `Packet / Byte Counters`: Look for increments here. If traffic is failing but the counters for your permitted class-map are `0`, the traffic is either not hitting the firewall or the ACL matching logic is flawed.
 - `Session creations`: Shows the active stateful connections currently being tracked by the firewall.
 - `Class-map: class-default (match-any)`: Pay close attention to the drop counters here to identify legitimate traffic that is being silently blocked by the firewall's default deny posture.
+
+<!-- Created by: Gergő Téringer, 2026 -->

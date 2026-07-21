@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Applocker"
+author: "Gergő Téringer"
+---
+-->
 # Applocker
 
 AppLocker is an application whitelisting technology that restricts which programs users can execute based on the path, publisher, or file hash.
@@ -99,3 +105,5 @@ If you accidentally enforce a policy without default rules and cannot log into W
 2. Navigate to `C:\Windows\System32\AppLocker`
 3. Delete all `.applocker` files in this directory.
 4. Reboot the machine. This forces Windows to clear the strict enforcement state, allowing you to log in, correct the bad GPO, and run `gpupdate /force`.
+
+<!-- Created by: Gergő Téringer, 2026 -->

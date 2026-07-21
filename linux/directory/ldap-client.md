@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "SSSD"
+author: "Gergő Téringer"
+---
+-->
 # SSSD
 
 ## User authentication
@@ -34,3 +40,5 @@ chmod 0600 /etc/sssd/sssd.conf
 chown root:root /etc/sssd/sssd.conf
 systemctl restart sssd
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

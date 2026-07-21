@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "OSPFv3"
+author: "Gergő Téringer"
+---
+-->
 # OSPFv3
 
 Open Shortest Path First version 3 (OSPFv3) is the updated iteration of the protocol designed specifically for IPv6. While it operates on the same fundamental Dijkstra SPF algorithm as OSPFv2, OSPFv3 decouples routing from the interface's global subnet and relies entirely on IPv6 link-local addresses for neighbor communication and next-hop forwarding.
@@ -157,3 +163,5 @@ What it checks and variables to look for:
 - `Intra Area (Type-9) Link States`: Shows the actual IPv6 prefixes associated with the Router and Network LSAs.
 - `ADV Router`: The 32-bit Router ID of the device that generated the specific IPv6 LSA.
 - `Age` / `Seq#`: The age in seconds and the hexadecimal sequence number to track LSA freshness.
+
+<!-- Created by: Gergő Téringer, 2026 -->

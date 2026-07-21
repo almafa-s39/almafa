@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Mail with LDAP authentication"
+author: "Gergő Téringer"
+---
+-->
 # Mail with LDAP authentication
 
 ## Pre-eliminary settings
@@ -170,3 +176,5 @@ userdb ldap {
     ldap_filter = (&(objectClass=posixAccount)(uid=%{user}))
 }
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

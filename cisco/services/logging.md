@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Logging"
+author: "Gergő Téringer"
+---
+-->
 # Logging
 
 System logging is a fundamental component of network monitoring, troubleshooting, and security auditing. A properly configured logging mechanism ensures that critical events are captured locally and forwarded reliably to a centralized log management server.
@@ -75,3 +81,5 @@ During active troubleshooting, the local buffer can quickly fill up with irrelev
 What it checks and variables to look for:
 
 - This command does not produce terminal output, but instantly empties the internal RAM buffer. Executing `show logging` immediately afterward will only display newly generated messages, typically starting with a syslog entry noting that the buffer was cleared by a user.
+
+<!-- Created by: Gergő Téringer, 2026 -->

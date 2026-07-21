@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "GLBP"
+author: "Gergő Téringer"
+---
+-->
 # GLBP
 
 Gateway Load Balancing Protocol (GLBP) is a Cisco-proprietary protocol that provides both high availability and load balancing for first-hop routers. Unlike HSRP or VRRP, which operate in an active/standby model, GLBP actively utilizes all redundant routers in the group by answering ARP requests with different virtual MAC addresses.
@@ -124,3 +130,5 @@ What it checks and variables to look for:
 - `Virtual IPv6 address`: Confirms the auto-configured `FE80::` address is correctly established and matches what clients are receiving via Router Advertisements.
 - `Forwarder state`: Checks if the router is actively forwarding IPv6 traffic for its assigned virtual MAC.
 - `Authentication`: Confirms if any configured security mechanisms are established and passing between IPv6 neighbors.
+
+<!-- Created by: Gergő Téringer, 2026 -->

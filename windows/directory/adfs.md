@@ -1,11 +1,17 @@
+<!-- 
+---
+title: "AD FS (Authentication services)"
+author: "Gergő Téringer"
+---
+-->
 # AD FS (Authentication services)
 
 ## 1. Introduction
 
 A few variables will be needed, they are the following:
 
-- **ADFS server's hostname:** server1<span>.company</span>.com
-- **ADFS service name:** sso<span>.company</span>.com
+- **ADFS server's hostname:** `server1.company.com`
+- **ADFS service name:** `sso.company.com`
 
 ## 2. Certificates
 
@@ -22,17 +28,17 @@ Open the Local Computer certificate store on the server where ADFS will be insta
 
 - As the **Subject name**, enter `CN=server1.company.com` as the **Distinguished Name**.
 - For the **Subject Alternative Name**, create the following fields (all of type **DNS**):
-  - sso<span>.company</span>.com
-  - certauth<span>.sso.company</span>.com
-  - server1<span>.company.</span>com
-  - enterpriseregistration<span>.company</span>.com
+  - `sso.company.com`
+  - `certauth.sso.company.com`
+  - `server1.company.com`
+  - `enterpriseregistration.company.com`
 - In the **Private key** tab, check **Make private key exportable**
 - Set a memorable friendly name
 
 Enroll the certificate.
 
 > [!NOTE]
-> Because ADFS will use sso<span>.company</span>.com, this needs to be a **domain record pointing to the ADFS server**.
+> Because ADFS will use sso.company.com, this needs to be a **domain record pointing to the ADFS server**.
 
 ## 3. Installation
 
@@ -68,3 +74,5 @@ If the service fails to start due to a logon failure with the service account, y
 ```powershell
 sc.exe managedaccount adfssrv true
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

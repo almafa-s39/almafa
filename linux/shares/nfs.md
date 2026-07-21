@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "NFS"
+author: "Gergő Téringer"
+---
+-->
 # NFS
 
 ## nfs-kernel-serevr
@@ -58,3 +64,5 @@ echo "<nfs-server>:/<folder>    /data   nfs defaults,_netdev 0 0"
 systemctl daemon-reload
 mount -a
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

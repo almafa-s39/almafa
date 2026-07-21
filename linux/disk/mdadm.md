@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "mdadm"
+author: "Gergő Téringer"
+---
+-->
 # mdadm
 
 ## Create raid device
@@ -23,3 +29,5 @@ update-initramfs -u
 ```
 
 Now you have your RAID block as `/dev/md0`.
+
+<!-- Created by: Gergő Téringer, 2026 -->

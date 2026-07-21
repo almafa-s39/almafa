@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Nginx"
+author: "Gergő Téringer"
+---
+-->
 # Nginx
 
 ## HTTP -> HTTPS redirect setup
@@ -36,3 +42,5 @@ server {
     }
 }
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

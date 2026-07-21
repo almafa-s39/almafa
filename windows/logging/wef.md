@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "WEF"
+author: "Gergő Téringer"
+---
+-->
 # WEF
 
 ## 1. Windows Event Forwarding (WEF) over HTTPS configuration
@@ -48,7 +54,7 @@ wecutil gs "Subscription Name" /f:xml > C:\subscription.xml
 - `/f:xml`: Formats the output as an XML file so it can be easily modified and re-imported.
 
 > [!IMPORTANT]
-> Open the generated XML file in a text editor and add the line <ConfigurationMode>Custom</ConfigurationMode> right after the opening tags. This forces the collector to accept the custom refresh intervals configured in your GPO. Once edited, transfer this file to your collector server (SRV2). Ensure the wecsvc service is temporarily stopped on the collector before proceeding.
+> Open the generated XML file in a text editor and add the line `<ConfigurationMode>Custom</ConfigurationMode>` right after the opening tags. This forces the collector to accept the custom refresh intervals configured in your GPO. Once edited, transfer this file to your collector server (SRV2). Ensure the wecsvc service is temporarily stopped on the collector before proceeding.
 
 ## 1.3 Configuring the Event Collector (SRV2)
 
@@ -96,3 +102,5 @@ Run this command on the collector server (SRV2) to see if source computers are s
 - **RunTimeStatus**: Should read `Active`. If it reads `Error`, the collector cannot process the incoming logs.
 - **LastError**: Look for error codes like `0x80338126` (which indicates the endpoint does not have permission to read the requested log) or `0x80338012` (which indicates a WinRM HTTPS certificate validation failure).
 - **EventSources**: Lists the FQDNs of the endpoints that have successfully checked in to the collector. If this is empty, check the `WindowsRM` or `Eventlog-ForwardingPlugin` event logs on the source computer to find out why it cannot reach the collector.
+
+<!-- Created by: Gergő Téringer, 2026 -->

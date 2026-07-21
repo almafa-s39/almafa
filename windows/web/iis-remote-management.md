@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "IIS Remote Management"
+author: "Gergő Téringer"
+---
+-->
 # IIS Remote Management
 
 ## 1. Installation
@@ -26,3 +32,5 @@ Set-Service -Name WMSVC -StartupType Automatic
 ```
 
 Now you can connect to IIS Management from a remote computer with the IIS console installed.
+
+<!-- Created by: Gergő Téringer, 2026 -->

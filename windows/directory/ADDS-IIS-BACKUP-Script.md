@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Backup ADDS and IIS"
+author: "Gergő Téringer"
+---
+-->
 # Backup ADDS and IIS
 
 Automating disaster recovery backups for Active Directory Domain Services (AD DS) components and web infrastructure ensures rapid recovery during server failures. This script consolidates Active Directory user exports, Group Policy Object (GPO) backups, and Internet Information Services (IIS) web root directory archives into a unified pipeline, offloading the final output to a secondary storage target (e.g., an iSCSI drive) and reporting success or failure via SMTP.
@@ -94,3 +100,5 @@ try {
 - `Import-Module WebAdministration` & `Get-Website`: Loads the IIS PowerShell management module to query running websites and dynamically resolve their physical file paths on disk.
 - `$sourcePath.Replace('%SystemDrive%', 'C:')`: Replaces IIS environment variables with explicit drive letters to prevent file copy path errors.
 - `Send-MailMessage`: Connects to the designated SMTP server to transmit automated execution status reports containing system hostnames and timestamped error strings.
+
+<!-- Created by: Gergő Téringer, 2026 -->

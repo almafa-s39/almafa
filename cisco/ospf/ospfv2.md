@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "OSPFv2"
+author: "Gergő Téringer"
+---
+-->
 # OSPFv2
 
 Open Shortest Path First (OSPF) version 2 is a robust, link-state interior gateway protocol designed for IPv4. Building a comprehensive reference library with these advanced OSPFv2 configurations perfectly aligns with the depth required for an ENARSI-level engineering environment.
@@ -241,3 +247,5 @@ If routes are missing from the routing table, you must check the database to see
 - `ADV Router`: The OSPF Router ID of the device that originally created and flooded this LSA.
 - `Age`: How old the LSA is in seconds. OSPF refreshes LSAs every 1800 seconds (30 minutes). If an LSA reaches 3600 seconds (MaxAge), it is flushed from the database.
 - `Seq#`: The sequence number. Every time an LSA is updated, this number increments, allowing routers to easily determine which LSA information is the most recent.
+
+<!-- Created by: Gergő Téringer, 2026 -->

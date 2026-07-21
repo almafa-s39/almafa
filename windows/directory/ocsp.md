@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "OCSP"
+author: "Gergő Téringer"
+---
+-->
 # OCSP
 
 The Online Certificate Status Protocol (OCSP) provides a more efficient, real-time alternative to Certificate Revocation Lists (CRLs). Instead of clients downloading an entire list of revoked certificates, they send a lightweight HTTP query to the OCSP responder for the status of a specific certificate. The responder replies with a cryptographically signed "Good", "Revoked", or "Unknown" status.
@@ -29,9 +35,9 @@ Now in **Certification Authority**, right-click on **Certificate Templates** and
 Now the OCSP URL needs to be set in the Certification Authority, so issued certificates will contain the OCSP field. To do this, right-click on your authority and select **Properties**. Select the **Extensions** tab, then the **Authority Information Access (AIA)** item from the dropdown list. Add a new entry, with the value `http://ocsp.company.com/`. With the new entry selected, check **Include in the online certificate status protocol (OCSP) extension**. After closing, confirm restarting the service.
 
 > [!NOTE]
-> By default the OCSP responder is on the subpath **http:/<span>/ser</span>ver/ocsp** of the server, but later we will change it to a separate virtual host, in this case **http:/<span>/ocsp.company</span>.com/**.
+> By default the OCSP responder is on the subpath `http://server/ocsp` of the server, but later we will change it to a separate virtual host, in this case `http://ocsp.company.com/`.
 >
-> *This means you need to make sure there is a DNS record **ocsp<span>.company</span>.com** pointing to the CA.*
+> *This means you need to make sure there is a DNS record **ocsp.company.com** pointing to the CA.*
 
 ## 3. Online Responder Configuration
 
@@ -54,11 +60,11 @@ To move the OCSP responder to a custom URL, in this case, `ocsp.company.com`, op
 - **Name:** ocsp
 - **Application Pool:** OCSPISAPIAppPool
 - **Physical path:** `C:\Windows\SystemData\ocsp`
-- **HTTP binding:** ocsp<span>.company.</span>com
+- **HTTP binding:** ocsp.company.com
 
 Create the site and **exit** the IIS console.
 
-Open <kbd>C:\Windows\System32\inetsrv\applicationHost.config</kbd> in a text editor and towards the end, locate the following line:
+Open `C:\Windows\System32\inetsrv\applicationHost.config` in a text editor and towards the end, locate the following line:
 
 ```xml
 <location path="Default Web Site/ocsp">
@@ -75,3 +81,5 @@ After restarting the web server, the OCSP responder should be responding at the 
 ## 5. Testing
 
 To test all configuration, open `pkiview.msc`. Everything should be OK.
+
+<!-- Created by: Gergő Téringer, 2026 -->

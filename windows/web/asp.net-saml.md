@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "ASP.NET SAML Application Deployment"
+author: "Gergő Téringer"
+---
+-->
 # ASP.NET SAML Application Deployment
 
 Web application deployment using IIS
@@ -28,3 +34,5 @@ Inside **ADFS**, create a **New Relying Party Trust** with the following setting
 - Finish the wizard
 
 If you want to configure extra claims, right-click on your application in the *Relying Party Trusts* folder and select **Edit Claim Issuance Policy**. Add a new rule, select **Send LDAP attributes as Claims**, then add all the **LDAP attribute - Claim name** pairs you need.
+
+<!-- Created by: Gergő Téringer, 2026 -->

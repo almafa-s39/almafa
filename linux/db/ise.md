@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Setup for Freeradius"
+author: "Gergő Téringer"
+---
+-->
 # Setup for Freeradius
 
 ## Install packages and initialize mariadb
@@ -53,3 +59,5 @@ GRANT ALL ON radius.* TO 'radius'@'10.10.20.%' IDENTIFIED BY 'Passw0rd!";
 FLUSH PRIVILEGES:
 exit;
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

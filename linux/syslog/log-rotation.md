@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Log rotation and archive"
+author: "Gergő Téringer"
+---
+-->
 # Log rotation and archive
 
 ## Log rotation
@@ -75,3 +81,5 @@ Add a new cron job, which will run this time, on daily basis.
 ```bash
 1 0   * * * /usr/local/bin/archive.sh
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

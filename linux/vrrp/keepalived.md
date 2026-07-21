@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Keepalived (FHRP)"
+author: "Gergő Téringer"
+---
+-->
 # Keepalived (FHRP)
 
 ## Install the service using apt.
@@ -121,3 +127,5 @@ vrrp_instance VI_2 {
 ```bash
 systemctl restart keepalived
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

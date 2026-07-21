@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "PPPoE"
+author: "Gergő Téringer"
+---
+-->
 # PPPoE
 
 Point-to-Point Protocol over Ethernet (PPPoE) is widely used by Internet Service Providers (ISPs) to deliver authenticated and trackable internet access to end-users over standard Ethernet connections. It combines the session management and authentication features of PPP with the broadcast topology of Ethernet. The configuration requires setting up a Server (usually the ISP router) and a Client (the customer premises router).
@@ -125,3 +131,5 @@ What it checks and variables to look for:
 - `LCP` (Link Control Protocol): Look for `CONFACK` (Configuration Acknowledge), indicating successful parameter negotiation. `CONFREJ` means a parameter (like an MTU mismatch) was rejected.
 - `CHAP` or `PAP`: Look for `SUCCESS` or `FAILURE`. A failure clearly indicates a mismatched username or password.
 - `IPCP` (IP Control Protocol): Watch for the server offering an IP address and the client accepting it. If IPCP fails, the logical interface will not come up.
+
+<!-- Created by: Gergő Téringer, 2026 -->

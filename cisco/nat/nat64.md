@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "NAT64 & NAT46"
+author: "Gergő Téringer"
+---
+-->
 # NAT64 & NAT46
 
 Network Address Translation 64 (NAT64) and NAT46 are transition mechanisms that allow communication between IPv6-only and IPv4-only networks. Stateful NAT64 is typically used when IPv6 clients need to initiate connections to IPv4 servers, while NAT46 allows legacy IPv4 clients to reach IPv6 resources.
@@ -97,3 +103,5 @@ What it checks and variables to look for:
 
 - `show nat64 prefix stateful`: Confirms that the router has successfully instantiated the stateful prefix (e.g., the Well-Known Prefix `64:FF9C::/96`) and is using it to route synthesized IPv6 traffic to the IPv4 network.
 - `show nat64 interfaces`: Lists every physical or logical interface where the `nat64 enable` command has been applied. If an interface connecting to either the IPv4 or IPv6 domain is missing from this list, traffic will not be translated.
+
+<!-- Created by: Gergő Téringer, 2026 -->

@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Policy-Based Routing (PBR) Complete Documentation & Examples"
+author: "Gergő Téringer"
+---
+-->
 # Policy-Based Routing (PBR) Complete Documentation & Examples
 
 ## 1. Overview
@@ -175,3 +181,5 @@ What it checks and variables to look for:
 - `match`: Indicates the packet successfully matched an ACL within the route-map.
 - `routed to`: Shows the exact next-hop IP the packet is being sent to.
 - `rejected`: Indicates the packet failed to meet the `verify-availability` tracking requirements or the next-hop was unreachable, meaning the router will fall back to standard routing table lookups.
+
+<!-- Created by: Gergő Téringer, 2026 -->

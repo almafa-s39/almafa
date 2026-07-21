@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "HaProxy"
+author: "Gergő Téringer"
+---
+-->
 # HaProxy
 
 ## WEB
@@ -61,3 +67,5 @@ In the frontend where you want to implement SSL redistribute (so where your web 
 ```shell
     redirect scheme https if !{ ssl_fc }
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

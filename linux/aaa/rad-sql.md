@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "RADIUS SQL Settings (LowBudget ISE)"
+author: "Gergő Téringer"
+---
+-->
 # RADIUS SQL Settings (LowBudget ISE)
 
 ## Install packages
@@ -100,3 +106,5 @@ systemctl restart freeradius
 ## Next step
 
 ### [Database setup](/linux/db/ise.md)
+
+<!-- Created by: Gergő Téringer, 2026 -->

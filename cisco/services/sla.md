@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "SLAs and Tracking for FHRP"
+author: "Gergő Téringer"
+---
+-->
 # SLAs and Tracking for FHRP
 
 First-Hop Redundancy Protocols (FHRPs) natively monitor the state of the local interface they are configured on. However, if an upstream WAN link fails while the local LAN interface remains up, the router will continue acting as the active gateway, dropping all client traffic into a black hole.
@@ -126,3 +132,5 @@ What it checks and variables to look for (GLBP):
 
 - `Weighting`: Displays the current weight, the configured maximum, and the upper/lower thresholds.
 - `Track object 10 state`: Shows `Up` or `Down` and the configured decrement value. If `Down`, verify that the current weighting has fallen below the `lower` threshold, which correctly revokes the router's AVF status.
+
+<!-- Created by: Gergő Téringer, 2026 -->

@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "RRAS S2S PSK"
+author: "Gergő Téringer"
+---
+-->
 # RRAS S2S PSK
 
 ## Topology
@@ -60,3 +66,5 @@ Get-RemoteAccessConnectionStatistics
 # Verify routing is working by testing connectivity to an IP on the remote subnet
 Test-NetConnection -ComputerName <REMOTE_SUBNET_IP>
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

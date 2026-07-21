@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "SNMP"
+author: "Gergő Téringer"
+---
+-->
 # SNMP
 
 Simple Network Management Protocol (SNMP) is essential for monitoring network performance, hardware health, and interface statistics. The following documentation covers configurations for SNMPv1, SNMPv2c, and SNMPv3, alongside best practices like access control and trap generation.
@@ -157,3 +163,5 @@ What it checks and variables to look for:
 - `udp-port`: Confirms it is using the standard trap port (`162`).
 - `type`: Shows whether it is sending unacknowledged `Traps` or acknowledged `Informs`.
 - `user`: Confirms which community string (for v1/v2c) or specific user profile (for v3) is being utilized to secure the outbound alerts.
+
+<!-- Created by: Gergő Téringer, 2026 -->

@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Quota"
+author: "Gergő Téringer"
+---
+-->
 # Quota
 
 ```bash
@@ -23,3 +29,5 @@ setquota -t <block_grace_time> <inode_grace_time> <path>
 quota -vs <username>
 repquota -s <path> | grep "Block"
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

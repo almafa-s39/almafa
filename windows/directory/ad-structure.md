@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Active Directory Structure Configuration"
+author: "Gergő Téringer"
+---
+-->
 # Active Directory Structure Configuration
 
 ## Prerequisites
@@ -97,3 +103,5 @@ repadmin /showrepl
 # 4. If you accidentally enable "Protect from accidental deletion" and need to remove the OU later:
 Set-ADOrganizationalUnit -Identity "OU=IT,DC=contoso,DC=com" -ProtectedFromAccidentalDeletion $false
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

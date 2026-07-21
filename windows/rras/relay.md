@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "RRAS DHCP Relay Configuration"
+author: "Gergő Téringer"
+---
+-->
 # RRAS DHCP Relay Configuration
 
 ## Configuration
@@ -34,3 +40,5 @@ netsh routing ip relay show dhcpserver
 # Check the configuration, operational state, and statistics of the DHCP Relay interface
 netsh routing ip relay show interface name="<InterfaceName>"
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

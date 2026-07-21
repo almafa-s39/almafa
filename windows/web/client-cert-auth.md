@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "IIS Client certificate authentication"
+author: "Gergő Téringer"
+---
+-->
 # IIS Client certificate authentication
 
 ## 1. Prerequisites
@@ -34,3 +40,5 @@ Set **Enabled** to ***true***. Set **manyToOneCertificateMappingsEnabled** to **
 In the site settings, open **Authentication**. **Disable every item.**
 
 **Restart the server**, than connect to the website to test it.
+
+<!-- Created by: Gergő Téringer, 2026 -->

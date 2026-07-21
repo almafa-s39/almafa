@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Windows Remote Event Viewer"
+author: "Gergő Téringer"
+---
+-->
 # Windows Remote Event Viewer
 
 Enable the following Net Firewall Rule, to check the event log of another computer.
@@ -9,3 +15,5 @@ Enable-NetFirewallRule -DisplayGroup "Remote Event Log Management"
 # Disable the whole firewall
 Set-NetFirewallProfile Domain,Private,Public -Enabled False
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

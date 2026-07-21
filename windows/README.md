@@ -37,7 +37,7 @@
 
 ## DNS
 
-- [Zones](dns/zones.md)
+- [General](dns/general.md)
 - [DNSSEC](dns/dnssec.md)
 
 ## Logging

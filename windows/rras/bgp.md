@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Windows Server BGP Configuration"
+author: "Gergő Téringer"
+---
+-->
 # Windows Server BGP Configuration
 
 ## 1. Install Routing and Remote Access (RRAS)
@@ -47,3 +53,5 @@ Get-BgpPeer
 # View the BGP routing table (learned and locally originated routes)
 Get-BgpRouteInformation
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

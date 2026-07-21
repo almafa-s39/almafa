@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Internet Information Services"
+author: "Gergő Téringer"
+---
+-->
 # Internet Information Services
 
 Windows IIS configurations
@@ -108,3 +114,5 @@ After the module is installed, navigate to your server in **IIS Manager**. Withi
 Then create a **new Server Farm** and add your web server's IP address as a server.
 
 Now, when you type a URL in the browser that goes to the reverse proxy, it will forward the request to the original web server.
+
+<!-- Created by: Gergő Téringer, 2026 -->

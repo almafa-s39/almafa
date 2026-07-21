@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Syslog-NG"
+author: "Gergő Téringer"
+---
+-->
 # Syslog-NG
 
 ## Basics
@@ -202,3 +208,5 @@ log {
   # };
 };
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

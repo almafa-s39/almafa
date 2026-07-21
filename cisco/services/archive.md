@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Cisco Archive"
+author: "Gergő Téringer"
+---
+-->
 # Cisco Archive
 
 The Cisco IOS archive feature provides a built-in version control system for device configurations. It allows administrators to automatically save backups of the running configuration locally or remotely, ensuring that previous working states can be easily restored, downloaded, or compared against current setups.
@@ -67,3 +73,5 @@ What it checks and variables to look for:
 - `Total number of passes`: The router analyzes the difference between the files and applies the changes in passes (adding new commands, negating removed commands).
 - `Rollback Successful`: Confirms the router has completely synchronized the running config with the chosen archive file.
 - `Time elapsed`: How long the replacement process took. (Note: During this time, minor packet loss may occur depending on the severity of the replaced configurations, such as routing protocol restarts).
+
+<!-- Created by: Gergő Téringer, 2026 -->

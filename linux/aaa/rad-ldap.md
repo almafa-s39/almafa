@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "RADIUS SQL Settings (LowBudget ISE)"
+author: "Gergő Téringer"
+---
+-->
 # RADIUS SQL Settings (LowBudget ISE)
 
 ## Install packages
@@ -65,3 +71,5 @@ systemctl restart freeradius
 ## Latest step
 
 ### [OpenVPN setup](/linux/vpn/ovpn-rad-ldap.md)
+
+<!-- Created by: Gergő Téringer, 2026 -->

@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Windows Server DHCP Configuration & Failover"
+author: "Gergő Téringer"
+---
+-->
 # Windows Server DHCP Configuration & Failover
 
 ## 1. Installation & AD Authorization
@@ -100,3 +106,5 @@ Invoke-DhcpServerv4FailoverReplication -ComputerName $env:COMPUTERNAME -Name $Fa
 # 5. Ensure the Windows Firewall is allowing DHCP traffic (UDP 67/68)
 Get-NetFirewallRule -DisplayGroup "DHCP Server" | Select-Object Name, Enabled, Action
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

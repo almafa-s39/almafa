@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Kea DHCP"
+author: "Gergő Téringer"
+---
+-->
 # Kea DHCP
 
 ## Install packages
@@ -79,3 +85,5 @@ Edit the configuration file, wipe out tsig-keys line and edit the following line
     }]
 },
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

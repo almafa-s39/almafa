@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Bind9"
+author: "Gergő Téringer"
+---
+-->
 # Bind9
 
 ## Packages
@@ -309,3 +315,5 @@ If you're lazy, or just want to use a file as db.empty (like in Bookworm or earl
 ```bash
 grep -A 11 "; default TTL for zone" /usr/share/doc/bind9-doc/arm/chapter3.html | awk -F'</span>' '{print $2}' > /etc/bind/db.empty
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

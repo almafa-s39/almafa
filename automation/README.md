@@ -3,7 +3,8 @@
 ## Ansible
 
 > [!NOTE]
-> Debian version: 13.3 <br>
+> Debian version: 13.3
+>
 > Ansible versions:
 
 ![Ansible versions - Core: 2.19.4](ansible-versions.png)

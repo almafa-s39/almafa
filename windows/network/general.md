@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Windows Initial Configuration Guide"
+author: "Gergő Téringer"
+---
+-->
 # Windows Initial Configuration Guide
 
 This guide outlines the standard operating procedures for initial Windows Server/Client configuration, split into local computer settings and Active Directory Group Policy Objects (GPOs).
@@ -130,3 +136,5 @@ These settings manage the Windows Defender Firewall states across the domain and
 
 * **Path:** `Computer Configuration > Policies > Windows Settings > Security Settings > Windows Defender Firewall with Advanced Security > Windows Defender Firewall with Advanced Security`
 * **Action:** Right-click the root node -> **Properties**. Set the **Firewall state** to **Off** via the dropdown menus for the Domain Profile, Private Profile, and Public Profile.
+
+<!-- Created by: Gergő Téringer, 2026 -->

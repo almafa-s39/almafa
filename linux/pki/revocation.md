@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "OpenSSL revocation, AIA"
+author: "Gergő Téringer"
+---
+-->
 # OpenSSL revocation, AIA
 
 ## Pre configurations
@@ -58,3 +64,5 @@ cp /ca/chain.pem /ca/subca.crl > /tmp/test.pem
 openssl verify -extend_crl -CAfile /tmp/test.pem -crl_check /ca/user.crt
 rm /tmp/test.pem
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

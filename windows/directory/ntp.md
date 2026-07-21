@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Network Time Protocol (NTP) Configuration"
+author: "Gergő Téringer"
+---
+-->
 # Network Time Protocol (NTP) Configuration
 
 Maintaining accurate and synchronized time across a Windows domain is critical. Active Directory relies on the Kerberos authentication protocol, which strictly requires the clocks of all communicating machines to be within 5 minutes of each other. If time drifts beyond this threshold, authentication fails, and users lose access to domain resources.
@@ -86,3 +92,5 @@ If the configuration is correct but the time is still drifting, you can manually
 
 - If successful, it will return `The command completed successfully.`
 - If it returns `The computer did not resync because no time data was available`, verify that outbound UDP Port `123` is open on your perimeter firewall, as many ISPs and enterprise firewalls block outbound NTP traffic by default.
+
+<!-- Created by: Gergő Téringer, 2026 -->

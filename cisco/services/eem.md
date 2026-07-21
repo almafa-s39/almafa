@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Cisco EEM"
+author: "Gergő Téringer"
+---
+-->
 # Cisco EEM
 
 Cisco Embedded Event Manager (EEM) is a powerful on-device automation tool. It allows network engineers to write scripts (applets) that monitor the router for specific events, such as syslog messages, interface counters, or timers, and automatically trigger a sequence of CLI commands or actions in response.
@@ -107,3 +113,5 @@ What it checks and variables to look for:
 
 - `cli_exec`: Shows the exact command being passed to the router's virtual terminal line.
 - `cli_read`: Shows the router's response to the command. This is vital for troubleshooting interactive prompts. For example, if your copy command asks `Destination filename [router-config.txt]?` and your script does not send a carriage return (the empty string `""`), the debug will show the script hanging at this prompt and timing out.
+
+<!-- Created by: Gergő Téringer, 2026 -->

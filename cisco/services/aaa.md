@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "AAA"
+author: "Gergő Téringer"
+---
+-->
 # AAA
 
 Authentication, Authorization, and Accounting (AAA) provides a highly scalable framework for securing device access. In an enterprise environment, relying on local usernames is difficult to manage. Integrating AAA with remote RADIUS or TACACS+ servers ensures centralized credential management and auditing.
@@ -144,3 +150,5 @@ What it checks and variables to look for:
 - `PASS_ADD`: Indicates the credentials are being packaged to send.
 - For RADIUS: Watch for `Access-Accept` (success) or `Access-Reject` (failure/wrong credentials).
 - For TACACS+: Watch for `PASS` (success) or `FAIL` (wrong credentials). If you do not see these responses coming back from the server, verify network connectivity and the shared secret key.
+
+<!-- Created by: Gergő Téringer, 2026 -->

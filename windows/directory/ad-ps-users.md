@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "PowerShell AD Import and User Creation Management"
+author: "Gergő Téringer"
+---
+-->
 # PowerShell AD Import and User Creation Management
 
 Automating Active Directory (AD) user and group management is a critical skill for system administrators. The following scripts demonstrate how to rapidly provision test environments using bulk creation loops, as well as how to perform structured imports from a CSV file while dynamically building the necessary Organizational Unit (OU) hierarchy.
@@ -138,3 +144,5 @@ foreach ($user in $csv) {
 - `Get-ADGroup ... -ErrorAction SilentlyContinue`: Searches the defined `Groups` OU to see if a security group matching the user's `$dep` (Department) exists. `SilentlyContinue` suppresses the red error text if the group is not found, allowing the script logic to cleanly proceed to the `if (!$exGrp)` creation block.
 - `New-ADGroup -GroupScope Global`: Dynamically generates the missing department group before the user creation phase so the user has a valid target to join.
 - `Add-AdGroupMembership -Members $sam`: Maps the newly created user to their departmental group. The AD cmdlets natively resolve the `SamAccountName` string variable provided here into the actual user object behind the scenes.
+
+<!-- Created by: Gergő Téringer, 2026 -->

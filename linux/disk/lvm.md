@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "LVM"
+author: "Gergő Téringer"
+---
+-->
 # LVM
 
 ## Physichal volumes
@@ -137,3 +143,5 @@ echo "/dev/storage/lv_log /archive exfat defaults 0 2" >> /etc/fstab
 systemctl daemon-reload
 mount -a
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

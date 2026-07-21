@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Bind9 useful commands"
+author: "Gergő Téringer"
+---
+-->
 # Bind9 useful commands
 
 ## Zone update
@@ -23,3 +29,5 @@ If you have a zone file in raw format, you can convert it back into text format 
 ```shell
 named-compilezone -f raw -F text -o output.txt domain.com zonefile.raw
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

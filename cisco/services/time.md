@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Time"
+author: "Gergő Téringer"
+---
+-->
 # Time
 
 Maintaining accurate and synchronized time across a network infrastructure is critical. Without proper time synchronization, syslog timestamps become unreliable for troubleshooting, cryptographic certificates may fail validation, and time-based access control lists (ACLs) will not trigger correctly.
@@ -108,3 +114,5 @@ What it checks and variables to look for:
 - `reach`: An octal counter that tracks the success of the last eight NTP polls. A value of `377` indicates 100% reachability. A value of `0` means the server is not responding to ping/NTP requests.
 - `*` (Asterisk): Look for an asterisk next to the server address. This indicates it is the currently selected, active system peer.
 - `~` (Tilde): If you see a tilde instead of an asterisk, it often indicates an authentication failure (e.g., mismatched MD5 key).
+
+<!-- Created by: Gergő Téringer, 2026 -->

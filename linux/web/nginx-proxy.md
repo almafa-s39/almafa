@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Nginx as proxy (Free version)"
+author: "Gergő Téringer"
+---
+-->
 # Nginx as proxy (Free version)
 
 ## Install packages
@@ -185,3 +191,5 @@ fi
 ```
 
 Create a cronjob or a timer service to run this script, and you're done!
+
+<!-- Created by: Gergő Téringer, 2026 -->

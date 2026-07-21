@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Two-tiered ADCS AIA-CDP"
+author: "Gergő Téringer"
+---
+-->
 # Two-tiered ADCS AIA-CDP
 
 ## 1. Information
@@ -15,7 +21,7 @@ Two Windows Server 2022 VMs will be used:
 
 As with any PKI setup, always make sure that the current time is correct on all machines.
 
-For the enterprise issuing CA, you will need **AD DS** installed, in this case, on **srv-signing**. This guide will use the domain **leg<span>o.d</span>k**. The server was promoted to be the **DC** of this forest.
+For the enterprise issuing CA, you will need **AD DS** installed, in this case, on **srv-signing**. This guide will use the domain **lego.dk**. The server was promoted to be the **DC** of this forest.
 
 For name resolution, **srv-signing** is set as the DNS server for **srv-root**.
 
@@ -182,3 +188,5 @@ Windows aggressively caches CRLs. If you fixed an IIS issue or published a new C
 **What it checks and variables to look for:**
 
 - This command flushes the local URL cache for the current user/system. Afterward, any new certificate validation attempts will be forced to reach out to the HTTP CDP and fetch the latest list.
+
+<!-- Created by: Gergő Téringer, 2026 -->

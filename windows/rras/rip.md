@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "RRAS RIP Configuration"
+author: "Gergő Téringer"
+---
+-->
 # RRAS RIP Configuration
 
 ## Prerequisites
@@ -50,3 +56,5 @@ netsh routing ip rip show peer
 # Check the Windows Server routing table to verify learned routes
 Get-NetRoute | Where-Object { $_.RouteMetric -ne 256 } | Sort-Object DestinationPrefix
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

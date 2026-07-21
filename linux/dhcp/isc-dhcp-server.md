@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "ISC-DHCP-SERVER"
+author: "Gergő Téringer"
+---
+-->
 # ISC-DHCP-SERVER
 
 > [!NOTE]
@@ -84,3 +90,5 @@ subnet ... {
     # ..
 }
 ```
+
+<!-- Created by: Gergő Téringer, 2026 -->

@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "PBR(iproute2)"
+author: "Gergő Téringer"
+---
+-->
 # PBR(iproute2)
 
 Install `iproute2` package using apt.
@@ -27,3 +33,4 @@ Check commands:
 ip route show table <table>
 ip rule show <table>
 ```
+<!-- Created by: Gergő Téringer, 2026 -->
