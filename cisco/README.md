@@ -3,6 +3,12 @@
 > [!NOTE]
 > Used CML version: 2.9.1
 
+## L2
+
+- [MST](l2/mst.md)
+- [DAI, DHCP Snooping](l2/dai-dhcp-snooping.md)
+- [Port security](l2/port-security.md)
+
 ## Services
 
 - [AAA](services/aaa.md)
@@ -13,7 +19,7 @@
 - [Time settings](services/time.md)
 - [IPv4 NAT](nat/nat.md)
 - [NAT64 & NAT46](nat/nat64.md)
-- [MST](l2/mst.md)
+- [PKI setup](services/pki.md)
 
 ## Routing
 
@@ -26,10 +32,15 @@
 
 - [Policy Based Routing (PBR)](traffic_filtering/pbr.md)
 - [Cisco IOS Zone Based Firewall](traffic_filtering/zone_based_firewall.md)
+- [Prefix lists, route maps](traffic_filtering/prefix-list-route-map.md)
+- [VRF](traffic_filtering/vrf.md)
 
 ## VPN
 
 - [DMVPN Phase 3 - PSK](vpn/dmvpn-p3-psk.md)
+- [DMVPN Phase 3 - Cert](vpn/dmvpn-p3-cert.md)
+- [DMVPN Phase 3 - VRF](vpn/dmvpn-p3-vrf.md)
+- [Cisco IOS Anyconnect](vpn/ios-anyconnect.md)
 
 ## FHRP
 
