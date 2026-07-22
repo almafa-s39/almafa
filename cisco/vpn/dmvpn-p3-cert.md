@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "dmvpn-p3-cert"
+title: "DMVPN Phase 3 Certificate Authentication"
 author: "Gergő Téringer"
 ---
  -->

@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "dmvpn-p3-psk"
+title: "DMVPN Phase 3 Pre-Shared Key (PSK) Authentication Configuration"
 author: "Gergő Téringer"
 ---
  -->

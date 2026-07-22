@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "mst"
+title: "Multiple Spanning Tree (MST) Configuration"
 author: "Gergő Téringer"
 ---
  -->

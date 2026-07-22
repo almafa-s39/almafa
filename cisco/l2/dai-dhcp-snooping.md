@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "dai-dhcp-snooping"
+title: "DHCP Snooping and Dynamic ARP Inspection (DAI)"
 author: "Gergő Téringer"
 ---
  -->
