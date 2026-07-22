@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Bind9 DNS Server Configuration"
+author: "Gergő Téringer"
+---
+ -->
 # Bind9 DNS Server Configuration
 
 This guide details the installation and configuration of the Bind9 DNS server on Debian 13 Trixie. It covers primary, secondary, and forwarding configurations, along with essential DNS record types and AppArmor permissions.
@@ -430,3 +436,5 @@ grep -A 11 "; default TTL for zone" /usr/share/doc/bind9-doc/arm/chapter3.html |
 
 - **named-checkconf output**: Should return empty (indicating no syntax errors found in the configurations).
 - **named-checkzone output**: Must specifically state `OK` for the specified zone file, confirming the SOA and formatting are valid.
+
+<!-- Created by: Gergő Téringer, 2026 -->

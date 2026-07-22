@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "ovpn-s2s-general"
+title: "OpenVPN Site-to-Site (S2S)"
 author: "Gergő Téringer"
 ---
  -->

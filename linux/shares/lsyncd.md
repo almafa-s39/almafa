@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "lsyncd"
+title: "One-way file syncing"
 author: "Gergő Téringer"
 ---
  -->

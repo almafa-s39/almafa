@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "icinga"
+title: "Icinga2 Monitoring Setup"
 author: "Gergő Téringer"
 ---
  -->

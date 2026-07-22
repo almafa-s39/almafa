@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "dns64"
+title: "NAT64 configuration"
 author: "Gergő Téringer"
 ---
  -->

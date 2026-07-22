@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "wireguard-s2s"
+title: "WireGuard Site-to-Site VPN"
 author: "Gergő Téringer"
 ---
  -->

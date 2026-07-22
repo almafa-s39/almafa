@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "dnssec"
+title: "DNSSEC"
 author: "Gergő Téringer"
 ---
  -->

@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "zabbix"
+title: "Zabbix Setup Guide"
 author: "Gergő Téringer"
 ---
  -->

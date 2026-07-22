@@ -3,6 +3,12 @@
 title: "NAT64 & NAT46"
 author: "Gergő Téringer"
 ---
+ -->
+<!-- 
+---
+title: "NAT64 & NAT46"
+author: "Gergő Téringer"
+---
 -->
 # NAT64 & NAT46
 

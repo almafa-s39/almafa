@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "smb-ldap-auth"
+title: "Samba LDAP Authentication"
 author: "Gergő Téringer"
 ---
  -->

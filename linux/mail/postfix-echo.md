@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "postfix-echo"
+title: "Postfix Auto-Responder (Echo Service)"
 author: "Gergő Téringer"
 ---
  -->

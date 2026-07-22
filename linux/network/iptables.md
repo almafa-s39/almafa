@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "iptables"
+title: "IPTables"
 author: "Gergő Téringer"
 ---
  -->

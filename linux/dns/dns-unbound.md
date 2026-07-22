@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "dns-unbound"
+title: "Local DNS Resolver"
 author: "Gergő Téringer"
 ---
  -->

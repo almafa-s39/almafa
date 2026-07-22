@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "smb-shares"
+title: "Samba"
 author: "Gergő Téringer"
 ---
  -->

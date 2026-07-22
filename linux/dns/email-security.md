@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "email-security"
+title: "Email security - SPF, DKIM, DMARC records"
 author: "Gergő Téringer"
 ---
  -->

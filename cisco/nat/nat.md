@@ -3,6 +3,12 @@
 title: "IPv4 NAT"
 author: "Gergő Téringer"
 ---
+ -->
+<!-- 
+---
+title: "IPv4 NAT"
+author: "Gergő Téringer"
+---
 -->
 # IPv4 NAT
 

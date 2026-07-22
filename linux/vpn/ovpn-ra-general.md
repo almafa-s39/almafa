@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "ovpn-ra-general"
+title: "OpenVPN Remote Access (RA)"
 author: "Gergő Téringer"
 ---
  -->

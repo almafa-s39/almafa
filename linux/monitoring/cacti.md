@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "cacti"
+title: "Cacti Installation and Setup"
 author: "Gergő Téringer"
 ---
  -->

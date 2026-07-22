@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "glusterfs"
+title: "GlusterFS"
 author: "Gergő Téringer"
 ---
  -->

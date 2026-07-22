@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "apache2"
+title: "Apache2 Web Server"
 author: "Gergő Téringer"
 ---
  -->

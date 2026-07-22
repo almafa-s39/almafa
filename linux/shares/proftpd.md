@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "ProFPTD"
+title: "ProFTPD"
 author: "Gergő Téringer"
 ---
  -->

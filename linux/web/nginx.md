@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "Nginx"
+title: "Nginx Web Server"
 author: "Gergő Téringer"
 ---
  -->

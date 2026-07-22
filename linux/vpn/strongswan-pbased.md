@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "strongswan-pbased"
+title: "StrongSwan Policy-Based Site-to-Site VPN"
 author: "Gergő Téringer"
 ---
  -->

@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "vsftpd"
+title: "VsFTPD"
 author: "Gergő Téringer"
 ---
  -->

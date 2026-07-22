@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "gnome-login-message"
+title: "GNOME Login Screen Banner Configuration Guide"
 author: "Gergő Téringer"
 ---
  -->

@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "wireguard-ra"
+title: "WireGuard Remote Access (RA) VPN"
 author: "Gergő Téringer"
 ---
  -->

@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "strongswan-ra-cert"
+title: "StrongSwan Remote Access VPN (Certificate)"
 author: "Gergő Téringer"
 ---
  -->

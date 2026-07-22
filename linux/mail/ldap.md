@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "Mail with LDAP authentication"
+title: "Postfix and Dovecot Mail Server with LDAP Authentication Guide"
 author: "Gergő Téringer"
 ---
  -->

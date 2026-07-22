@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "ssh-cert"
+title: "SSH certificates"
 author: "Gergő Téringer"
 ---
  -->

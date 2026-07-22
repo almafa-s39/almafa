@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "strongswan-ra-psk"
+title: "StrongSwan Remote Access VPN (PSK)"
 author: "Gergő Téringer"
 ---
  -->

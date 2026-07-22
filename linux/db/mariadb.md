@@ -1,7 +1,6 @@
 <!-- 
 ---
-title: "Markdown
-"
+title: "MariaDB Server Installation and Baseline Configuration Guide"
 author: "Gergő Téringer"
 ---
  -->

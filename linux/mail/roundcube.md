@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "roundcube"
+title: "Roundcube"
 author: "Gergő Téringer"
 ---
  -->

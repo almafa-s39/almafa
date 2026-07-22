@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "nftables"
+title: "NFTables"
 author: "Gergő Téringer"
 ---
  -->

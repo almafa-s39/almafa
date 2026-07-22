@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "# LDAP login and automount"
+title: "LDAP login and automount"
 author: "Gergő Téringer"
 ---
  -->

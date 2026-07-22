@@ -3,7 +3,7 @@
 title: "HSRP"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # HSRP
 
 Hot Standby Router Protocol (HSRP) is a Cisco-proprietary First-Hop Redundancy Protocol (FHRP) that provides high availability for IP networks. It uses an active/standby model where one router actively forwards traffic for a virtual IP address, and another router remains in standby mode, ready to take over if the active router fails.

@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "strongswan-ra-eap-tls"
+title: "Strongswan Remote Access VPN (EAP-TLS)"
 author: "Gergő Téringer"
 ---
  -->

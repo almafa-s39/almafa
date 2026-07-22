@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "squid"
+title: "Squid Transparent Proxy"
 author: "Gergő Téringer"
 ---
  -->

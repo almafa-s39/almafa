@@ -3,7 +3,7 @@
 title: "GLBP"
 author: "Gergő Téringer"
 ---
--->
+ -->
 # GLBP
 
 Gateway Load Balancing Protocol (GLBP) is a Cisco-proprietary protocol that provides both high availability and load balancing for first-hop routers. Unlike HSRP or VRRP, which operate in an active/standby model, GLBP actively utilizes all redundant routers in the group by answering ARP requests with different virtual MAC addresses.

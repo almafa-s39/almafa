@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "snmp"
+title: "SNMP Client and Server Configuration"
 author: "Gergő Téringer"
 ---
  -->
