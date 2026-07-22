@@ -12,7 +12,7 @@
 
 ## AD CS
 
-- [ADCS](directory/adcs.md) <!-- + ps cmdlet -->
+- [ADCS](directory/adcs.md)
 - [OCSP Custom Endpoint](directory/ocsp.md)
 - [Windows SCEP - NDES](directory/ndes-scep.md)
 
@@ -65,7 +65,7 @@
 
 ### DirectAccess
 
-- [DirectAccess VPN](rras/direct-access.md)
+- [DirectAccess VPN](rras/direct-access.md) <!-- ToDO -->
 
 ## File shareing, disk management
 
