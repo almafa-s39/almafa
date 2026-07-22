@@ -7,11 +7,12 @@
 
 - [GLBP](fhrp/glbp.md)
 - [HSRP](fhrp/hsrp.md)
+- [VRRP](fhrp/vrrp.md) <!-- NEW -->
 - [SLA tracking](services/sla.md)
 
 ## L2
 
-- [DAI, DHCP Snooping](l2/dai-dhcp-snooping.md)
+- [DAI, DHCP Snooping](l2/dai-dhcp-snooping.md) <!-- IP source guard -->
 - [MST](l2/mst.md)
 - [Port security](l2/port-security.md)
 
@@ -47,3 +48,5 @@
 - [DMVPN Phase 3 - Cert](vpn/dmvpn-p3-cert.md)
 - [DMVPN Phase 3 - PSK](vpn/dmvpn-p3-psk.md)
 - [DMVPN Phase 3 - VRF](vpn/dmvpn-p3-vrf.md)
+- [S2S IPSEC PBR](vpn/ipsec-pbr.md)  <!-- NEW -->
+- [S2S IPSEC Rbased](vpn/ipsec-rbased.md)  <!-- NEW -->
