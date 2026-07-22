@@ -14,17 +14,18 @@
 
 - [MariaDB](db/mariadb.md)
 - [PHPMyAdmin](db/phpmyadmin.md)
+- [Redis](db/redis.md) <!-- NEW - WS2017 k0r-l -->
 
 ## DHCP
 
 - [DHCP-RELAY](dhcp/dhcp-relay.md)
 - [ISC DHCPv4](dhcp/isc-dhcp-server.md)
 - [KEA DHCPv4](dhcp/kea.md)
+<!-- IPv6 -->
 
 ## Directory services
 
 - [LDAP Login, and share automount](directory/ldap-share-mount.md)
-- [LDAP multi master](directory/multi-master.md)
 - [Local user restriction](directory/local-user-restriction.md)
 - [OpenLDAP](directory/ldap.md)
 - [Samba LDAP authentication](directory/smb-ldap-auth.md)
@@ -34,6 +35,7 @@
 
 - [GlusterFS](shares/glusterfs.md)
 - [Lsyncd](shares/lsyncd.md)
+- [Rsync](shares/rsync.md) <!-- NEW -->
 - [LVM](disk/lvm.md)
 - [NFS](shares/nfs.md)
 - [ProFTPD](shares/proftpd.md)
@@ -62,6 +64,7 @@
 - [Email security records](dns/email-security.md)
 - [Postfix echo](mail/postfix-echo.md)
 - [Roundcube webmail](mail/roundcube.md)
+- [Levlista, Alias, Vacation] <!-- NEW -->
 
 ## Monitoring
 
@@ -75,6 +78,7 @@
 - [IPTables](network/iptables.md)
 - [NFTables](network/nftables.md)
 - [PBR](network/pbr.md)
+- [VLAN subinterface] <!-- NEW -->
 
 ## PKI
 
