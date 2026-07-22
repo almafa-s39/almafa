@@ -13,6 +13,7 @@
 - [Time settings](services/time.md)
 - [IPv4 NAT](nat/nat.md)
 - [NAT64 & NAT46](nat/nat64.md)
+- [MST](l2/mst.md)
 
 ## Routing
 
