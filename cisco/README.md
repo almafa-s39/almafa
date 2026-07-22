@@ -17,10 +17,10 @@
 
 ## Routing
 
-- [BGP](bgp/bgp.md)
-- [EIGRP](eigrp/eigrp.md)
-- [OSPFv2](ospf/ospfv2.md)
-- [OSPFv3](ospf/ospfv3.md)
+- [BGP](routing/bgp.md)
+- [EIGRP](routing/eigrp.md)
+- [OSPFv2](routing/ospfv2.md)
+- [OSPFv3](routing/ospfv3.md)
 
 ## Services
 
