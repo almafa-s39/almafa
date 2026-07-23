@@ -14,7 +14,7 @@
 
 - [MariaDB](db/mariadb.md)
 - [PHPMyAdmin](db/phpmyadmin.md)
-- [Redis](db/redis.md) <!-- NEW - WS2017 k0r-l -->
+- [Redis](db/redis.md) <!-- NEW - WS2017 körül-->
 
 ## DHCP
 
