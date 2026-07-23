@@ -20,8 +20,9 @@
 
 - [DHCP-RELAY](dhcp/dhcp-relay.md)
 - [ISC DHCPv4](dhcp/isc-dhcp-server.md)
+- [ISC DHCPv6](dhcp/isc-dhcp6-server.md)
 - [KEA DHCPv4](dhcp/kea.md)
-<!-- IPv6 -->
+- [KEA DHCPv6](dhcp/kea6.md)
 
 ## Directory services
 
