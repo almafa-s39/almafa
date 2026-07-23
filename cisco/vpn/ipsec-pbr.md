@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Cisco IOS Policy-Based IPsec Site-to-Site VPN: IKEv1 and IKEv2 Configuration Guide"
+author: "Gergő Téringer"
+---
+ -->
 # Cisco IOS Policy-Based IPsec Site-to-Site VPN: IKEv1 and IKEv2 Configuration Guide
 
 ## 1. Overview
@@ -517,3 +523,5 @@ debug crypto ipsec
 > debugging (`debug crypto condition peer ipv4 <address>`) where possible
 > and disable debugging (`undebug all`) immediately after collecting the
 > needed output.
+
+<!-- Created by: Gergő Téringer, 2026 -->

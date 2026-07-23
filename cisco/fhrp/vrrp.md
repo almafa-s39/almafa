@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "VRRP"
+title: "Virtual Router Redundancy Protocol (VRRP)"
 author: "Gergő Téringer"
 ---
  -->

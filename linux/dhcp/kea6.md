@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "Kea DHCP6 Server"
+author: "Gergő Téringer"
+---
+ -->
 # Kea DHCP6 Server
 
 This document provides administrative procedures for installing,
@@ -302,3 +308,5 @@ What it checks and variables to look for:
 > DHCPv4 deployment, double-check that every port reference has been
 > updated — a leftover `67` will cause this verification step to
 > silently report nothing.
+
+<!-- Created by: Gergő Téringer, 2026 -->

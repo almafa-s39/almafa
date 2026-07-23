@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "VLAN Subinterfaces on Debian"
+author: "Gergő Téringer"
+---
+ -->
 # VLAN Subinterfaces on Debian
 
 This document covers creating 802.1Q VLAN subinterfaces on Debian, both
@@ -116,3 +122,5 @@ What it checks and variables to look for:
 - **ping output**: `0% packet loss` confirms tagged frames are reaching
   and returning from a host on the same VLAN; total failure usually
   means the switch port isn't trunking this VLAN ID.
+
+<!-- Created by: Gergő Téringer, 2026 -->

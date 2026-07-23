@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "DHCP Snooping and Dynamic ARP Inspection (DAI)"
+title: "DHCP Snooping, Dynamic ARP Inspection (DAI), and IP Source Guard"
 author: "Gergő Téringer"
 ---
  -->

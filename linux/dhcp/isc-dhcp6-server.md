@@ -1,3 +1,9 @@
+<!-- 
+---
+title: "ISC-DHCP-SERVER (DHCPv6)"
+author: "Gergő Téringer"
+---
+ -->
 # ISC-DHCP-SERVER (DHCPv6)
 
 > [!NOTE]
@@ -203,3 +209,5 @@ What it checks and variables to look for:
   `ddns.key` does not match what is configured on the DNS server, or
   that the `zone` statements' `primary` / `primary6` address is
   unreachable.
+
+<!-- Created by: Gergő Téringer, 2026 -->
