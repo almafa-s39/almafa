@@ -36,7 +36,7 @@
 
 - [GlusterFS](shares/glusterfs.md)
 - [Lsyncd](shares/lsyncd.md)
-- [Rsync](shares/rsync.md) <!-- NEW -->
+- [Rsync](shares/rsync.md)
 - [LVM](disk/lvm.md)
 - [NFS](shares/nfs.md)
 - [ProFTPD](shares/proftpd.md)
@@ -79,7 +79,7 @@
 - [IPTables](network/iptables.md)
 - [NFTables](network/nftables.md)
 - [PBR](network/pbr.md)
-- [VLAN subinterface] <!-- NEW -->
+- [VLAN subinterface](network/vlan-subinterface.md)
 
 ## PKI
 
