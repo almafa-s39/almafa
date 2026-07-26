@@ -14,7 +14,7 @@
 
 - [MariaDB](db/mariadb.md)
 - [PHPMyAdmin](db/phpmyadmin.md)
-- [Redis](db/redis.md) <!-- NEW - WS2017 körül-->
+- [Redis](db/redis.md)
 
 ## DHCP
 
@@ -65,7 +65,7 @@
 - [Email security records](dns/email-security.md)
 - [Postfix echo](mail/postfix-echo.md)
 - [Roundcube webmail](mail/roundcube.md)
-- [Levlista, Alias, Vacation] <!-- NEW -->
+- [Levlista, Alias, Vacation](mail/lev-alias-vacation.md)
 
 ## Monitoring
 

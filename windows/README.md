@@ -24,6 +24,7 @@
 - [Backup](directory/ADDS-BACKUP.md)
 - [AppLocker setup](directory/applocker.md)
 - [GPO settings](directory/gpo.md)
+- [Fine Grained Password Policy](directory/fgpp.md)
 - [NTP](directory/ntp.md)
 
 ### AD FS
