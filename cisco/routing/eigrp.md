@@ -6,7 +6,6 @@ author: "Gergő Téringer"
  -->
 # EIGRP Comprehensive Configuration and Advanced Features
 
-```markdown
 This document provides a comprehensive configuration, operations, and troubleshooting reference for the Enhanced Interior Gateway Routing Protocol (EIGRP). It merges foundational configurations (Classic and Named Modes, IPv4/IPv6) with advanced features (Stub routing, summarization, metric manipulation, and load balancing).
 
 > [!IMPORTANT]
@@ -14,7 +13,6 @@ This document provides a comprehensive configuration, operations, and troublesho
 
 > [!NOTE]
 > Ensure that `auto-summary` is explicitly disabled (or verify it is disabled by default in modern IOS versions) to ensure that branch router subnets are advertised exactly as configured (e.g., as a `/24`), rather than being summarized to their classful network boundaries (e.g., `/22` or `/16`).
-```
 
 ## 1. EIGRP Configuration Modes
 
