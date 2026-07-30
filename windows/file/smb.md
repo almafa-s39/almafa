@@ -40,7 +40,8 @@ New-SmbShare -Name "FinanceData" `
              -ChangeAccess "DOMAIN\Finance-Editors" `
              -FullAccess "DOMAIN\Finance-Admins" `
              -NoAccess "DOMAIN\Contractors" `
-             -EncryptData $true
+             -EncryptData $true `
+             -FolderEnumerationMode AccessBased
 
 # Update an existing SMB share to enforce encryption
 Set-SmbShare -Name "FinanceData" `
@@ -58,6 +59,7 @@ Set-SmbShare -Name "FinanceData" `
 - `-FullAccess "DOMAIN\Finance-Admins"`: Grants full administrative share permissions, including permission modification rights.
 - `-NoAccess "DOMAIN\Contractors"`: Explicitly denies share access, overriding any conflicting inherited group memberships.
 - `-EncryptData $true`: Enforces SMB encryption specifically for this share, overriding server defaults if global encryption is set to optional.
+- `-FolderEnumerationMode AccessBased`: If a user don't have permission to the folder, it is not listed. By default it is disabled (`Unrestricted`).
 
 ## 3. Verification and Troubleshooting
 
