@@ -34,6 +34,7 @@
 - [PKI setup](services/pki.md)
 - [SNMP](services/snmp.md)
 - [Time settings](services/time.md)
+- [PPPoE](services/pppoe.md)
 
 ## Traffic filtering
 
