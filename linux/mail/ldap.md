@@ -126,17 +126,20 @@ Append or modify the following configurations in `/etc/postfix/main.cf`:
 
 ```Ini, TOML
 mydomain = example.net
-mydestination = localhost
+mydestination = localhost, localhost.localdomain, localhost.$mydomain
 
 # TLS Configuration
-smtpd_tls_cert_file = /ca/server.crt
+smtpd_tls_cert_file = /ca/server.crt # or server.pem (include full chain: `cat server.crt subca.crt ca.crt > sercer.pem`)
 smtpd_tls_key_file = /ca/server.key
 smtpd_use_tls = yes
 
 # SASL Authentication (via Dovecot)
 smtpd_sasl_type = dovecot
-smtpd_sasl_path = private/auth
+smtpd_sasl_path = inet:imap.example.net:12345
 smtpd_sasl_auth_enable = yes
+
+# Virtual trasnport parameters
+virtual_transport = lmtp:inet:imap.example.net
 
 # Virtual Mailbox Parameters
 virtual_mailbox_base = /
@@ -190,6 +193,11 @@ service auth {
         group = postfix
         mode = 0666
     }
+
+    # For LMTP inet listener
+    inet_listener lmtp_auth {
+       port = 12345
+    }
 }
 ```
 
@@ -235,6 +243,12 @@ passdb ldap {
 
 userdb ldap {
     ldap_filter = (&(objectClass=posixAccount)(uid=%{user}))
+    fields {
+        user = %{ldap:uid}
+        uid = %{ldap:uidNumber}
+        gid = %{ldap:gidNumber}
+        home = %{ldap:homeDirectory}
+    }
 }
 ```
 
