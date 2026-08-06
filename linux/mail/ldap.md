@@ -53,10 +53,15 @@ Postfix requires three separate lookup files to determine the virtual mailbox pa
 **Virtual Mailbox Map (`/etc/postfix/ldap/vbox`):**
 
 ```Ini, TOML
-server_host = ldap://ldap.example.net
+server_host = ldap://int-srv.company.com
 version = 3
-ldap_search = dc=example,dc=net
-ldap_scope = sub
+
+bind = yes
+bind_dn = cn=admin,dc=company,dc=com
+bind_pw = Passw0rd
+
+search_base = ou=people,dc=company,dc=com
+scope = sub
 query_filter = (|(mail=%s)(uid=%s))
 result_attribute = uid
 result_format = /mailboxes/%s/
@@ -65,10 +70,15 @@ result_format = /mailboxes/%s/
 **Virtual UID Map (`/etc/postfix/ldap/vuid`):**
 
 ```Ini, TOML
-server_host = ldap://ldap.example.net
+server_host = ldap://int-srv.company.com
 version = 3
-ldap_search = dc=example,dc=net
-ldap_scope = sub
+
+bind = yes
+bind_dn = cn=admin,dc=company,dc=com
+bind_pw = Passw0rd
+
+search_base = ou=people,dc=company,dc=com
+scope = sub
 query_filter = (|(mail=%s)(uid=%s))
 result_attribute = uidNumber
 ```
@@ -76,10 +86,15 @@ result_attribute = uidNumber
 **Virtual GID Map (`/etc/postfix/ldap/vgid`):**
 
 ```Ini, TOML
-server_host = ldap://ldap.example.net
+server_host = ldap://int-srv.company.com
 version = 3
-ldap_search = dc=example,dc=net
-ldap_scope = sub
+
+bind = yes
+bind_dn = cn=admin,dc=company,dc=com
+bind_pw = Passw0rd
+
+search_base = ou=people,dc=company,dc=com
+scope = sub
 query_filter = (|(mail=%s)(uid=%s))
 result_attribute = gidNumber
 ```
