@@ -64,6 +64,7 @@ Configure logging to simplify troubleshooting. This isolates separate channels f
 ```Bash
 # /etc/bind/named.conf.options or included logging file
 logging {
+    # You can create the channel queries, which will be where and how will you log.
     channel query {
         file "/var/lib/bind/query.log";
         print-time yes;
@@ -80,7 +81,24 @@ logging {
         severity info;
     };
 
+    # You can create categories which will set what type of categories send to which channel.
+    # Transfer logs
+    category notify { default; };
+    category xfer-in { default; };
+    category xfer-out { default; };
+
+    # DDNS
+    category update { default; };
+    category update-security { default; };
+
+    # Queries
     category queries { query; };
+    category query-errors { query; };
+
+    # DNSSEC
+    category dnssec { default; };
+
+    # Default
     category default { default; };
 };
 ```
