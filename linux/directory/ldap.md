@@ -336,20 +336,6 @@ ldapadd -Y EXTERNAL -H ldapi:/// -f <file>.ldif
 ### 9.2 Configure nodes
 
 ```ldif
-dn: olcOverlay=syncprov,olcDatabase={1}mdb,cn=config
-objectClass: olcOverlayConfig
-objectClass: olcSncProvConfig
-olcOverlay: syncprov
-olcSpSessionLog: 100
-```
-
-```bash
-ldapadd -Y EXTERNAL -H ldapi:/// -f <file>.ldif
-```
-
-### 9.3 Configure nodes
-
-```ldif
 dn: cn=config
 changeType: modify
 replace: olcServerId
