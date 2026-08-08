@@ -227,6 +227,7 @@ Let's assume you now have the following files:
 - `/cert/ca.pem` the CA certificate
 - `/cert/cert.pem` the server certificate
 - `/cert/key.pem` the server keyfile
+- Make sure these are manageable by slapd service so 644 with openldap user/group ownership, and the machine HAS to trust the whole certificate chain!
 
 Create the file `certinfo.ldif`.
 
@@ -235,15 +236,13 @@ dn: cn=config
 changeType: modify
 replace: olcTLSCACertificateFile
 olcTLSCACertificateFile: /cert/ca.pem
-
-dn: cn=config
-changeType: modify
-
-replace: olcTLSCertificateFile
-olcTLSCertificateFile: /cert/cert.pem
 -
 replace: olcTLSCertificateKeyFile
 olcTLSCertificateKeyFile: /cert/key.pem
+-
+replace: olcTLSCertificateFile
+olcTLSCertificateFile: /cert/cert.pem
+
 ```
 
 Use the `ldapmodify` command to modify the database:
@@ -305,21 +304,36 @@ ldapsearch -b "dc=domain,dc=com" -H <ldap_host> -x
 
 ## 9. Replication
 
-### 9.1 Enable syncprov module
+### 9.1 Server side configuration
 
 ```ldif
-dn: cn=module,dc=config
+dn: olcDatabase={1}mdb,cn=config
+changeType: modify
+add: olcDbIndex
+olcDbIndex: entryCSN eq
+-
+add: olcDbIndex
+olcDbIndex: entryUUID eq
+
+dn: cn=module,cn=config
 objectClass: olcModuleList
 cn: module
 olcModulePath: /usr/lib/ldap
 olcModuleLoad: syncprov.la
+
+dn: olcOverlay=syncprov,olcDatabase={1}mdb,cn=config
+objectClass: olcOverlayConfig
+objectClass: olcSyncProvConfig
+olcOverlay: syncprov
+olcSpCheckpoint: 100 10
+olcSpSessionLog: 100
 ```
 
 ```bash
 ldapadd -Y EXTERNAL -H ldapi:/// -f <file>.ldif
 ```
 
-### 9.2 Configure syncprov
+### 9.2 Configure nodes
 
 ```ldif
 dn: olcOverlay=syncprov,olcDatabase={1}mdb,cn=config
@@ -338,38 +352,29 @@ ldapadd -Y EXTERNAL -H ldapi:/// -f <file>.ldif
 ```ldif
 dn: cn=config
 changeType: modify
-replace: olcServerID
-# Has to be unique on each server
-olcServerID: 101
+replace: olcServerId
+olcServerId: 101
 
-dn: olcDatabase={1}mdb,cn=config
-changetype: modify
-add: olcSyncRepl
-olcSyncRepl: rid=001
-  # Other LDAP  host
-  provider = ldaps://srv2.contoso.com
-  bindmethod=simple
-  binddn="cn=admin,dc=contoso,dc=com"
-  credentials=Passw0rd!
-  searchbase="dc=contoso,dc=com"
-  scope=sub
-  schemachecking=on
-  type=refreshAndPersist
-  retry="30 5 300 3"
-  interval=00:00:05:00
+dn: olcDtababse={1}mdb,cn=config
+changeType: modify
+replace: olcDbindex
+olcDbIndex: entryUUID eq
 -
-add: olcMirrorMode
-olcMirrorMode: TRUE
-
-dn: olcOverlay=syncprov,olcDatabase={1}mdb,cn=config 
-changeType: add
-objectClass: olcOverlayConfig
-objectClass: olcSyncProvConfig
-olcOverlay: syncprov
+replace: olcSyncRepl
+olcSyncRepl: rid=0
+  provider:ldaps://ldap.shenzen.cn
+  bindmethod=simple
+  binddn="cn=admin,dc=shenzen,dc=cn" credentials=Passw0rd!
+  searchbase="dc=shenzen,dc=cn"
+  schemachecking=on
+  type=refreshAndPersist retry="60 +"
+-
+replace: olcUpdateRef
+olcUpdateRef: ldaps://ldap.shenzen.cn
 ```
 
 ```bash
-ldapadd -Y EXTERNAL -H ldapi:/// -f <file>.ldif
+ldapmodify -Y EXTERNAL -H ldapi:/// -f <file>.ldif
 ```
 
 <!-- Created by: Gergő Téringer, 2026 -->
