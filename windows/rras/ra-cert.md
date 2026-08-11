@@ -74,7 +74,7 @@ After setup, right click on **Ports** and select **Properties**. In **SSTP, L2TP
 
 By right-clicking on **Servername (local)**, open **Properties**:
 
-- In **Security** tab, open **Authentication methods** and make sure only **EAP** and **IKEv2** are selected.
+- In **Security** tab, open **Authentication methods** and make sure only **EAP**, **MSChapv2** and **IKEv2** are selected.
 - In **IPv4**, select **Static address** pool, and create a pool, for example `192.0.2.1-254`.
 
 Your server is now ready to accept connections.
