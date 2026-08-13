@@ -50,5 +50,4 @@ netsh advfirewall firewall add rule name="NTP-IN" dir=in action=allow protocol=U
 
 ## Microsoft guide
 
-[https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/configure-authoritative-time-server]
-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Parameters
+[https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/configure-authoritative-time-server](https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/configure-authoritative-time-server)
