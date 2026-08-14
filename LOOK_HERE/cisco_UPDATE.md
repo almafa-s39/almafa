@@ -1,4 +1,22 @@
-# PPPoE
+# VRRPv3
+
+vrrp címek, LLA és GUA is meg kell hogy egyezzen!!
+
+```cisco
+fhrp version vrrp v3
+ipv6 unicast-routing
+
+interface Vlan1
+ no ip address
+ ipv6 address 2001:DB8::11/64
+ vrrp 1 address-family ipv6
+  address FE80::1 primary
+  address 2001:DB8::1/64
+  exit-vrrp
+end
+```
+
+# PPPoE TESZTELVE, JÓ
 
 Minden ami kell benne van a leírásban.
 
