@@ -28,9 +28,17 @@ default_domain_suffix = domain.com
 [domain/domain.com]
 id_provider = ldap
 auth_provider = ldap
-ldap_uri = ldap://127.0.0.1
-cache_credentials = True
-ldap_search_base = dc=domain,dc=com
+chpass_provider = ldap
+ldap_uri = ldaps://ldap.wsc26.cn
+ldap_search_base = dc=wsc26,dc=cn
+ldap_default_bind_dn = cn=admin,dc=wsc26,dc=cn
+ldap_default_authtok = <service account password>
+cache_credentials = true
+enumerate = false
+
+# Restrict login to LDAP group
+access_provider = simple
+simple_allow_groups = itstaff
 ```
 
 Set permissions to this file, then restart the service.
