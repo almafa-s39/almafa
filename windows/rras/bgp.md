@@ -25,6 +25,8 @@ Install-RemoteAccess -VpnType RoutingOnly
 
 Once RRAS is installed and running, initialize the local BGP router, enable IPv6 address family support, establish peering, and inject routes into the BGP table.
 
+ASNs reserved by IANA: 23456, 64496-64511, 65535-65551 (those won't work!)
+
 ```powershell
 # Initialize the local BGP router with your Router ID and Autonomous System Number
 Add-BgpRouter -BgpIdentifier <RID> -LocalASN <LOCAL_AS> 
