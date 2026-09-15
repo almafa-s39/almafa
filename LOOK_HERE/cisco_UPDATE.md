@@ -1,4 +1,4 @@
-# VRRPv3
+## VRRPv3
 
 vrrp címek, LLA és GUA is meg kell hogy egyezzen!!
 
@@ -16,7 +16,7 @@ interface Vlan1
 end
 ```
 
-# PPPoE TESZTELVE, JÓ
+## PPPoE TESZTELVE, JÓ
 
 Minden ami kell benne van a leírásban.
 
