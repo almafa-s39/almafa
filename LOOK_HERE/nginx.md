@@ -14,7 +14,7 @@ Create a config file:
 
 `/etc/nginx/sites-available/grafana.conf`
 
-```conf
+```bash
 server {
     listen 80;
     listen [::]:80;
