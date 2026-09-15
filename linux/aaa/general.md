@@ -1,6 +1,6 @@
 <!-- 
 ---
-title: "General FreeRADIUS" 
+title: "General FreeRADIUS"
 author: "Gergő Téringer"
 ---
  -->
