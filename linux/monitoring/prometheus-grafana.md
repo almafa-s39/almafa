@@ -71,7 +71,7 @@ scrape_configs:
     static_configs:
       targets:
         - https://public.domain.com
-    metrics_path: /prob
+    metrics_path: /probe
     params:
       module: [http_2xx]
     relabel_configs:
