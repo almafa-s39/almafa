@@ -57,10 +57,12 @@ monitor:
 cd /docker/images
 docker-compose up -d
 ```
-7. Copy out from Prometheus the template and restart the  container
+7. Copy out from Prometheus the template and restart the container
+> [!WARNING]
+> Before compose, get rid of the comment in the comopose.yml file!!!!!
 ```sh
 docker cp monitor-prometheus-1:/etc/prometheus/prometheus.yml /docker/prometheus/prometheus.yml
-docker-compose restart
+docker-compose up -d
 ```
 8. Fill up the content of the `prometheus.yml` with your shit, and make it work after that. Here is the blackbox exporters config:
 ```yml
