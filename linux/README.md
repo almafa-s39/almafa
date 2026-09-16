@@ -73,6 +73,7 @@
 - [Icinga2](monitoring/icinga.md)
 - [SNMP](monitoring/snmp.md)
 - [Zabbix](monitoring/zabbix.md)
+- [Prometheus, Grafana](monitoring/prometheus-grafana.md)
 
 ## Network
 
