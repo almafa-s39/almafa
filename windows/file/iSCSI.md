@@ -65,7 +65,7 @@ iSCSI traffic uses TCP port 3260. Appropriate inbound firewall rules must be ena
 
 ```PowerShell
 # Enable Inbound iSCSI Target Server firewall group on Target Server
-Enable-NetFirewallRule -DisplayGroup "iSCSI Target Server"
+Enable-NetFirewallRule -DisplayGroup "iSCSI Target Group"
 
 # Enable Outbound/Inbound iSCSI Initiator firewall rules on Client
 Enable-NetFirewallRule -DisplayGroup "iSCSI Service"
@@ -114,6 +114,9 @@ Connect-IscsiTarget -NodeAddress "iqn.1991-05.com.microsoft:target-data01-target
 - `Connect-IscsiTarget`: Establishes an active iSCSI block session.
 - `-NodeAddress`: Specifies the target IQN string discovered from the portal.
 - `-IsPersistent $true`: Saves the session mapping into the persistent binding list so Windows automatically reconnects the disk upon system restart.
+
+> [!TIP]
+> You can get the NodeAddress parameter needed for the last command by running `Get-IscsiServerTarget` on the server.
 
 ### 3.2 Configuring Auto-Start and Persistent Connection via GUI
 
