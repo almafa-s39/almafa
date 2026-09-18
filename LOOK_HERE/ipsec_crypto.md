@@ -1,6 +1,6 @@
 # IPsec crypto settings
 
-## For swanctl.conf
+## For swanctl.conf 
 
 ```
 connections {
